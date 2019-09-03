@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             IconImageSource="notification64x64.png"
+             x:Class="BrotVendedor.View.Notifications"
+             BackgroundColor="#6d8bad">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding Notificaciones}"
+                      HasUnevenRows="True"
+                      Margin="10"
+                      >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Frame BackgroundColor="White" Padding="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{Binding imgPath}"
+                                            HeightRequest="75"
+                                           WidthRequest="75"
+                                           Aspect="AspectFit"
+                                           Grid.Column="0"
+                                           Grid.Row="0"
+                                           />
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="2*"/>
+                                            </Grid.RowDefinitions>
+                                            <Label Text="{Binding Texto}"
+                                               FontAttributes="Bold"
+                                               Grid.Row="0"
+                                               />
+                                            <Label Text="{Binding detalle}"
+                                               Grid.Row="1"
+                                               />
+                                        </Grid>
+                                    </Grid>
+                                </Frame>
+                                <BoxView HeightRequest="1" BackgroundColor="Transparent">
+                                    
+                                </BoxView>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

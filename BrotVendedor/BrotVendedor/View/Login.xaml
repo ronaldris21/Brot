@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:border="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+             mc:Ignorable="d"
+             Title="Iniciar sesion"
+             BackgroundColor="#e64400"
+             x:Class="BrotVendedor.View.Login">
+    <ContentPage.Content>
+        <Frame HorizontalOptions="Center" BackgroundColor="#FFFFFF" VerticalOptions="Center" Margin="10" HasShadow="True">
+            <StackLayout>
+                <Image Source="Bro.png" 
+                       HeightRequest="75"
+                       WidthRequest="150"
+                       Aspect="AspectFit"
+                       />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="0.5*" />
+                    </Grid.RowDefinitions>
+                    <border:RoundedBorderEntry 
+                        Grid.Column="0"
+                        Grid.ColumnSpan="6"
+                        Grid.Row="0"
+                        Placeholder="Nombre de usuario"
+                        PlaceholderColor="#e64400"
+                        BorderColor="#e64400"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        WidthRequest="350"
+                        HorizontalOptions="Center"
+                        Margin="5"
+                        TextColor="#e64400"
+                        x:Name="txtUser"
+                        MaxLength="15"
+                        Text="{Binding usuario}"
+                    />
+                    <border:RoundedBorderEntry 
+                        IsPassword="True"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="6"
+                        Grid.Row="1"
+                        Placeholder="Clave"
+                        PlaceholderColor="#e64400"
+                        BorderColor="#e64400"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        WidthRequest="350"
+                        HorizontalOptions="Center"
+                        Margin="5"
+                        TextColor="#e64400"
+                        x:Name="txtPassword"
+                        MaxLength="15"
+                        Text="{Binding clave}"
+                    />
+                    <Button Text="Iniciar sesion" 
+                            Command="{Binding Login}"
+                        TextColor="White"
+                        Grid.Column="0"
+                        BackgroundColor="#FF5001"
+                        CornerRadius="30"
+                        Grid.ColumnSpan="3"
+                        Grid.Row="2"
+                    />
+                    <Button Text="Registrarse" 
+                            Command="{Binding Registro}"
+                        TextColor="White"
+                        Grid.Column="3"
+                        BackgroundColor="#FF5001"
+                        CornerRadius="30"
+                        Grid.ColumnSpan="3"
+                        Grid.Row="2"
+                    />
+                </Grid>
+            </StackLayout>
+
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

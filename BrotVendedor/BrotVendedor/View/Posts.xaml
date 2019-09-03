@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="Publicaciones"
+             BackgroundColor="#6d8bad"
+             x:Class="BrotVendedor.View.Posts">
+    <ContentPage.Content>
+        <StackLayout Padding="5">
+            <StackLayout>
+                <Frame BackgroundColor="White" Padding="15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="45"/>
+                        </Grid.RowDefinitions>
+                        <Editor
+                            Placeholder="Publica algo ..."
+                            HeightRequest="100"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Grid.Row="0"
+                            />
+                        <Button 
+                            
+                            Text="Publicar"
+                            TextColor="White"
+                            CornerRadius="10"
+                            BackgroundColor="#FF5001"
+                            WidthRequest="75"
+                            Grid.Column="1"
+                            Grid.Row="1" 
+                            />
+                    </Grid>
+                </Frame>
+            </StackLayout>
+            <ListView>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

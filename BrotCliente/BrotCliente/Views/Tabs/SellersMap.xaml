@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BrotCliente.Views.Tabs.SellersMap"
+             
+             Title="Find a food seller"
+             xmlns:Maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps">
+
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical"
+                     BackgroundColor="#ffffff">
+
+            <StackLayout VerticalOptions="FillAndExpand">
+                <Maps:Map VerticalOptions="FillAndExpand"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal"
+                         Padding="5">
+                <Button Text="Cancelar"
+                        TextColor="#EB5E1C"
+                        BorderWidth="1"
+                        BorderColor="#EB5E1C"
+                        BackgroundColor="White"
+                        CornerRadius="5"
+                        HorizontalOptions="FillAndExpand"/>
+
+                <Button Text="Aceptar"
+                        TextColor="#FFFFFF"
+                        BackgroundColor="#EB5E1C"
+                        CornerRadius="5"
+                        HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

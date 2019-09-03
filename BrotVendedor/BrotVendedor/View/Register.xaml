@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:border="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+             Title="Registro"
+             mc:Ignorable="d"
+             x:Class="BrotVendedor.View.Register">
+    <ContentPage.Content>
+        <Frame BackgroundColor="#e64400">
+            <StackLayout>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <border:RoundedBorderEntry 
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="0"
+                        Placeholder="Nombre de usuario"
+                        Text="{Binding usuario}"
+                        PlaceholderColor="#FFFFFF"
+                        BorderColor="#FFFFFF"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        WidthRequest="350"
+                        HorizontalOptions="Center"
+                        Margin="5"
+                        TextColor="#FFFFFF"
+                        MaxLength="15"
+                    />
+                    <border:RoundedBorderEntry 
+                        Grid.Column="0"
+                        Text="{Binding nombre}"
+                        
+                        Grid.ColumnSpan="2"
+                        Grid.Row="1"
+                        Placeholder="Primer Nombre"
+                        PlaceholderColor="#FFFFFF"
+                        BorderColor="#FFFFFF"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        WidthRequest="350"
+                        HorizontalOptions="Center"
+                        Margin="5"
+                        TextColor="#FFFFFF"
+                        MaxLength="15"
+                    />
+                    <border:RoundedBorderEntry 
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="2"
+                        Placeholder="Primer Apellido"
+                        PlaceholderColor="#FFFFFF"
+                        BorderColor="#FFFFFF"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        WidthRequest="350"
+                        HorizontalOptions="Center"
+                        Margin="5"
+                        TextColor="#FFFFFF"
+                        MaxLength="15"
+                        Text="{Binding apellido}"
+                        
+                    />
+                    <border:RoundedBorderEntry 
+                        IsPassword="True"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="3"
+                        Placeholder="Clave"
+                        PlaceholderColor="#FFFFFF"
+                        BorderColor="#FFFFFF"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        WidthRequest="350"
+                        HorizontalOptions="Center"
+                        Margin="5"
+                        TextColor="#FFFFFF"
+                        MaxLength="15"
+                        Text="{Binding clave}"
+                        
+                    />
+                    <border:RoundedBorderEntry 
+                        Keyboard="Email"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="4"
+                        Placeholder="Correo"
+                        PlaceholderColor="#FFFFFF"
+                        BorderColor="#FFFFFF"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        WidthRequest="350"
+                        HorizontalOptions="Center"
+                        Margin="5"
+                        TextColor="#FFFFFF"
+                        MaxLength="15"
+                        Text="{Binding correo}"
+                        
+                    />
+                    <border:RoundedBorderEntry 
+                        Keyboard="Numeric"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="5"
+                        Placeholder="Telefono"
+                        PlaceholderColor="#FFFFFF"
+                        BorderColor="#FFFFFF"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        WidthRequest="350"
+                        HorizontalOptions="Center"
+                        Margin="5"
+                        TextColor="#FFFFFF"
+                        MaxLength="15"
+                        Text="{Binding telefono}"
+                        
+                    />
+                    <border:RoundedBorderEntry 
+                        Keyboard="Numeric"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="6"
+                        Placeholder="DUI"
+                        PlaceholderColor="#FFFFFF"
+                        BorderColor="#FFFFFF"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        WidthRequest="350"
+                        HorizontalOptions="Center"
+                        Margin="5"
+                        TextColor="#FFFFFF"
+                        MaxLength="15"
+                        Text="{Binding dui}"
+                        
+                    />
+                    <Button Text="Cancelar" 
+                            TextColor="#ff5101"
+                            Grid.Column="0"
+                            BackgroundColor="White"
+                            Command="{Binding Cancel}"
+                            CornerRadius="30"
+                            Grid.Row="7"
+                    />
+                    <Button Text="Registrarse" 
+                            TextColor="#ff5101"
+                            Grid.Column="1"
+                            BackgroundColor="White"
+                            Command="{Binding Register}"
+                            CornerRadius="30"
+                            Grid.Row="7"
+                    />
+                </Grid>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

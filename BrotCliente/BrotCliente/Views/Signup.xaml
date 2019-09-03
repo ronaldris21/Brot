@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BrotCliente.Views.Signup"
+             
+             Title="Sign Up"
+             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical"
+                         VerticalOptions="Fill"
+                         Padding="25">
+                <Label FontSize="35" 
+                       HorizontalOptions="Center"
+                       Text="Start Using Brot"
+                       TextColor="#ff5001"/>
+
+                <StackLayout Margin="0, 20">
+                    <Rounded:RoundedBorderEntry Margin="10"
+                                                BorderColor="#ff5001"
+                                                BorderThickness="2"
+                                                CornerRadius="10"
+                                                Placeholder="Type your name"
+                                                PlaceholderColor="#E8720C"
+                                                TextColor="#ff5001"/>
+                    
+                    <Rounded:RoundedBorderEntry Margin="10"
+                                                BorderColor="#ff5001"
+                                                BorderThickness="2"
+                                                CornerRadius="10"
+                                                Placeholder="Type your lastname"
+                                                PlaceholderColor="#E8720C"
+                                                TextColor="#ff5001"/>
+                    
+                    <Rounded:RoundedBorderEntry Margin="10"
+                                                BorderColor="#ff5001"
+                                                BorderThickness="2"
+                                                CornerRadius="10"
+                                                Placeholder="Type your username"
+                                                PlaceholderColor="#E8720C"
+                                                TextColor="#ff5001"/>
+                    
+                    <Rounded:RoundedBorderEntry Margin="10"
+                                                Keyboard="Email"
+                                                BorderColor="#ff5001"
+                                                BorderThickness="2"
+                                                CornerRadius="10"
+                                                Placeholder="Type your E-mail"
+                                                PlaceholderColor="#E8720C"
+                                                TextColor="#ff5001"/>
+                    
+                    <Rounded:RoundedBorderEntry Margin="10"
+                                                BorderColor="#ff5001"
+                                                BorderThickness="2"
+                                                CornerRadius="10"
+                                                Placeholder="Type your password"
+                                                PlaceholderColor="#E8720C"
+                                                IsPassword="True"
+                                                TextColor="#ff5001"/>
+                    
+                    <Rounded:RoundedBorderEntry Margin="10"
+                                                BorderColor="#ff5001"
+                                                BorderThickness="2"
+                                                CornerRadius="10"
+                                                Placeholder="Repeat your password"
+                                                PlaceholderColor="#E8720C"
+                                                IsPassword="True"
+                                                TextColor="#ff5001"/>
+                </StackLayout>
+
+                <StackLayout Margin="0, 20">
+                    <Button Text="Registrer"
+                            TextColor="White"
+                            BackgroundColor="#ff5001"
+                            CornerRadius="10"
+                            HorizontalOptions="Center"
+                            Padding="40, 15"
+                            Command="{Binding GoToMainCommand}"/>
+
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Center"
+                                 Margin="15"
+                                 Padding="10">
+                        
+                        <Label Text="Do you already have an user?"
+                               TextColor="#ff5001"
+                               VerticalOptions="Center"/>
+                        
+                        <Button Text="Log in"
+                                TextColor="#ff5001"
+                                VerticalOptions="Center"
+                                FontAttributes="Bold"
+                                BackgroundColor="Transparent"
+                                Command="{Binding LoginCommand}"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
