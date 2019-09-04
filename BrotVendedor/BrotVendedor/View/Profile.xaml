@@ -17,8 +17,8 @@
                         <ImageButton Source="icon.png" HeightRequest="50" WidthRequest="125" BackgroundColor="Transparent"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="95*"/>
+                                <ColumnDefinition Width="10*"/>
                             </Grid.ColumnDefinitions>
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"

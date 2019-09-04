@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Xamarin.Forms.Xaml;
 namespace BrotCliente.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    [DesignTimeVisible(false)]
     public partial class MainTabbed : TabbedPage
     {
         public MainTabbed()
