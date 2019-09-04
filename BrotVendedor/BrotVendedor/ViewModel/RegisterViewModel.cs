@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using BrotVendedor.View;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -104,11 +105,11 @@ namespace BrotVendedor.ViewModel
         }
         #endregion
         #region Comandos
-        public ICommand Register
+        public ICommand Siguiente
         {
             get
             {
-                return new RelayCommand(SendRegister);
+                return new RelayCommand(ChooseLocation);
             }
         }
         public ICommand Cancel
@@ -120,9 +121,9 @@ namespace BrotVendedor.ViewModel
         }
         #endregion
         #region Metodos
-        public void SendRegister()
+        public void ChooseLocation()
         {
-            App.Current.MainPage.Navigation.PopAsync();
+            App.Current.MainPage.Navigation.PushAsync(new ChooseLocation());
         }
         public void Dispose()
         {

@@ -1,7 +1,5 @@
-﻿using BrotVendedor.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,13 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace BrotVendedor.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    [DesignTimeVisible(false)]
-    public partial class Login : ContentPage
+    public partial class ChooseLocation : ContentPage
     {
-        public Login()
+        public ChooseLocation()
         {
             InitializeComponent();
-            BindingContext = new LoginViewModel();
         }
     }
 }

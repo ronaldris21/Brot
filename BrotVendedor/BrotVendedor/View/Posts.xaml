@@ -22,7 +22,7 @@
                         </Grid.RowDefinitions>
                         <Editor
                             Placeholder="Publica algo ..."
-                            HeightRequest="100"
+                            HeightRequest="150"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Grid.Row="0"
