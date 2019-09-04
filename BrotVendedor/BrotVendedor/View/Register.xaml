@@ -154,11 +154,11 @@
                             CornerRadius="30"
                             Grid.Row="7"
                     />
-                    <Button Text="Registrarse" 
+                    <Button Text="Siguiente" 
                             TextColor="#ff5101"
                             Grid.Column="1"
                             BackgroundColor="White"
-                            Command="{Binding Register}"
+                            Command="{Binding Siguiente}"
                             CornerRadius="30"
                             Grid.Row="7"
                     />

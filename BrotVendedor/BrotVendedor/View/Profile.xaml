@@ -3,16 +3,121 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:border="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
              mc:Ignorable="d"
              IconImageSource="userTab64x64.png"
              x:Class="BrotVendedor.View.Profile"
              BackgroundColor="#6d8bad">
     <ContentPage.Content>
-        <StackLayout Padding="15">
-            <ImageButton Source="user128x128.png"  BackgroundColor="Transparent"/>
-            <ImageButton Source="icon.png" HeightRequest="75" WidthRequest="150" BackgroundColor="Transparent"/>
-            
-            
+        <StackLayout Padding="10">
+            <Frame>
+                <ScrollView>
+                    <StackLayout>
+                        <ImageButton Source="user128x128.png"  BackgroundColor="Transparent"/>
+                        <ImageButton Source="icon.png" HeightRequest="50" WidthRequest="125" BackgroundColor="Transparent"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <border:RoundedBorderEntry 
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                Text="{Binding usuario}"
+                                BorderColor="#FF5001"
+                                BorderThickness="2"
+                                CornerRadius="10"
+                                WidthRequest="350"
+                                HorizontalOptions="Center"
+                                Margin="5"
+                                TextColor="#FF5001"
+                            />
+                            <border:RoundedBorderEntry 
+                                Grid.Column="0"
+                                Text="{Binding nombre}"
+                                Grid.Row="1"
+                                BorderColor="#FF5001"
+                                BorderThickness="2"
+                                CornerRadius="10"
+                                WidthRequest="350"
+                                HorizontalOptions="Center"
+                                Margin="5"
+                                TextColor="#FF5001"
+                            />
+                            <border:RoundedBorderEntry 
+                                Grid.Column="0"
+                                Grid.Row="2"
+                                BorderColor="#FF5001"
+                                BorderThickness="2"
+                                CornerRadius="10"
+                                WidthRequest="350"
+                                HorizontalOptions="Center"
+                                Margin="5"
+                                TextColor="#FF5001"
+                                Text="{Binding apellido}"
+                        
+                            />
+                            <border:RoundedBorderEntry 
+                                Grid.Column="0"
+                                Grid.Row="3"
+                                BorderColor="#FF5001"
+                                BorderThickness="2"
+                                CornerRadius="10"
+                                WidthRequest="350"
+                                HorizontalOptions="Center"
+                                Margin="5"
+                                TextColor="#FF5001"
+                                Text="{Binding clave}"
+                        
+                            />
+                            <border:RoundedBorderEntry 
+                                Grid.Column="0"
+                                Grid.Row="4"
+                                BorderColor="#FF5001"
+                                BorderThickness="2"
+                                CornerRadius="10"
+                                WidthRequest="350"
+                                HorizontalOptions="Center"
+                                Margin="5"
+                                TextColor="#FF5001"
+                                Text="{Binding correo}"
+                        
+                                />
+                            <border:RoundedBorderEntry 
+                                Grid.Column="0"
+                                Grid.Row="5"
+                                BorderColor="#FF5001"
+                                BorderThickness="2"
+                                CornerRadius="10"
+                                WidthRequest="350"
+                                HorizontalOptions="Center"
+                                Margin="5"
+                                TextColor="#FF5001"
+                                Text="{Binding telefono}"
+                                />
+                            <border:RoundedBorderEntry 
+                                Grid.Column="0"
+                                Grid.Row="6"
+                                BorderColor="#FF5001"
+                                BorderThickness="2"
+                                CornerRadius="10"
+                                WidthRequest="350"
+                                HorizontalOptions="Center"
+                                Margin="5"
+                                TextColor="#FF5001"
+                                Text="{Binding dui}"
+                            />
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Aspect="AspectFit" />
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="1" BackgroundColor="Transparent" Aspect="AspectFit" />
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="2" BackgroundColor="Transparent" Aspect="AspectFit" />
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="3" BackgroundColor="Transparent" Aspect="AspectFit" />
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="4" BackgroundColor="Transparent" Aspect="AspectFit" />
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="5" BackgroundColor="Transparent" Aspect="AspectFit" />
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="6" BackgroundColor="Transparent" Aspect="AspectFit" />
+                        </Grid>
+                    </StackLayout>
+                </ScrollView>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
