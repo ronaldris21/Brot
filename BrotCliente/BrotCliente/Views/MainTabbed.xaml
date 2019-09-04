@@ -7,11 +7,12 @@
              x:Class="BrotCliente.Views.MainTabbed"
             
             Title="Brot App"
-            NavigationPage.HasNavigationBar="False"
+            NavigationPage.HasNavigationBar="True"
             xmlns:Pages="clr-namespace:BrotCliente.Views.Tabs">
 
     <TabbedPage.Children>
         <Pages:Feed/>
         <Pages:SellersMap/>
+        <Pages:BrotTen/>
     </TabbedPage.Children>
 </TabbedPage>

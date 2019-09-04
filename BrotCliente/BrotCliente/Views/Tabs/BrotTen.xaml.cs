@@ -1,7 +1,5 @@
-﻿using BrotCliente.Views.Tabs;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,17 +7,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace BrotCliente.Views
+namespace BrotCliente.Views.Tabs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    [DesignTimeVisible(false)]
-    public partial class MainTabbed : TabbedPage
-    { 
-        public MainTabbed()
+    public partial class BrotTen : ContentPage
+    {
+        public BrotTen()
         {
             InitializeComponent();
-
-            CurrentPage = Children[1];
         }
     }
 }
