@@ -9,7 +9,7 @@
             Title="Brot App"
             NavigationPage.HasNavigationBar="False"
             xmlns:Pages="clr-namespace:BrotCliente.Views.Tabs">
-    
+
     <TabbedPage.Children>
         <Pages:Feed/>
         <Pages:SellersMap/>

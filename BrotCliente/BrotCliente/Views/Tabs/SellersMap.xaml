@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="BrotCliente.Views.Tabs.SellersMap"
              
-             IconImageSource="pinwhite500.ico"
+             IconImageSource="pinwhite250.ico"
              xmlns:Maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps">
 
     <ContentPage.Content>
