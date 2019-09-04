@@ -6,8 +6,9 @@
              mc:Ignorable="d"
              x:Class="BrotCliente.Views.MainTabbed"
             
-            xmlns:Pages="clr-namespace:BrotCliente.Views.Tabs"
-            Title="Brot App">
+            Title="Brot App"
+            NavigationPage.HasNavigationBar="False"
+            xmlns:Pages="clr-namespace:BrotCliente.Views.Tabs">
     
     <TabbedPage.Children>
         <Pages:Feed/>
