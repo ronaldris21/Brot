@@ -74,7 +74,6 @@
                                                Grid.Row="0"
                                                Text="{Binding usuario}"
                                                FontAttributes="Bold"
-                                               FontFamily="HirukoBlackAlternate.ttf"
                                                />
                                         <Label Grid.Column="2"
                                                Grid.Row="0"
@@ -94,6 +93,7 @@
                                                      Grid.Row="3"
                                                      Source="Like.png"
                                                      Aspect="AspectFit"
+                                                     WidthRequest="100"
                                                      />
                                         <ImageButton Grid.Column="2"
                                                      Grid.Row="3"

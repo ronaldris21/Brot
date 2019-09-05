@@ -15,16 +15,29 @@ namespace BrotVendedor.ViewModel
         public String img;
     }
 
-    public class PostsViewModel
+    public class PostsViewModel:BaseViewModel
     {
-        public ObservableCollection<Post> posts { get; set; }
+        private ObservableCollection<Post> _posts;
+        public ObservableCollection<Post> posts {
+            get
+            {
+                return _posts;
+            }
+            set
+            {
+                if (_posts != value)
+                {
+                    _posts = value;OnPropertyChanged("posts");
+                }
+            }
+        }
         public PostsViewModel()
         {
             posts = new ObservableCollection<Post>();
             Post p = new Post
             {
                 texto = "Post 1",
-                imgPath = "userTab64x64",
+                imgPath = "userTab64x64.png",
                 usuario = "SilkenHarbor6",
                 hora = "15:05",
                 img = "Bro.png"
@@ -32,7 +45,7 @@ namespace BrotVendedor.ViewModel
             Post p2 = new Post
             {
                 texto = "Post 1",
-                imgPath = "userTab64x64",
+                imgPath = "userTab64x64.png",
                 usuario = "Ris",
                 hora = "15:05",
                 img = "Bro.png"
