@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:Maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+             xmlns:bindings="clr-namespace:Xamarin.Forms.GoogleMaps.Bindings;assembly=Xamarin.Forms.GoogleMaps.Bindings"
              mc:Ignorable="d"
              x:Class="BrotVendedor.View.ChooseLocation">
     <ContentPage.ToolbarItems>
@@ -11,7 +12,12 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Maps:Map />
+            <Maps:Map x:Name="Mape">
+                    <Maps:Map.Behaviors>
+                    <bindings:BindingPinsBehavior Value="{Binding Pins}"/>
+                    <bindings:MapClickedToCommandBehavior  Command="{Binding MapClickedCommand}"/>
+                    </Maps:Map.Behaviors>
+            </Maps:Map>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

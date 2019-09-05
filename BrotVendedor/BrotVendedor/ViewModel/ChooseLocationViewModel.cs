@@ -1,9 +1,11 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 
 namespace BrotVendedor.ViewModel
@@ -11,28 +13,15 @@ namespace BrotVendedor.ViewModel
     public class ChooseLocationViewModel:BaseViewModel
     {
         #region Atributos
-        private double _lat;
-        private double _lon;
-        private Map _mapa;
         #endregion
         #region Propiedades
-        public Map mapa
-        {
-            get
-            {
-                return _mapa;
-            }
-            set
-            {
-                _mapa = value;OnPropertyChanged("mapa");
-            }
-        }
+        
+        public ObservableCollection<Pin> Pins { get; set; }
         #endregion
         #region Constructor
         public ChooseLocationViewModel()
         {
-            _mapa.MoveToRegion(new MapSpan(new Position(1,1),13.994778,-89.556642));
-            //13.994778, -89.556642
+
         }
         #endregion
         #region Comandos
@@ -43,19 +32,19 @@ namespace BrotVendedor.ViewModel
                 return new RelayCommand(locateMe);
             }
         }
-        public ICommand Pin
-        {
-            get
+
+        public Command<MapClickedEventArgs> MapClickedCommand =>
+            new Command<MapClickedEventArgs>(args =>
             {
-                return new RelayCommand(SetPin);
-            }
-        }
+                Pins.Clear();
+                Pins.Add(new Pin
+                {
+                    Label = "Has clic en el icono de posicion para confirmar tu ubicación",
+                    Position = args.Point
+                });
+            });
         #endregion
         #region Metodos
-        public void SetPin()
-        {
-            
-        }
         public void locateMe()
         {
             //terminar registro

@@ -24,6 +24,7 @@ namespace BrotVendedor.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
+            Xamarin.FormsGoogleMapsBindings.Init();
 
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

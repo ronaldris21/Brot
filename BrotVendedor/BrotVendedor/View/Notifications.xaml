@@ -46,7 +46,6 @@
                                     </Grid>
                                 </Frame>
                                 <BoxView HeightRequest="1" BackgroundColor="Transparent">
-                                    
                                 </BoxView>
                             </StackLayout>
                         </ViewCell>

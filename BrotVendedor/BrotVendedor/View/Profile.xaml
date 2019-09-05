@@ -23,6 +23,9 @@
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
                                 Grid.Row="0"
+                                Placeholder="Usuario"
+                                PlaceholderColor="#FF5001"
+                                IsEnabled="False"
                                 Text="{Binding usuario}"
                                 BorderColor="#FF5001"
                                 BorderThickness="2"
@@ -31,11 +34,16 @@
                                 HorizontalOptions="Center"
                                 Margin="5"
                                 TextColor="#FF5001"
+                                x:Name="txt1"
+                                Unfocused="Txt1_Unfocused"
                             />
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
                                 Text="{Binding nombre}"
                                 Grid.Row="1"
+                                Placeholder="Nombre"
+                                PlaceholderColor="#FF5001"
+                                IsEnabled="False"
                                 BorderColor="#FF5001"
                                 BorderThickness="2"
                                 CornerRadius="10"
@@ -43,10 +51,15 @@
                                 HorizontalOptions="Center"
                                 Margin="5"
                                 TextColor="#FF5001"
+                                x:Name="txt2"
+                                Unfocused="Txt2_Unfocused"
                             />
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
                                 Grid.Row="2"
+                                Placeholder="Apellido"
+                                PlaceholderColor="#FF5001"
+                                IsEnabled="False"
                                 BorderColor="#FF5001"
                                 BorderThickness="2"
                                 CornerRadius="10"
@@ -55,11 +68,15 @@
                                 Margin="5"
                                 TextColor="#FF5001"
                                 Text="{Binding apellido}"
-                        
+                                x:Name="txt3"
+                                Unfocused="Txt3_Unfocused" 
                             />
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
                                 Grid.Row="3"
+                                Placeholder="Clave"
+                                PlaceholderColor="#FF5001"
+                                IsEnabled="False"
                                 BorderColor="#FF5001"
                                 BorderThickness="2"
                                 CornerRadius="10"
@@ -68,11 +85,15 @@
                                 Margin="5"
                                 TextColor="#FF5001"
                                 Text="{Binding clave}"
-                        
+                                x:Name="txt4"
+                                Unfocused="Txt4_Unfocused"
                             />
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
                                 Grid.Row="4"
+                                Placeholder="Correo"
+                                PlaceholderColor="#FF5001"
+                                IsEnabled="False"
                                 BorderColor="#FF5001"
                                 BorderThickness="2"
                                 CornerRadius="10"
@@ -81,11 +102,15 @@
                                 Margin="5"
                                 TextColor="#FF5001"
                                 Text="{Binding correo}"
-                        
+                                x:Name="txt5"
+                                Unfocused="Txt5_Unfocused" 
                                 />
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
                                 Grid.Row="5"
+                                Placeholder="Telefono"
+                                PlaceholderColor="#FF5001"
+                                IsEnabled="False"
                                 BorderColor="#FF5001"
                                 BorderThickness="2"
                                 CornerRadius="10"
@@ -94,10 +119,15 @@
                                 Margin="5"
                                 TextColor="#FF5001"
                                 Text="{Binding telefono}"
+                                x:Name="txt6"
+                                Unfocused="Txt6_Unfocused"
                                 />
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
                                 Grid.Row="6"
+                                Placeholder="DUI"
+                                PlaceholderColor="#FF5001"
+                                IsEnabled="False"
                                 BorderColor="#FF5001"
                                 BorderThickness="2"
                                 CornerRadius="10"
@@ -106,14 +136,16 @@
                                 Margin="5"
                                 TextColor="#FF5001"
                                 Text="{Binding dui}"
+                                x:Name="txt7"
+                                Unfocused="Txt7_Unfocused"
                             />
-                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Aspect="AspectFit" />
-                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="1" BackgroundColor="Transparent" Aspect="AspectFit" />
-                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="2" BackgroundColor="Transparent" Aspect="AspectFit" />
-                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="3" BackgroundColor="Transparent" Aspect="AspectFit" />
-                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="4" BackgroundColor="Transparent" Aspect="AspectFit" />
-                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="5" BackgroundColor="Transparent" Aspect="AspectFit" />
-                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="6" BackgroundColor="Transparent" Aspect="AspectFit" />
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn1" Clicked="Btn1_Clicked"/>
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="1" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn2" Clicked="Btn2_Clicked"/>
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="2" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn3" Clicked="Btn3_Clicked"/>
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="3" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn4" Clicked="Btn4_Clicked"/>
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="4" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn5" Clicked="Btn5_Clicked"/>
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="5" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn6" Clicked="Btn6_Clicked"/>
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="6" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn7" Clicked="Btn7_Clicked"/>
                         </Grid>
                     </StackLayout>
                 </ScrollView>
