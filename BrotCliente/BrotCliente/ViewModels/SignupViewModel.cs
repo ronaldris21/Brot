@@ -36,7 +36,7 @@ namespace BrotCliente.ViewModels
 
         public void GoToMainPage()
         {
-            Application.Current.MainPage = new NavigationPage(new MainTabbed());
+            Application.Current.MainPage = new NavigationPage(new Master());
         }
 
         #endregion
