@@ -86,7 +86,7 @@
             Post niu = new Post();
             var h = DateTime.Now.ToString().Split(' ');
             var time = h[1].Split(':');
-            niu.hora = time[0]+":"+time[1];
+            niu.hora = time[0] + ":" + time[1];
             niu.usuario = "SilkenHarbor6";
             niu.imgPath = "userTab64x64.png";
             niu.img = "Bro.png";
@@ -94,10 +94,9 @@
             posts.Insert(0, niu);
             texto = "";
         }
-
+        #endregion
     }
 }
-#endregion
 
 
 

@@ -13,7 +13,8 @@
             <Frame>
                 <ScrollView>
                     <StackLayout>
-                        <ImageButton Source="user128x128.png"  BackgroundColor="Transparent"/>
+                        <Image Source="{Binding picture}"  BackgroundColor="Transparent"/>
+                        <ImageButton Command="{Binding ChangeProfilePicture}" Source="edit64x64.png" BackgroundColor="Transparent"/>
                         <ImageButton Source="icon.png" HeightRequest="50" WidthRequest="125" BackgroundColor="Transparent"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
