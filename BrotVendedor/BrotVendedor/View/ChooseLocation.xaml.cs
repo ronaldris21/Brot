@@ -17,7 +17,7 @@ namespace BrotVendedor.View
         public ChooseLocation()
         {
             InitializeComponent();
-            Mape.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(13.994778, -89.556642), Distance.FromMeters(2500)));
+            Mape.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(13.994778, -89.556642), Distance.FromMeters(250)));
             BindingContext = new ChooseLocationViewModel();
         }
     }
