@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BrotVendedor.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace BrotVendedor.View
         public Profile()
         {
             InitializeComponent();
+            BindingContext = new ProfileViewModel();
         }
         #region EnablingEntries
         private void Btn1_Clicked(object sender, EventArgs e)
