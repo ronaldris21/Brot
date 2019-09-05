@@ -4,9 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             IconImageSource="broBlanco.png"
+             IconImageSource="BB.png"
              BackgroundColor="#6d8bad"
-             x:Class="BrotVendedor.View.Posts">
+             x:Class="BrotVendedor.View.Posts"
+             >
     <ContentPage.Content>
         <StackLayout Padding="5">
             <StackLayout>
@@ -26,7 +27,9 @@
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Grid.Row="0"
+                            FontFamily="HirukoBlackAlternate.ttf"
                             />
+
                         <Button 
                             
                             Text="Publicar"
@@ -36,17 +39,70 @@
                             WidthRequest="75"
                             Grid.Column="1"
                             Grid.Row="1" 
+                            FontFamily="HirukoBlackAlternate.ttf"
                             />
                     </Grid>
                 </Frame>
             </StackLayout>
-            <ListView>
+            <ListView HasUnevenRows="True"
+                      ItemsSource="{Binding posts}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout>
-                                
-                            </StackLayout>
+                            <Frame>
+                                <StackLayout>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="4*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="3*" />
+                                            <RowDefinition Height="2*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Column="0"
+                                               Grid.Row="0"
+                                               Source="{Binding imgPath}"
+                                               Aspect="AspectFit"
+                                               WidthRequest="25"
+                                               HeightRequest="25"
+                                               />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="0"
+                                               Text="{Binding usuario}"
+                                               FontAttributes="Bold"
+                                               FontFamily="HirukoBlackAlternate.ttf"
+                                               />
+                                        <Label Grid.Column="2"
+                                               Grid.Row="0"
+                                               Text="{Binding hora}"
+                                               FontAttributes="Bold"
+                                               />
+                                        <ImageButton Grid.Column="1"
+                                                     Grid.Row="1"
+                                                     Source="{Binding img}"
+                                                     Aspect="AspectFill"
+                                                     />
+                                        <Label Grid.Column="1"
+                                               Grid.Row="2"
+                                               Text="{Binding texto}"
+                                               />
+                                        <ImageButton Grid.Column="1"
+                                                     Grid.Row="3"
+                                                     Source="Like.png"
+                                                     Aspect="AspectFit"
+                                                     />
+                                        <ImageButton Grid.Column="2"
+                                                     Grid.Row="3"
+                                                     Source="Comments.png"
+                                                     Aspect="AspectFit"
+                                                     />
+                                    </Grid>
+                                </StackLayout>
+                            </Frame>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
