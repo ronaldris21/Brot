@@ -4,14 +4,14 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="BrotCliente.Views.Tabs.Feed"
+             x:Class="BrotCliente.Views.Tabs.BrotTen"
              
-             IconImageSource="BWhite250.ico">
+             Title="Brot Ten">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Item de prueba" />
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Label Text="Aqui ira el top ten de brot"/>
     </ContentPage.Content>
 </ContentPage>

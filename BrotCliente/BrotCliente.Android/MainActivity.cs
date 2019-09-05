@@ -24,6 +24,7 @@ namespace BrotCliente.Droid
 
             //Initialiazing Xamaring Forms Maps
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
+            Xamarin.FormsGoogleMapsBindings.Init();
 
             LoadApplication(new App());
         }

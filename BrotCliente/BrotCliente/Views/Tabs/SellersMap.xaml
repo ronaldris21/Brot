@@ -6,15 +6,22 @@
              mc:Ignorable="d"
              x:Class="BrotCliente.Views.Tabs.SellersMap"
              
-             IconImageSource="pinwhite500.ico"
-             xmlns:Maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps">
+             IconImageSource="pinwhite250.ico"
+             xmlns:Maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+             xmlns:MapBinding="clr-namespace:Xamarin.Forms.GoogleMaps.Bindings;assembly=Xamarin.Forms.GoogleMaps.Bindings">
 
     <ContentPage.Content>
         <StackLayout Orientation="Vertical"
                      BackgroundColor="#ffffff">
 
             <StackLayout VerticalOptions="FillAndExpand">
-                <Maps:Map VerticalOptions="FillAndExpand"/>
+                <Maps:Map VerticalOptions="FillAndExpand"
+                          x:Name="MyMap">
+                    <Maps:Map.Behaviors>
+                        <MapBinding:BindingPinsBehavior Value="{Binding Pins}"/>
+                        <!--<MapBinding:MapClickedToCommandBehavior Command="{Binding MapClicked}"/>-->    
+                    </Maps:Map.Behaviors>
+                </Maps:Map>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal"
