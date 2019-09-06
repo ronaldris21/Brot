@@ -9,7 +9,7 @@ using Xamarin.Forms.GoogleMaps;
 
 namespace BrotCliente.ViewModels
 {
-    public class SellersMapViewModel
+    public class SellersMapViewModel : BaseViewModel
     {
         public ObservableCollection<Pin> Pins { get; set; }
 

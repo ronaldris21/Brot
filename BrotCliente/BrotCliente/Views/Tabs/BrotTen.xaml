@@ -6,9 +6,12 @@
              mc:Ignorable="d"
              x:Class="BrotCliente.Views.Tabs.BrotTen"
              
-             Title="Brot Ten">
+             Title="Brot Ten"
+             IconImageSource="BrotTenWhite250.ico">
+    
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Item de prueba" />
+        <ToolbarItem Text="Most viewed"/>
+        <ToolbarItem Text="Most liked"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>

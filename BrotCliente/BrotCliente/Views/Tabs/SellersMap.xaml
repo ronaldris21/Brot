@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="BrotCliente.Views.Tabs.SellersMap"
              
+             Title="Find a Brot"
              IconImageSource="pinwhite250.ico"
              xmlns:Maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
              xmlns:MapBinding="clr-namespace:Xamarin.Forms.GoogleMaps.Bindings;assembly=Xamarin.Forms.GoogleMaps.Bindings">
@@ -19,26 +20,9 @@
                           x:Name="MyMap">
                     <Maps:Map.Behaviors>
                         <MapBinding:BindingPinsBehavior Value="{Binding Pins}"/>
-                        <!--<MapBinding:MapClickedToCommandBehavior Command="{Binding MapClicked}"/>-->    
+                        <!--<MapBinding:MapClickedToCommandBehavior Command="{Binding MapClicked}"/>-->
                     </Maps:Map.Behaviors>
                 </Maps:Map>
-            </StackLayout>
-
-            <StackLayout Orientation="Horizontal"
-                         Padding="5">
-                <Button Text="Cancelar"
-                        TextColor="#EB5E1C"
-                        BorderWidth="1"
-                        BorderColor="#EB5E1C"
-                        BackgroundColor="White"
-                        CornerRadius="5"
-                        HorizontalOptions="FillAndExpand"/>
-
-                <Button Text="Aceptar"
-                        TextColor="#FFFFFF"
-                        BackgroundColor="#EB5E1C"
-                        CornerRadius="5"
-                        HorizontalOptions="FillAndExpand"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

@@ -8,7 +8,25 @@
             
             Title="Brot App"
             NavigationPage.HasNavigationBar="True"
-            xmlns:Pages="clr-namespace:BrotCliente.Views.Tabs">
+            xmlns:Pages="clr-namespace:BrotCliente.Views.Tabs"
+            xmlns:Android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            BarBackgroundColor="#ff5001"
+            BarTextColor="White"
+            Android:TabbedPage.ToolbarPlacement="Bottom"
+            Android:TabbedPage.BarItemColor="White"
+            Android:TabbedPage.BarSelectedItemColor="LightGray">
+    
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="Start">
+            <Image Source="Brot2.png"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"
+                   HeightRequest="40"
+                   WidthRequest="115"/>
+            
+        </StackLayout>
+    </NavigationPage.TitleView>
 
     <TabbedPage.Children>
         <Pages:Feed/>

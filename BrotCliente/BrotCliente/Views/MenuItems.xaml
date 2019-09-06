@@ -4,10 +4,9 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="BrotCliente.Views.Tabs.Feed"
+             x:Class="BrotCliente.Views.MenuItems"
              
-             Title="Feed"
-             IconImageSource="BWhite250.ico">
+             Title="Master">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms!"
