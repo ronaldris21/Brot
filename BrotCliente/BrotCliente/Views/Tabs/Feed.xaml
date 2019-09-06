@@ -9,10 +9,32 @@
              Title="Feed"
              IconImageSource="BWhite250.ico">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="15">
+            <Label Text="What's new today?"
+                   TextColor="#ff5001"
+                   FontSize="Large"/>
+
+            <ListView VerticalOptions="FillAndExpand"
+                      BackgroundColor="LightGreen"
+                      
+                      HasUnevenRows="True"
+                      ItemsSource=""
+                      SeparatorVisibility="None"
+                      x:Name="FeedListView"
+                      
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing=""
+                      RefreshCommand="">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame BackgroundColor="LightBlue">
+                                
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
