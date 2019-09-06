@@ -104,6 +104,7 @@
             niu.img = "Bro.png";
             niu.texto = texto;
             niu.id_Post = posts.Count;
+            niu.like = "NoLike.png";
             posts.Insert(0, niu);
             texto = "";
         }

@@ -29,7 +29,6 @@ namespace BrotVendedor.View
             {
                 BindingObject.PLike.Execute(id);
             }
-            //BindingObject.HelloWorld.Execute(btn.ClassId);
         }
 
         private void LikeButton_Clicked(object sender, EventArgs e)
