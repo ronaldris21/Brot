@@ -149,4 +149,22 @@
       <Name>BrotVendedor</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\userTab64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\edit64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\notification64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\user128x128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\NoLike.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Like.png" />
+  </ItemGroup>
 </Project>

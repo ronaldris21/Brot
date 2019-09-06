@@ -11,6 +11,7 @@
         public String usuario { get; set; }
         public String hora { get; set; }
         public String img { get; set; }
+        public String like { get; set; }
     }
 
     public class PostsViewModel : BaseViewModel
@@ -45,6 +46,7 @@
                 }
             }
         }
+       
         #endregion
         #region Constructor
         public PostsViewModel()
@@ -56,7 +58,8 @@
                 imgPath = "userTab64x64.png",
                 usuario = "SilkenHarbor6",
                 hora = "15:05",
-                img = "Bro.png"
+                img = "Bro.png",
+                like="NoLike.png"
             };
             Post p2 = new Post
             {
@@ -64,7 +67,8 @@
                 imgPath = "userTab64x64.png",
                 usuario = "Ris",
                 hora = "15:05",
-                img = "Bro.png"
+                img = "Bro.png",
+                like = "NoLike.png"
             };
             posts.Add(p);
             posts.Add(p2);
@@ -77,6 +81,13 @@
             get
             {
                 return new RelayCommand(AddPost);
+            }
+        }
+        public ICommand SetLike
+        {
+            get
+            {
+                return new RelayCommand(Like);
             }
         }
         #endregion
@@ -93,6 +104,17 @@
             niu.texto = texto;
             posts.Insert(0, niu);
             texto = "";
+        }
+        public void Like()
+        {
+            //if (like == "Like.png")
+            //{
+            //    like = "NoLike.png";
+            //}
+            //else
+            //{
+            //    like = "Like.png";
+            //}
         }
         #endregion
     }

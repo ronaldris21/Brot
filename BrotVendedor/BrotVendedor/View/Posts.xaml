@@ -47,7 +47,9 @@
                 </Frame>
             </StackLayout>
             <ListView HasUnevenRows="True"
-                      ItemsSource="{Binding posts}">
+                      ItemsSource="{Binding posts}"
+                      SelectedItem="{Binding PostSelected}"
+                      >
 
 
                 <ListView.ItemTemplate>
@@ -62,54 +64,56 @@
                                                 <ColumnDefinition Width="4*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="25" />
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="50" />
-                                                <RowDefinition Height="25" />
-                                            </Grid.RowDefinitions>
+
                                             <Image Grid.Column="0"
-                                               Grid.Row="0"
                                                Source="{Binding imgPath}"
                                                Aspect="AspectFit"
                                                WidthRequest="25"
                                                HeightRequest="25"
                                                />
                                             <Label Grid.Column="1"
-                                               Grid.Row="0"
                                                VerticalOptions="Center"
                                                Text="{Binding usuario}"
                                                FontAttributes="Bold"
                                                TextColor="Black"
                                                />
                                             <Label Grid.Column="2"
-                                               Grid.Row="0"
                                                Text="{Binding hora}"
                                                VerticalOptions="Center"
                                                FontAttributes="Bold"
                                                />
-                                            <ImageButton Grid.Column="0"
-                                                     Grid.Row="1"
-                                                     Source="{Binding img}"
-                                                     Aspect="AspectFit"
+                                        </Grid>
+                                        <StackLayout Orientation="Vertical">
+                                            <ImageButton 
+                                                         Source="{Binding img}"
+                                                         Aspect="AspectFit"
                                                          Grid.ColumnSpan="3"
-                                                     />
-                                            <Label Grid.Column="0"
-                                               Grid.Row="2"
-                                               Text="{Binding texto}"
+                                                         />
+                                            <Label 
+                                                   Text="{Binding texto}"
                                                    Grid.ColumnSpan="3"
-                                               />
+                                                   />
+                                        </StackLayout>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
                                             <ImageButton Grid.Column="1"
-                                                     Grid.Row="3"
-                                                     Source="Like.png"
-                                                     Aspect="AspectFit"
-                                                     WidthRequest="100"
-                                                     />
+                                                         Source="Like.png"
+                                                         Command="{Binding SetLike}"
+                                                         Aspect="AspectFit"
+                                                         HeightRequest="75"
+                                                         WidthRequest="75"
+                                                        />
                                             <ImageButton Grid.Column="2"
-                                                     Grid.Row="3"
-                                                     Source="Comments.png"
-                                                     Aspect="AspectFit"
-                                                     />
+                                                         Source="Comments.png"
+                                                         Aspect="AspectFit"
+                                                          HeightRequest="75"
+                                                         WidthRequest="75"
+                                                         />
                                         </Grid>
                                     </StackLayout>
                                 </Frame>
