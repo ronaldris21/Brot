@@ -9,27 +9,86 @@
              Title="Feed"
              IconImageSource="BWhite250.ico">
     <ContentPage.Content>
-        <StackLayout Padding="15">
+        <StackLayout Padding="0, 10, 0, 0">
             <Label Text="What's new today?"
                    TextColor="#ff5001"
-                   FontSize="Large"/>
+                   FontAttributes="Bold"
+                   FontSize="Large"
+                   Margin="10"/>
 
             <ListView VerticalOptions="FillAndExpand"
                       BackgroundColor="LightGreen"
                       
                       HasUnevenRows="True"
-                      ItemsSource=""
-                      SeparatorVisibility="None"
-                      x:Name="FeedListView"
-                      
-                      IsPullToRefreshEnabled="True"
-                      IsRefreshing=""
-                      RefreshCommand="">
+                      ItemsSource="{Binding lPosts}"
+                      SeparatorVisibility="Default"
+                      x:Name="FeedListView">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Frame BackgroundColor="LightBlue">
-                                
+                                <StackLayout>
+                                    <StackLayout Padding="5">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image Source="Brot500.png"
+                                                   HeightRequest="50"
+                                                   Grid.Column="0"/>
+
+                                            <Label Text="USERNAME"
+                                                   TextColor="#ff5001"
+                                                   FontSize="Large"
+                                                   HorizontalOptions="CenterAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Grid.Column="1"/>
+
+                                            <Label Text="{Binding fecha_actualizacion}"
+                                                   TextColor="#ff5001"
+                                                   FontSize="Large"
+                                                   HorizontalOptions="CenterAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Grid.Column="2"/>
+                                        </Grid>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Vertical"
+                                                 Padding="5">
+                                        <Label Text="{Binding descripcion}"
+                                               TextColor="Black"
+                                               FontSize="Medium"
+                                               FontAttributes="Bold"/>
+
+                                        <Image Source="Brot2.png"
+                                               HeightRequest="100"
+                                               Margin="5"
+                                               IsVisible="{Binding isimg}"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Padding="5">
+                                        <ImageButton Source="PinWhite250.ico"
+                                                     HeightRequest="25"
+                                                     WidthRequest="25"
+                                                     BackgroundColor="Transparent"/>
+                                        <Label Text="# Brots"
+                                               VerticalOptions="Center"
+                                               TextColor="Black"
+                                               FontAttributes="Bold"/>
+                                        <ImageButton Source="PinWhite250.ico"
+                                                     HeightRequest="25"
+                                                     WidthRequest="25"
+                                                     BackgroundColor="Transparent"/>
+                                        <Label Text="# Comments"
+                                               VerticalOptions="Center"
+                                               TextColor="Black"
+                                               FontAttributes="Bold"/>
+                                    </StackLayout>
+                                </StackLayout>
                             </Frame>
                         </ViewCell>
                     </DataTemplate>
