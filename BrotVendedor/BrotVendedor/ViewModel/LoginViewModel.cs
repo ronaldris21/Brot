@@ -1,7 +1,9 @@
-﻿using BrotVendedor.View;
+﻿using BrotApi0.Models;
+using BrotVendedor.View;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -68,9 +70,19 @@ namespace BrotVendedor.ViewModel
         public void GoToMain()
         {
             //check the user and pass
+            users u = new users();
+            u.username = usuario;
+            u.pass = clave;
+            String result = Newtonsoft.Json.JsonConvert.SerializeObject(u);
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            string filePath = Path.Combine(path, "user.txt");
+            using (var file = File.Open(filePath, FileMode.Create, FileAccess.Write))
+            using (var strm = new StreamWriter(file))
+            {
+                strm.Write(result);
+            }
             App.Current.MainPage = new NavigationPage(new Inicio());
         }
         #endregion
-
     }
 }
