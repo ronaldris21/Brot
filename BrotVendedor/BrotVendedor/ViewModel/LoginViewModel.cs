@@ -1,4 +1,5 @@
 ﻿using BrotApi0.Models;
+using BrotVendedor.Class;
 using BrotVendedor.View;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -15,6 +16,7 @@ namespace BrotVendedor.ViewModel
         #region Atributos
         private String _usuario;
         private String _clave;
+        private bool _remember;
         #endregion
         #region Propiedades
         public String usuario
@@ -39,11 +41,22 @@ namespace BrotVendedor.ViewModel
                 _clave = value;OnPropertyChanged("clave");
             }
         }
+        public bool remember
+        {
+            get
+            {
+                return _remember;
+            }
+            set
+            {
+                _remember = value;OnPropertyChanged("remember");
+            }
+        }
         #endregion
         #region Constructor
         public LoginViewModel()
         {
-
+            remember = false;
         }
         #endregion
         #region Comandos
@@ -70,9 +83,21 @@ namespace BrotVendedor.ViewModel
         public void GoToMain()
         {
             //check the user and pass
-            users u = new users();
+            if (String.IsNullOrEmpty(usuario) || String.IsNullOrEmpty(clave))
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Uno o mas campos estan vacios", "Aceptar");
+            }
+            LocalUser u = new LocalUser();
             u.username = usuario;
             u.pass = clave;
+            if (remember)
+            {
+                u.RememberMe = true;
+            }
+            else
+            {
+                u.RememberMe = false;
+            }
             String result = Newtonsoft.Json.JsonConvert.SerializeObject(u);
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             string filePath = Path.Combine(path, "user.txt");
