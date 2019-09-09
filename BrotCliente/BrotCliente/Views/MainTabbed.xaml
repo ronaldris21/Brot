@@ -15,16 +15,15 @@
             Android:TabbedPage.ToolbarPlacement="Bottom"
             Android:TabbedPage.BarItemColor="White"
             Android:TabbedPage.BarSelectedItemColor="LightGray">
-    
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal"
                      HorizontalOptions="Start">
             <Image Source="Brot2.png"
-                   VerticalOptions="Center"
+                   VerticalOptions="CenterAndExpand"
                    HorizontalOptions="Start"
-                   HeightRequest="40"
+                   HeightRequest="35"
                    WidthRequest="115"/>
-            
+
         </StackLayout>
     </NavigationPage.TitleView>
 

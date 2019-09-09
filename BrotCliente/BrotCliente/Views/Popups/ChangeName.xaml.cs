@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace BrotCliente.Views
+namespace BrotCliente.Views.Popups
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MenuItems : ContentPage
+    public partial class ChangeName
     {
-        private MenuItemsViewModel ViewModel;
-        public MenuItems()
+        private ChangeNameViewModel ViewModel;
+        public ChangeName()
         {
             InitializeComponent();
 
-            BindingContext = ViewModel = new MenuItemsViewModel();
+            BindingContext = ViewModel = new ChangeNameViewModel();
         }
     }
 }
