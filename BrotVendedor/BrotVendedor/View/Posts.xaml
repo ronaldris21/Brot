@@ -29,10 +29,10 @@
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Grid.Row="0"
+                            MaxLength="300"
                             FontFamily="HirukoBlackAlternate.ttf"
                             Text="{Binding texto}"
                             />
-
                         <Button 
                             
                             Text="Publicar"
@@ -123,8 +123,8 @@
                                 </BoxView>
                             </StackLayout>
 
-                            
-                            
+
+
                             <ViewCell.ContextActions>
                                 <MenuItem Text="Remove" CommandParameter="{Binding .}"
                                   Command="{Binding Path=BindingContext.RemoveSingleClicked, Source={x:Reference CAGroupMembersViewPage} }" 
@@ -138,7 +138,7 @@
                                     />-->
                             </ViewCell.ContextActions>
                         </ViewCell>
-                       
+
 
                     </DataTemplate>
                 </ListView.ItemTemplate>

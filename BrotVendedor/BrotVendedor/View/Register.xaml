@@ -38,7 +38,7 @@
                         HorizontalOptions="Center"
                         Margin="5"
                         TextColor="#FFFFFF"
-                        MaxLength="15"
+                        MaxLength="20"
                     />
                     <border:RoundedBorderEntry 
                         Grid.Column="0"
@@ -55,7 +55,7 @@
                         HorizontalOptions="Center"
                         Margin="5"
                         TextColor="#FFFFFF"
-                        MaxLength="15"
+                        MaxLength="50"
                     />
                     <border:RoundedBorderEntry 
                         Grid.Column="0"
@@ -70,7 +70,7 @@
                         HorizontalOptions="Center"
                         Margin="5"
                         TextColor="#FFFFFF"
-                        MaxLength="15"
+                        MaxLength="50"
                         Text="{Binding apellido}"
                         
                     />
@@ -88,7 +88,7 @@
                         HorizontalOptions="Center"
                         Margin="5"
                         TextColor="#FFFFFF"
-                        MaxLength="15"
+                        MaxLength="20"
                         Text="{Binding clave}"
                         
                     />
@@ -106,7 +106,7 @@
                         HorizontalOptions="Center"
                         Margin="5"
                         TextColor="#FFFFFF"
-                        MaxLength="15"
+                        MaxLength="50"
                         Text="{Binding correo}"
                         
                     />
@@ -124,7 +124,7 @@
                         HorizontalOptions="Center"
                         Margin="5"
                         TextColor="#FFFFFF"
-                        MaxLength="15"
+                        MaxLength="12"
                         Text="{Binding telefono}"
                         
                     />
@@ -142,7 +142,7 @@
                         HorizontalOptions="Center"
                         Margin="5"
                         TextColor="#FFFFFF"
-                        MaxLength="15"
+                        MaxLength="9"
                         Text="{Binding dui}"
                         
                     />

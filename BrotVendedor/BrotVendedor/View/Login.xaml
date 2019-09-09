@@ -45,7 +45,7 @@
                         Margin="5"
                         TextColor="#e64400"
                         x:Name="txtUser"
-                        MaxLength="15"
+                        MaxLength="20"
                         Text="{Binding usuario}"
                     />
                     <border:RoundedBorderEntry 
@@ -63,7 +63,7 @@
                         Margin="5"
                         TextColor="#e64400"
                         x:Name="txtPassword"
-                        MaxLength="15"
+                        MaxLength="20"
                         Text="{Binding clave}"
                     />
                     <Grid Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="2">

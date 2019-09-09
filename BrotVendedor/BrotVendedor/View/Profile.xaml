@@ -37,6 +37,7 @@
                                 TextColor="#FF5001"
                                 x:Name="txt1"
                                 Unfocused="Txt1_Unfocused"
+                                MaxLength="20"
                             />
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
@@ -54,6 +55,8 @@
                                 TextColor="#FF5001"
                                 x:Name="txt2"
                                 Unfocused="Txt2_Unfocused"
+                                MaxLength="50"
+                                
                             />
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
@@ -71,6 +74,8 @@
                                 Text="{Binding apellido}"
                                 x:Name="txt3"
                                 Unfocused="Txt3_Unfocused" 
+                                MaxLength="50"
+                                
                             />
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
@@ -88,6 +93,8 @@
                                 Text="{Binding clave}"
                                 x:Name="txt4"
                                 Unfocused="Txt4_Unfocused"
+                                MaxLength="20"
+                                
                             />
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
@@ -105,6 +112,8 @@
                                 Text="{Binding correo}"
                                 x:Name="txt5"
                                 Unfocused="Txt5_Unfocused" 
+                                MaxLength="50"
+                                
                                 />
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
@@ -122,6 +131,8 @@
                                 Text="{Binding telefono}"
                                 x:Name="txt6"
                                 Unfocused="Txt6_Unfocused"
+                                MaxLength="12"
+                                
                                 />
                             <border:RoundedBorderEntry 
                                 Grid.Column="0"
@@ -139,6 +150,8 @@
                                 Text="{Binding dui}"
                                 x:Name="txt7"
                                 Unfocused="Txt7_Unfocused"
+                                MaxLength="9"
+                                
                             />
                             <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn1" Clicked="Btn1_Clicked"/>
                             <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="1" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn2" Clicked="Btn2_Clicked"/>

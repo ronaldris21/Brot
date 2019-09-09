@@ -35,7 +35,6 @@ namespace BrotVendedor
             {
                 MainPage = new NavigationPage(new Login());
             }
-            
         }
 
         protected override void OnStart()
