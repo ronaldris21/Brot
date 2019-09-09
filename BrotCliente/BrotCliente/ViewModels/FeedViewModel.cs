@@ -1,9 +1,11 @@
 ﻿using BrotApi0.Models;
 using DLL.ResponseModels;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 
 namespace BrotCliente.ViewModels
 {
@@ -11,10 +13,23 @@ namespace BrotCliente.ViewModels
     {
         public ObservableCollection<ResponsePublicacionFeed> lPosts { get; }
 
+        public ICommand LikeCommand
+        {
+            get
+            {
+                return new RelayCommand<int>(Like);
+            }
+        }
+
         public FeedViewModel()
         {
             this.lPosts = new ObservableCollection<ResponsePublicacionFeed>();
             cargarImgs();
+        }
+
+        private async void Like(int idLike)
+        {
+            await App.Current.MainPage.DisplayAlert("EXITO", "Has presionado el boton " + idLike, "Ok");
         }
 
         //SOLO PRUBEA
@@ -45,7 +60,7 @@ namespace BrotCliente.ViewModels
 
             ResponsePublicacionFeed p3 = new ResponsePublicacionFeed()
             {
-                id_post = 1,
+                id_post = 3,
                 descripcion = "Este es otro post de prueba con imagen",
                 fecha_actualizacion = DateTime.Now,
                 fecha_creacion = DateTime.Now,
@@ -56,7 +71,7 @@ namespace BrotCliente.ViewModels
 
             ResponsePublicacionFeed p4 = new ResponsePublicacionFeed()
             {
-                id_post = 2,
+                id_post = 4,
                 descripcion = "Este es otro post de prueba sin imagen",
                 fecha_actualizacion = DateTime.Now,
                 fecha_creacion = DateTime.Now,

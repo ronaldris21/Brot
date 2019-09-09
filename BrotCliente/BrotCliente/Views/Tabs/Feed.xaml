@@ -9,24 +9,19 @@
              Title="Feed"
              IconImageSource="BWhite250.ico">
     <ContentPage.Content>
-        <StackLayout Padding="0, 10, 0, 0">
-            <Label Text="What's new today?"
-                   TextColor="#ff5001"
-                   FontAttributes="Bold"
-                   FontSize="Large"
-                   Margin="10"/>
+        <StackLayout>
 
             <ListView VerticalOptions="FillAndExpand"
-                      BackgroundColor="LightGreen"
                       
                       HasUnevenRows="True"
                       ItemsSource="{Binding lPosts}"
+                      SeparatorColor="#ff5001"
                       SeparatorVisibility="Default"
                       x:Name="FeedListView">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Frame BackgroundColor="LightBlue">
+                            <Frame BackgroundColor="White">
                                 <StackLayout>
                                     <StackLayout Padding="5">
                                         <Grid>
@@ -36,11 +31,11 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Image Source="Brot500.png"
+                                            <Image Source="DefaultUser.png"
                                                    HeightRequest="50"
                                                    Grid.Column="0"/>
 
-                                            <Label Text="USERNAME"
+                                            <Label Text="USERNAMES"
                                                    TextColor="#ff5001"
                                                    FontSize="Large"
                                                    HorizontalOptions="CenterAndExpand"
@@ -49,7 +44,7 @@
 
                                             <Label Text="{Binding fecha_actualizacion}"
                                                    TextColor="#ff5001"
-                                                   FontSize="Large"
+                                                   FontSize="Medium"
                                                    HorizontalOptions="CenterAndExpand"
                                                    VerticalOptions="CenterAndExpand"
                                                    Grid.Column="2"/>
@@ -63,23 +58,25 @@
                                                FontSize="Medium"
                                                FontAttributes="Bold"/>
 
-                                        <Image Source="Brot2.png"
-                                               HeightRequest="100"
+                                        <Image Source="{Binding img}"
+                                               HeightRequest="150"
                                                Margin="5"
                                                IsVisible="{Binding isimg}"/>
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal"
                                                  Padding="5">
-                                        <ImageButton Source="PinWhite250.ico"
+                                        <ImageButton Source="PinBlack.ico"
                                                      HeightRequest="25"
                                                      WidthRequest="25"
-                                                     BackgroundColor="Transparent"/>
+                                                     BackgroundColor="Transparent"
+                                                     ClassId="{Binding id_post}"
+                                                     Clicked="ImageButton_Clicked"/>
                                         <Label Text="# Brots"
                                                VerticalOptions="Center"
                                                TextColor="Black"
                                                FontAttributes="Bold"/>
-                                        <ImageButton Source="PinWhite250.ico"
+                                        <ImageButton Source="Comment.ico"
                                                      HeightRequest="25"
                                                      WidthRequest="25"
                                                      BackgroundColor="Transparent"/>

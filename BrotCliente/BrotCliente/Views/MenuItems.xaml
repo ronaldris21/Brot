@@ -8,10 +8,109 @@
              
              Title="Master">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout BackgroundColor="White"
+                         Orientation="Vertical"
+                         VerticalOptions="FillAndExpand">
+                <ContentView BackgroundColor="#f1f1f1"
+                             HorizontalOptions="FillAndExpand"
+                             Padding="15">
+                    <StackLayout VerticalOptions="CenterAndExpand" 
+                                 HorizontalOptions="CenterAndExpand"
+                                 Padding="14, 16">
+                        
+                        <Image Source="DefaultUser.png" 
+                               Margin="25"
+                               HeightRequest="100"/>
+                        
+                        <Label Text="@Username"
+                               TextColor="#ff5001"
+                               HorizontalOptions="CenterAndExpand"
+                               FontSize="30"/>
+                    </StackLayout>
+                </ContentView>
+
+                <StackLayout Orientation="Vertical"
+                             Margin="20">
+                    <Label Text="Name"
+                           TextColor="#ff5001"
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="First Name [Second one]"
+                               TextColor="#ff5001"
+                               FontSize="Medium"
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="Center"/>
+
+                        <ImageButton Source="Edit.ico"
+                                     HeightRequest="20"
+                                     WidthRequest="20"
+                                     BackgroundColor="Transparent"
+                                     HorizontalOptions="End"
+                                     Command="{Binding ChangeNameCommand}"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical"
+                             Margin="20">
+                    <Label Text="Lastname"
+                           TextColor="#ff5001"
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="First Lastname [Second one]"
+                               TextColor="#ff5001"
+                               FontSize="Medium"
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="Center"/>
+
+                        <ImageButton Source="Edit.ico"
+                                     HeightRequest="20"
+                                     WidthRequest="20"
+                                     BackgroundColor="Transparent"
+                                     HorizontalOptions="End"
+                                     Command="{Binding ChangeLastnameCommand}"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical"
+                             Margin="20">
+                    <Label Text="Description"
+                           TextColor="#ff5001"
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Lorem ipsum dolor sit amet"
+                               TextColor="#ff5001"
+                               FontSize="Medium"
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="Center"/>
+
+                        <ImageButton Source="Edit.ico"
+                                     HeightRequest="20"
+                                     WidthRequest="20"
+                                     BackgroundColor="Transparent"
+                                     HorizontalOptions="End"
+                                     Command="{Binding ChangeDescriptionCommand}"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout VerticalOptions="EndAndExpand">
+                    <Button Text="Sign out"
+                            TextColor="#ff5001"
+                            BackgroundColor="Transparent"
+                            Padding="10, 20"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -9,7 +9,6 @@
                   Title="Brot"
                   NavigationPage.HasNavigationBar="False"
                   xmlns:Pages="clr-namespace:BrotCliente.Views">
-
     <MasterDetailPage.Master>
         <Pages:MenuItems/>
     </MasterDetailPage.Master>
