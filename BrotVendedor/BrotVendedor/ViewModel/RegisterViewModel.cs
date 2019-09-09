@@ -123,11 +123,48 @@ namespace BrotVendedor.ViewModel
         #region Metodos
         public void ChooseLocation()
         {
+            if (!CheckAll())
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Uno o mas campos estan vacios", "Aceptar");
+            }
             App.Current.MainPage.Navigation.PushAsync(new ChooseLocation());
+
         }
         public void Dispose()
         {
             App.Current.MainPage.Navigation.PopAsync();
+        }
+        public bool CheckAll()
+        {
+            if (String.IsNullOrEmpty(usuario))
+            {
+                return false;
+            }
+            if (String.IsNullOrEmpty(nombre))
+            {
+                return false;
+            }
+            if (String.IsNullOrEmpty(apellido))
+            {
+                return false;
+            }
+            if (String.IsNullOrEmpty(clave))
+            {
+                return false;
+            }
+            if (String.IsNullOrEmpty(correo))
+            {
+                return false;
+            }
+            if (String.IsNullOrEmpty(telefono))
+            {
+                return false;
+            }
+            if (String.IsNullOrEmpty(dui))
+            {
+                return false;
+            }
+            return true;
         }
         #endregion
     }

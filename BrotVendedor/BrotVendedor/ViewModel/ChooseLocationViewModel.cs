@@ -47,7 +47,14 @@ namespace BrotVendedor.ViewModel
         #region Metodos
         public void locateMe()
         {
-            //terminar registro
+            if (Pins.Count<=0)
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Debe seleccionar una ubicacion antes de completar con el registro", "Aceptar");
+            }
+            else
+            {
+                App.Current.MainPage.DisplayAlert("Exito", "Su ubicacion ha sido guardada exitosamente", "Aceptar");
+            }
         }
         #endregion
     }
