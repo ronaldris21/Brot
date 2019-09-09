@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace BrotCliente.ViewModels
 {
-    class ChangeLastnameViewModel
+    public class ChangeLastnameViewModel
     {
         public ICommand CancelCommand
         {

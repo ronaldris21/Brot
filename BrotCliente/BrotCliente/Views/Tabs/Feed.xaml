@@ -17,7 +17,12 @@
                       ItemsSource="{Binding lPosts}"
                       SeparatorColor="#ff5001"
                       SeparatorVisibility="Default"
-                      x:Name="FeedListView">
+                      x:Name="FeedListView"
+                      ItemSelected="FeedListView_ItemSelected"
+                  
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                      RefreshCommand="{Binding RefreshCommand}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -34,8 +39,8 @@
                                             <Image Source="DefaultUser.png"
                                                    HeightRequest="50"
                                                    Grid.Column="0"/>
-
-                                            <Label Text="USERNAMES"
+                                            
+                                            <Label Text="USERNAME"
                                                    TextColor="#ff5001"
                                                    FontSize="Large"
                                                    HorizontalOptions="CenterAndExpand"

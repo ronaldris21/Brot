@@ -1,15 +1,24 @@
-﻿using BrotCliente.Views.Popups;
+﻿using BrotCliente.Views;
+using BrotCliente.Views.Popups;
 using GalaSoft.MvvmLight.Command;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BrotCliente.ViewModels
 {
-    class MenuItemsViewModel
+    public class MenuItemsViewModel
     {
+        public ICommand SignoutCommand
+        {
+            get
+            {
+                return new RelayCommand(Signout);
+            }
+        }
         public ICommand ChangeNameCommand
         {
             get
@@ -30,6 +39,11 @@ namespace BrotCliente.ViewModels
             {
                 return new RelayCommand(ChangeDescription);
             }
+        }
+
+        private void Signout()
+        {
+            Application.Current.MainPage = new NavigationPage(new Login());
         }
 
         private async void ChangeDescription()

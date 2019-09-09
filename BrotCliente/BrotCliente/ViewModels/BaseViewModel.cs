@@ -11,6 +11,7 @@ namespace BrotCliente.ViewModels
         #region Attributes
 
         private bool _IsRefreshing = false;
+        private string _Title = "Empty";
 
         #endregion
 
@@ -22,6 +23,16 @@ namespace BrotCliente.ViewModels
             set
             {
                 _IsRefreshing = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Title
+        {
+            get { return this._Title; }
+            set
+            {
+                _Title = value;
                 OnPropertyChanged();
             }
         }

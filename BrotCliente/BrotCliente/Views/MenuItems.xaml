@@ -108,7 +108,8 @@
                             BackgroundColor="Transparent"
                             Padding="10, 20"
                             VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="CenterAndExpand"/>
+                            HorizontalOptions="CenterAndExpand"
+                            Command="{Binding SignoutCommand}"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>
