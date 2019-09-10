@@ -6,8 +6,7 @@
              mc:Ignorable="d"
              x:Class="BrotCliente.Views.Post"
              
-             Title="{Binding Title}"
-             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls">
+             Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout HorizontalOptions="FillAndExpand"
                      BackgroundColor="#f3f3f3">
