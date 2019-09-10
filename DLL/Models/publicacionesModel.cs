@@ -11,12 +11,20 @@ namespace BrotApi0.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class seguidores
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class publicacionesModel
     {
-        public int id_seguidores { get; set; }
-        public Nullable<int> seguidor_id { get; set; }
-        public Nullable<int> seguido_id { get; set; }
-        public Nullable<bool> accepted { get; set; }
+        [Key]
+        public int id_post { get; set; }
+        public int id_user { get; set; }
+        [StringLength(100)]
+        public string img { get; set; }
+        public bool? isImg { get; set; }
+        [StringLength(300)]
+        public string descripcion { get; set; }
+        public DateTime? fecha_creacion { get; set; }
+        public DateTime? fecha_actualizacion { get; set; }
+
     }
 }

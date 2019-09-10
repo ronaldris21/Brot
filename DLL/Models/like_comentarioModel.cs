@@ -11,11 +11,15 @@ namespace BrotApi0.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class like_comentario
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class like_comentarioModel
     {
+        [Key]
         public int id_like_comentario { get; set; }
-        public Nullable<int> id_user { get; set; }
-        public Nullable<int> comentario_id { get; set; }
+        public int id_user { get; set; }
+        public int id_comentario { get; set; }
+        public DateTime? fecha { get; set; }
+
     }
 }
