@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BrotCliente.Views.Post"
+             
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand"
+                     BackgroundColor="#f3f3f3">
+
+            <StackLayout Padding="15"
+                         BackgroundColor="White">
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ImageButton Source="DefaultUser.png"
+                                 BackgroundColor="Transparent"
+                                 WidthRequest="50"
+                                 HeightRequest="50"
+                                 Grid.Column="0"/>
+
+                        <Label Text="USERNAME"
+                           TextColor="#ff5001"
+                           FontSize="Large"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           Grid.Column="1"/>
+
+                        <Label Text="{Binding Post.fecha_actualizacion}"
+                           TextColor="#ff5001"
+                           FontSize="Medium"
+                           HorizontalOptions="CenterAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           Grid.Column="2"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label Text="{Binding Post.descripcion}"
+                       TextColor="Black"
+                       FontSize="Medium"
+                       FontAttributes="Bold"/>
+
+                    <Image Source="{Binding Post.img}"
+                       HeightRequest="150"
+                       Margin="15"
+                       IsVisible="{Binding Post.isimg}"/>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout>
+                <Button BackgroundColor="#ff5001"
+                        Margin="10"
+                        CornerRadius="10"
+                        Text="Comment"
+                        TextColor="White"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -30,6 +30,7 @@ namespace BrotCliente.ViewModels
         {
             Pin p1 = new Pin()
             {
+                Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
                 Label = "Brot 1",
                 //Position(lat, long)
                 Position = new Position(13.9803544047914, -89.5502448454499)
@@ -37,6 +38,7 @@ namespace BrotCliente.ViewModels
 
             Pin p2 = new Pin()
             {
+                Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
                 Label = "Brot 2",
                 //Position(lat, long)
                 Position = new Position(13.9966087066901, -89.5510578900576)

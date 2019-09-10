@@ -1,4 +1,5 @@
 ﻿using BrotCliente.ViewModels;
+using DLL.ResponseModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ using Xamarin.Forms.Xaml;
 namespace BrotCliente.Views.Tabs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    [DesignTimeVisible(false)]
+    [DesignTimeVisible(true)]
     public partial class Feed : ContentPage
     {
         FeedViewModel ViewModel;
@@ -31,6 +32,18 @@ namespace BrotCliente.Views.Tabs
             {
                 this.ViewModel.LikeCommand.Execute(idLikeButton);
             }
+        }
+
+        private async void FeedListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var post = e.SelectedItem as ResponsePublicacionFeed;
+
+            if (post == null)
+                return;
+
+            await Navigation.PushAsync(new Post(new PostViewModel(post)));
+
+            this.FeedListView.SelectedItem = null;
         }
     }
 }

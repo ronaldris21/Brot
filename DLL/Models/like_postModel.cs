@@ -12,12 +12,12 @@ namespace BrotApi0.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class comentarios
+    public partial class like_postModel
     {
         public int id { get; set; }
-        public int user_id { get; set; }
-        public int post_id { get; set; }
-        public string contenido { get; set; }
-        public System.DateTime fecha_creacion { get; set; }
+        public int id_user { get; set; }
+        public int id_post { get; set; }
+        public DateTime? fecha { get; set; }
+
     }
 }

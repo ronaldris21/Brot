@@ -174,5 +174,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Edit.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\pin100.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

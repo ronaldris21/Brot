@@ -4,14 +4,20 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
 
 namespace BrotCliente.ViewModels
 {
-    class FeedViewModel : BaseViewModel
+    public class FeedViewModel : BaseViewModel
     {
         public ObservableCollection<ResponsePublicacionFeed> lPosts { get; }
+
+        public ICommand RefreshCommand
+        {
+            get { return new RelayCommand(Refresh); }
+        }
 
         public ICommand LikeCommand
         {
@@ -25,6 +31,26 @@ namespace BrotCliente.ViewModels
         {
             this.lPosts = new ObservableCollection<ResponsePublicacionFeed>();
             cargarImgs();
+        }
+
+        public async void Refresh()
+        {
+            if (IsRefreshing)
+                return;
+
+            IsRefreshing = true;
+
+            try
+            {
+                await App.Current.MainPage.DisplayAlert("Refresh", "Refreshing", "ok");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Is Busy");
+            } finally
+            {
+                IsRefreshing = false;
+            }
         }
 
         private async void Like(int idLike)
