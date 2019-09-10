@@ -1,6 +1,7 @@
 ﻿namespace BrotVendedor.ViewModel
 {
     using BrotApi0.Models;
+    using BrotVendedor.Class;
     using GalaSoft.MvvmLight.Command;
     using Plugin.Media;
     using Plugin.Media.Abstractions;
@@ -21,7 +22,7 @@
         private String _clave;
         private ImageSource _picture;
         private MediaFile _mediaFile;
-        private users u;
+        private LocalUser u;
         #endregion
         #region Propiedades
         public String usuario
@@ -122,7 +123,7 @@
             using (var file = File.Open(filePath, FileMode.Open, FileAccess.Read))
             using (var strm = new StreamReader(file))
             {
-                u = Newtonsoft.Json.JsonConvert.DeserializeObject<users>(strm.ReadToEnd());
+                u = Newtonsoft.Json.JsonConvert.DeserializeObject<LocalUser>(strm.ReadToEnd());
             }
             usuario = u.username;
             clave = u.pass;

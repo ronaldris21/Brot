@@ -39,6 +39,7 @@ namespace BrotVendedor.ViewModel
                 Pins.Clear();
                 Pins.Add(new Pin
                 {
+                    Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
                     Label = "Has clic en el icono de posicion para confirmar tu ubicación",
                     Position = args.Point
                 });
