@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             IconImageSource="BB.png"
+             BackgroundColor="#6d8bad"
+             x:Class="BrotVendedor.View.Posts"
+             
+             x:Name="CAGroupMembersViewPage"
+             >
+    <ContentPage.Content>
+        <StackLayout Padding="5">
+            <ListView VerticalOptions="FillAndExpand"
+                      HasUnevenRows="True"
+                      ItemsSource="{Binding posts}"
+                      Header="{Binding}"
+                      SeparatorColor="#ff5001"
+                      SeparatorVisibility="Default"
+                      x:Name="FeedListView">
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <StackLayout>
+                                <Frame BackgroundColor="White" Padding="15">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition Height="45"/>
+                                        </Grid.RowDefinitions>
+                                        <Editor
+                                                Placeholder="Publica algo ..."
+                                                HeightRequest="150"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="2"
+                                                Grid.Row="0"
+                                                MaxLength="300"
+                                                FontFamily="HirukoBlackAlternate.ttf"
+                                                Text="{Binding texto}"
+                                                />
+                                        <ImageButton Source="picture32x32.png"
+                                                     HeightRequest="32" 
+                                                     WidthRequest="32" 
+                                                     BackgroundColor="Transparent" 
+                                                     HorizontalOptions='End' 
+                                                     Grid.Row="1" 
+                                                     Grid.Column="0"
+                                                     />
+                                        <Button 
+                                            Text="Publicar"
+                                            TextColor="White"
+                                            CornerRadius="10"
+                                            BackgroundColor="#FF5001"
+                                            WidthRequest="75"
+                                            Grid.Column="1"
+                                            Grid.Row="1" 
+                                            FontFamily="HirukoBlackAlternate.ttf"
+                                            Command="{Binding PostSomething}"
+                                            />
+                                    </Grid>
+                                </Frame>
+                                <BoxView HeightRequest="1"/>
+                            </StackLayout>
+                        </ContentView>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Frame BackgroundColor="White">
+                                    <StackLayout>
+                                        <StackLayout Padding="5">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="2*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Image Source="{Binding imgPath}"
+                                                   HeightRequest="50"
+                                                   Grid.Column="0"/>
+
+                                                <Label Text="{Binding usuario}"
+                                                   TextColor="#ff5001"
+                                                   FontSize="Default"
+                                                   HorizontalOptions="CenterAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Grid.Column="1"/>
+
+                                                <Label Text="{Binding hora}"
+                                                   TextColor="#ff5001"
+                                                   FontSize="Default"
+                                                   HorizontalOptions="CenterAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Grid.Column="2"/>
+                                            </Grid>
+                                        </StackLayout>
+
+                                        <StackLayout Orientation="Vertical"
+                                                 Padding="5">
+                                            <Label Text="{Binding texto}"
+                                               TextColor="Black"
+                                               FontSize="Medium"
+                                               FontAttributes="Bold"/>
+
+                                            <Image Source="{Binding img}"
+                                               HeightRequest="150"
+                                               Margin="5"
+                                               IsVisible="{Binding isimg}"/>
+                                        </StackLayout>
+
+                                        <StackLayout Orientation="Horizontal"
+                                                 Padding="5">
+                                            <ImageButton Source="{Binding like}"
+                                                     HeightRequest="25"
+                                                     WidthRequest="25"
+                                                     BackgroundColor="Transparent"
+                                                     ClassId="{Binding id_Post}"
+                                                     Clicked="LikeButton_Clicked"/>
+                                            <Label Text="# Brots"
+                                               VerticalOptions="Center"
+                                               TextColor="Black"
+                                               FontAttributes="Bold"/>
+                                            <ImageButton Source="Comment.ico"
+                                                     HeightRequest="25"
+                                                     WidthRequest="25"
+                                                     BackgroundColor="Transparent"/>
+                                            <Label Text="# Comments"
+                                               VerticalOptions="Center"
+                                               TextColor="Black"
+                                               FontAttributes="Bold"/>
+                                        </StackLayout>
+
+                                    </StackLayout>
+                                </Frame>
+                                <BoxView HeightRequest="1">
+                                </BoxView>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
