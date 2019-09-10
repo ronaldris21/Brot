@@ -11,16 +11,17 @@ namespace BrotApi0.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class datos_vendedor
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class comentariosModel
     {
-        public int id { get; set; }
-        public Nullable<float> xlat { get; set; }
-        public Nullable<float> ylon { get; set; }
-        public Nullable<short> isActive { get; set; }
-        public string dui { get; set; }
-        public string num_telefono { get; set; }
-        public string user_id { get; set; }
-        public Nullable<int> descripcion { get; set; }
+        [Key]
+        public int id_comentario { get; set; }
+        public int id_user { get; set; }
+        public int id_post { get; set; }
+        [Required]
+        [StringLength(200)]
+        public string contenido { get; set; }
+        public DateTime? fecha_creacion { get; set; }
     }
 }
