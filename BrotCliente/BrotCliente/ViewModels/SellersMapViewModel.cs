@@ -30,10 +30,11 @@ namespace BrotCliente.ViewModels
         {
             Pin p1 = new Pin()
             {
+                //Icon = BitmapDescriptorFactory.DefaultMarker(Color.Green),
                 Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
                 Label = "Brot 1",
                 //Position(lat, long)
-                Position = new Position(13.9803544047914, -89.5502448454499)
+                Position = new Position(13.9803544047914, -89.7502448454499)
             };
 
             Pin p2 = new Pin()
@@ -41,11 +42,30 @@ namespace BrotCliente.ViewModels
                 Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
                 Label = "Brot 2",
                 //Position(lat, long)
-                Position = new Position(13.9966087066901, -89.5510578900576)
+                Position = new Position(13.9966387066901, -89.5510578900576)
+            };
+
+            Pin p3 = new Pin()
+            {
+                //Icon = BitmapDescriptorFactory.DefaultMarker(Color.Green),
+                Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
+                Label = "Brot 3",
+                //Position(lat, long)
+                Position = new Position(13.9804544047914, -89.5602448454499)
+            };
+
+            Pin p4 = new Pin()
+            {
+                Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
+                Label = "Brot 4",
+                //Position(lat, long)
+                Position = new Position(13.9967097066901, -89.9610578900576)
             };
 
             this.Pins.Add(p1);
             this.Pins.Add(p2);
+            this.Pins.Add(p3);
+            this.Pins.Add(p4);
         }
 
         #region InCaseYouWantToAddPins

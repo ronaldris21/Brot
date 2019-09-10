@@ -12,7 +12,19 @@ namespace BrotCliente.ViewModels
 {
     public class FeedViewModel : BaseViewModel
     {
-        public ObservableCollection<ResponsePublicacionFeed> lPosts { get; }
+        private ObservableCollection<ResponsePublicacionFeed> _lPosts;
+        public ObservableCollection<ResponsePublicacionFeed> lPosts
+        {
+            get { return this._lPosts; }
+            set
+            {
+                if (this._lPosts == value)
+                    return;
+
+                this._lPosts = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand RefreshCommand
         {
@@ -47,7 +59,8 @@ namespace BrotCliente.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine("Is Busy");
-            } finally
+            }
+            finally
             {
                 IsRefreshing = false;
             }

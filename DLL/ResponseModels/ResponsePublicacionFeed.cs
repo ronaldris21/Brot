@@ -15,7 +15,6 @@ namespace DLL.ResponseModels
         public Nullable<System.DateTime> fecha_creacion { get; set; }
         public Nullable<System.DateTime> fecha_actualizacion { get; set; }
 
-
         public userModel UsuarioCreator { get; set; }
         public int cantComentarios { get; set; }
         public int cantLikes { get; set; }
