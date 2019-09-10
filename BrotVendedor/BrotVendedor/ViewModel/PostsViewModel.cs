@@ -1,8 +1,10 @@
 ﻿namespace BrotVendedor.ViewModel
 {
+    using BrotVendedor.Class;
     using GalaSoft.MvvmLight.Command;
     using System;
     using System.Collections.ObjectModel;
+    using System.IO;
     using System.Linq;
     using System.Windows.Input;
     public struct Post
@@ -14,6 +16,7 @@
         public String hora { get; set; }
         public String img { get; set; }
         public String like { get; set; }
+        public bool isimg { get; set; }
     }
     public class PostsViewModel : BaseViewModel
     {
@@ -60,7 +63,8 @@
                 hora = "15:05",
                 img = "Bro.png",
                 like = "NoLike.png",
-                id_Post = posts.Count
+                id_Post = posts.Count,
+                isimg = true
             };
             posts.Insert(0, p);
             Post p2 = new Post
@@ -71,9 +75,22 @@
                 hora = "15:05",
                 img = "Bro.png",
                 like = "NoLike.png",
-                id_Post = posts.Count
+                id_Post = posts.Count,
+                isimg = false
             };
             posts.Insert(0,p2);
+        }
+        #endregion
+        #region Destructor
+        ~PostsViewModel()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            string filePath = Path.Combine(path, "user.txt");
+            using (var file = File.Open(filePath, FileMode.Create, FileAccess.Write))
+            using (var strm = new StreamWriter(file))
+            {
+                strm.Write(Newtonsoft.Json.JsonConvert.SerializeObject(default(LocalUser)));
+            }
         }
         #endregion
         #region Command
@@ -105,6 +122,7 @@
             niu.texto = texto;
             niu.id_Post = posts.Count;
             niu.like = "NoLike.png";
+            niu.isimg = false;
             posts.Insert(0, niu);
             texto = "";
         }
