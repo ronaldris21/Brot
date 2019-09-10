@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BrotVendedor.Class
 {
-    class LocalUser:users
+    class LocalUser: userModel
     {
         public bool RememberMe { get; set; }
     }
