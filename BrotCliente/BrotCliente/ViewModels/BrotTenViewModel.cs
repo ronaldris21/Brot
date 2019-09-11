@@ -1,4 +1,5 @@
-﻿using DLL.ResponseModels;
+﻿using BrotApi0.Models;
+using DLL.ResponseModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,6 @@ namespace BrotCliente.ViewModels
 {
     class BrotTenViewModel : BaseViewModel
     {
-        private 
+        private ObservableCollection<userModel> lUser;
     }
 }
