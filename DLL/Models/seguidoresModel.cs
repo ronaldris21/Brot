@@ -11,11 +11,9 @@ namespace BrotApi0.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     public partial class seguidoresModel
     {
-        [Key]
         public int id_seguidores { get; set; }
         public int seguidor_id { get; set; }
         public int id_seguido { get; set; }

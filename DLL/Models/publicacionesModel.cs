@@ -11,17 +11,13 @@ namespace BrotApi0.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     public partial class publicacionesModel
     {
-        [Key]
         public int id_post { get; set; }
         public int id_user { get; set; }
-        [StringLength(100)]
         public string img { get; set; }
         public bool? isImg { get; set; }
-        [StringLength(300)]
         public string descripcion { get; set; }
         public DateTime? fecha_creacion { get; set; }
         public DateTime? fecha_actualizacion { get; set; }

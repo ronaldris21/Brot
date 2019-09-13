@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace DLL.Models
 {
+    using System;
     public class Notification
     {
         public string imgPath { get; set; }
