@@ -6,7 +6,10 @@
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Windows.Input;
+    using Xamarin.Essentials;
+
     public struct Post
     {
         public int id_Post { get; set; }
@@ -108,6 +111,13 @@
                 return new RelayCommand<int>(Like);
             }
         }
+        //public ICommand ShareIt
+        //{
+        //    get
+        //    {
+        //        return new RelayCommand(ShareText);
+        //    }
+        //}
         #endregion
         #region Metodos
         public void AddPost()
@@ -142,6 +152,16 @@
                 selec.like = "NoLike.png";
             }
             posts[posts.Count-1-selec.id_Post] = selec;
+        }
+        public async Task ShareText()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            string filePath = Path.Combine(path, "user.txt");
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title="Puto el que lo reciba",
+                File= new ShareFile(filePath)
+            });
         }
         #endregion
     }

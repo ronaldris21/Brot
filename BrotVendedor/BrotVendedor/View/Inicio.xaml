@@ -4,12 +4,12 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pg="clr-namespace:BrotVendedor.View"
+            xmlns:master="clr-namespace:BrotVendedor.View.Tabs.MasterPage.Detail"
              mc:Ignorable="d"
              NavigationPage.HasNavigationBar="False"
              x:Class="BrotVendedor.View.Inicio">
 
     <pg:Posts></pg:Posts>
     <pg:Notifications></pg:Notifications>
-    <pg:Profile></pg:Profile>
-
+    <master:ProfileDetail/>
 </TabbedPage>

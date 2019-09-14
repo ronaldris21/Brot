@@ -7,7 +7,6 @@
              IconImageSource="BB.png"
              BackgroundColor="#6d8bad"
              x:Class="BrotVendedor.View.Posts"
-             
              x:Name="CAGroupMembersViewPage"
              >
     <ContentPage.Content>
@@ -83,17 +82,17 @@
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <Image Source="{Binding imgPath}"
+                                                <ImageButton Source="{Binding imgPath}"
                                                    HeightRequest="50"
+                                                             BackgroundColor="Transparent"
+                                                             Clicked="ImageButton_Clicked"
                                                    Grid.Column="0"/>
-
                                                 <Label Text="{Binding usuario}"
                                                    TextColor="#ff5001"
                                                    FontSize="Default"
                                                    HorizontalOptions="CenterAndExpand"
                                                    VerticalOptions="CenterAndExpand"
                                                    Grid.Column="1"/>
-
                                                 <Label Text="{Binding hora}"
                                                    TextColor="#ff5001"
                                                    FontSize="Default"
@@ -102,20 +101,17 @@
                                                    Grid.Column="2"/>
                                             </Grid>
                                         </StackLayout>
-
                                         <StackLayout Orientation="Vertical"
                                                  Padding="5">
                                             <Label Text="{Binding texto}"
                                                TextColor="Black"
                                                FontSize="Medium"
                                                FontAttributes="Bold"/>
-
                                             <Image Source="{Binding img}"
                                                HeightRequest="150"
                                                Margin="5"
                                                IsVisible="{Binding isimg}"/>
                                         </StackLayout>
-
                                         <StackLayout Orientation="Horizontal"
                                                  Padding="5">
                                             <ImageButton Source="{Binding like}"
@@ -137,7 +133,6 @@
                                                TextColor="Black"
                                                FontAttributes="Bold"/>
                                         </StackLayout>
-
                                     </StackLayout>
                                 </Frame>
                                 <BoxView HeightRequest="1">

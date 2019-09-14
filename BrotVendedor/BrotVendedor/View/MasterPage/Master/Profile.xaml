@@ -6,6 +6,7 @@
              xmlns:border="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
              mc:Ignorable="d"
              IconImageSource="userTab64x64.png"
+             Title="Edit your profile"
              x:Class="BrotVendedor.View.Profile"
              BackgroundColor="#6d8bad">
     <ContentPage.Content>
