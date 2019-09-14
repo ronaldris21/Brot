@@ -7,6 +7,7 @@ namespace DLL.ResponseModels
 {
     public class ResponseComentarios
     {
+        public bool isLiked { get; set; }
         public comentariosModel comentario { get; set; }
         public userModel usuario { get; set; }
     }
