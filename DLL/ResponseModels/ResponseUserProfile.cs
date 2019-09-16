@@ -9,7 +9,7 @@ namespace DLL.ResponseModels
     {
         public userModel user { get; set; }
         public int cantSeguidores { get; set; }
-        public ResponsePublicacionFeed publicacionesUser {get;set;}
+        public List<ResponsePublicacionFeed> publicacionesUser {get;set;}
 
     }
 }

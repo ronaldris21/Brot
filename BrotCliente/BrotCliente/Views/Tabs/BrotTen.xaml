@@ -8,13 +8,94 @@
              
              Title="Brot Ten"
              IconImageSource="BrotTenWhite250.ico">
-    
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Most viewed"/>
-        <ToolbarItem Text="Most liked"/>
-    </ContentPage.ToolbarItems>
-    
     <ContentPage.Content>
-        <Label Text="Aqui ira el top ten de brot"/>
+        <StackLayout>
+
+            <ListView VerticalOptions="FillAndExpand"
+                      
+                      HasUnevenRows="True"
+                      ItemsSource="{Binding lPosts}"
+                      SeparatorColor="#ff5001"
+                      SeparatorVisibility="Default"
+                      x:Name="FeedListView"
+                      ItemSelected="FeedListView_ItemSelected"
+                  
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                      RefreshCommand="{Binding RefreshCommand}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame BackgroundColor="White">
+                                <StackLayout>
+                                    <StackLayout Padding="5">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image Source="DefaultUser.png"
+                                                   HeightRequest="50"
+                                                   Grid.Column="0"/>
+
+                                            <Label Text="USERNAME"
+                                                   TextColor="#ff5001"
+                                                   FontSize="Large"
+                                                   HorizontalOptions="CenterAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Grid.Column="1"/>
+
+                                            <Label Text="{Binding fecha_actualizacion}"
+                                                   TextColor="#ff5001"
+                                                   FontSize="Medium"
+                                                   HorizontalOptions="CenterAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Grid.Column="2"/>
+                                        </Grid>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Vertical"
+                                                 Padding="5">
+                                        <Label Text="{Binding descripcion}"
+                                               TextColor="Black"
+                                               FontSize="Medium"
+                                               FontAttributes="Bold"/>
+
+                                        <Image Source="{Binding img}"
+                                               HeightRequest="150"
+                                               Margin="5"
+                                               IsVisible="{Binding isimg}"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Padding="5">
+                                        <ImageButton Source="PinBlack.ico"
+                                                     HeightRequest="25"
+                                                     WidthRequest="25"
+                                                     BackgroundColor="Transparent"
+                                                     ClassId="{Binding id_post}"
+                                                     Clicked="ImageButton_Clicked"/>
+                                        <Label Text="# Brots"
+                                               VerticalOptions="Center"
+                                               TextColor="Black"
+                                               FontAttributes="Bold"/>
+                                        <ImageButton Source="Comment.ico"
+                                                     HeightRequest="25"
+                                                     WidthRequest="25"
+                                                     BackgroundColor="Transparent"/>
+                                        <Label Text="# Comments"
+                                               VerticalOptions="Center"
+                                               TextColor="Black"
+                                               FontAttributes="Bold"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
