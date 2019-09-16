@@ -11,11 +11,11 @@ namespace BrotApi0.Models
 {
     using System;
     
-    public class like_comentarioModel
+    public class visita_busquedaModel
     {
-        public int id_like_comentario { get; set; }
-        public int id_user { get; set; }
-        public int id_comentario { get; set; }
+        public int id_visita_busqueda { get; set; }
+        public int id_userquebusco { get; set; }
+        public int id_perfilvisitado { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
     
     }

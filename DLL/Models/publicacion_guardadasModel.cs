@@ -10,13 +10,13 @@
 namespace BrotApi0.Models
 {
     using System;
-    
-    public class like_comentarioModel
+
+    public class publicacion_guardadasModel
     {
-        public int id_like_comentario { get; set; }
-        public int id_user { get; set; }
-        public int id_comentario { get; set; }
-        public Nullable<System.DateTime> fecha { get; set; }
-    
+        public int id_publicacion_guardada { get; set; }
+        public Nullable<int> id_user { get; set; }
+        public Nullable<int> id_post { get; set; }
+        public System.DateTime fecha { get; set; }
+
     }
 }

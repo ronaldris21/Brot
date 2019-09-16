@@ -9,6 +9,7 @@ namespace DLL.ResponseModels
     {
         public userModel user { get; set; }
         public int cantSeguidores { get; set; }
+        public bool isFollowed { get; set; }
         public List<ResponsePublicacionFeed> publicacionesUser {get;set;}
 
     }

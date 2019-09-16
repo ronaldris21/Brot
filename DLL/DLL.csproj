@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{68D737DC-1FD3-42BC-9368-FC370FA935D2}</ProjectGuid>
+    <ProjectGuid>{23DECDA4-37FE-4152-BAD0-A164A11F9500}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DLL</RootNamespace>
@@ -43,21 +43,40 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Models\comentariosModel.cs" />
+    <Compile Include="Models\interaccion_postModel.cs" />
     <Compile Include="Models\like_comentarioModel.cs" />
     <Compile Include="Models\like_postModel.cs" />
-    <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\publicacionesModel.cs" />
+    <Compile Include="Models\publicacion_guardadasModel.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\seguidoresModel.cs" />
     <Compile Include="Models\userModel.cs" />
+    <Compile Include="Models\visita_busquedaModel.cs" />
+    <Compile Include="Models\visita_perfil_postModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryController\RComentarios.cs" />
+    <Compile Include="RepositoryController\RInteraccion_Post.cs" />
+    <Compile Include="RepositoryController\RLike_Comentario.cs" />
+    <Compile Include="RepositoryController\RLike_Post.cs" />
+    <Compile Include="RepositoryController\RPublicaciones.cs" />
+    <Compile Include="RepositoryController\RPublicaciones_Guardadas.cs" />
+    <Compile Include="RepositoryController\RSeguidores.cs" />
+    <Compile Include="RepositoryController\RUsers.cs" />
+    <Compile Include="RepositoryController\RVisita_Busqueda.cs" />
+    <Compile Include="RepositoryController\RVisita_Perfil_Post.cs" />
     <Compile Include="ResponseModels\ResponseComentarios.cs" />
     <Compile Include="ResponseModels\ResponsePublicacion.cs" />
     <Compile Include="ResponseModels\ResponsePublicacionFeed.cs" />
     <Compile Include="ResponseModels\ResponseSeguidores.cs" />
     <Compile Include="ResponseModels\ResponseUserProfile.cs" />
+    <Compile Include="Services\RestAPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FaltanteRIS.txt" />
+    <Content Include="ResponseModels\ControllersRegions.txt" />
+    <Content Include="ResponseModels\publicacionesController.txt" />
+    <Content Include="ResponseModels\UsersController.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

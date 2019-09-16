@@ -1,0 +1,141 @@
+﻿
+        #region Gets
+
+        #region Obtener todas los usuarios
+        [HttpGet]
+        public HttpResponseMessage getUsersAll()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "Res");
+        }
+        #endregion
+        
+        #region Obtener un usuario
+        [HttpGet]
+        public HttpResponseMessage getUser(int idUser)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "Res");
+        }
+        #endregion
+
+        #region Vendors obtener vendedores
+        [HttpGet]
+        [Route("vendors")]
+        public HttpResponseMessage vendors()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "Res");
+        }
+        #endregion
+
+        #region Brot Ten
+        [HttpGet]
+        [Route("brotten")]
+        public HttpResponseMessage brotten()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "Res");
+        }
+        #endregion
+
+        #region MostLiked
+        [HttpGet]
+        [Route("mostliked")]
+        public HttpResponseMessage mostliked()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "Res");
+        }
+        #endregion
+
+        #region Vendores mas vistos MostViewed
+
+        [HttpGet]
+        [Route("mostviewed")]
+        public HttpResponseMessage mostviewed()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "Res");
+        }
+        #endregion
+
+        #region Perfil del usuario con publicaciones y cantidad de seguidores
+
+        [HttpGet]
+        [Route("Vendorprofile/{idUser}")]
+        public HttpResponseMessage userprofile(int idUser)
+        {
+            //
+            return Request.CreateResponse(HttpStatusCode.OK, "Res");
+        }
+        #endregion
+
+        #region Perfil del usuario con publicaciones y cantidad de seguidores
+
+        [HttpGet]
+        [Route("Clientprofile/{idUser}")]
+        public HttpResponseMessage Clientprofile(int idUser)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "Res");
+        }
+        #endregion
+
+        #region Seguidores por usuario
+        [HttpGet]
+        [Route("seguidores/{idUser}")]
+        public HttpResponseMessage getSeguidores(int idUser)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "yeah!");
+        }
+
+        #endregion
+
+        #region Seguidos por usuario
+        [HttpGet]
+        [Route("seguidos/{idUser}")]
+        public HttpResponseMessage getSeguidos(int idUser)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "yeah!");
+        }
+
+        #endregion
+
+        #endregion
+
+
+        #region Posts
+
+        #region Obtener el usuario completo, con contraseña password y dui
+        [HttpPost] //Es post ya que enviare contraseña y datos privados
+        [Route("getUserComplete")]
+        public HttpResponseMessage getUserComplete(int idUser)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "Res");
+        }
+        #endregion
+
+        #region Signup
+        [HttpPost]
+        [Route("signup")]
+        public HttpResponseMessage signup(users item)
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, "Res");
+        }
+        #endregion
+
+        #region Login
+        [HttpPost]
+        [Route("login")]
+        public HttpResponseMessage login(userModel item)
+        {
+            //Retorno objeto con id
+            return Request.CreateResponse(HttpStatusCode.OK, "Res");
+        }
+        #endregion
+        #endregion
+
+
+        #region Puts
+
+        #endregion
+
+        #region Delete
+
+        #endregion
+
+
