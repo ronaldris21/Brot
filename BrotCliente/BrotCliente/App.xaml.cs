@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using BrotCliente.Views;
 using Xamarin.Forms.Xaml;
+using BrotCliente.Views.Tabs;
 
 namespace BrotCliente
 {
@@ -11,6 +12,7 @@ namespace BrotCliente
         {
             InitializeComponent();
 
+            //MainPage = new NavigationPage(new Login());
             MainPage = new NavigationPage(new Login());
             ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#ff5001");
         }

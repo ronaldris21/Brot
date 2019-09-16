@@ -16,6 +16,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="XamarinStyles\MapStyleBrot.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="XamarinStyles\MapStyleBrot.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="Plugin.RoundedBorderControls" Version="1.0.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />

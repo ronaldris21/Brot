@@ -1,4 +1,5 @@
 ﻿using BrotCliente.ViewModels;
+using BrotCliente.XamarinStyles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,11 @@ namespace BrotCliente.Views.Tabs
         {
             InitializeComponent();
 
+
+            XamarinMapStyle Style = new XamarinMapStyle();
             BindingContext = this.ViewModel = new SellersMapViewModel();
+            this.MyMap.MapStyle = MapStyle.FromJson(Style.Text);
+
             this.MyMap.MoveToRegion(
                 MapSpan.FromCenterAndRadius(
                     new Position(
