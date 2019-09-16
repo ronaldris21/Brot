@@ -17,10 +17,14 @@
 
   <ItemGroup>
     <None Remove="XamarinStyles\MapStyleBrot.json" />
+    <None Remove="XamarinStyles\MapStyleBrot2.json" />
+    <None Remove="XamarinStyles\MapStyleBrot4.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="XamarinStyles\MapStyleBrot.json" />
+    <EmbeddedResource Include="XamarinStyles\MapStyleBrot2.json" />
+    <EmbeddedResource Include="XamarinStyles\MapStyleBrot4.json" />
   </ItemGroup>
 
   <ItemGroup>
