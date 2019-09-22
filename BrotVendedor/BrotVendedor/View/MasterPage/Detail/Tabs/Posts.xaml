@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              IconImageSource="BB.png"
-             BackgroundColor="#6d8bad"
+             BackgroundColor="#d93c00"
              x:Class="BrotVendedor.View.Posts"
              x:Name="CAGroupMembersViewPage"
              >

@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              IconImageSource="notification64x64.png"
              x:Class="BrotVendedor.View.Notifications"
-             BackgroundColor="#6d8bad">
+             BackgroundColor="#d93c00">
     <ContentPage.Content>
         <StackLayout>
             <ListView ItemsSource="{Binding Notificaciones}"

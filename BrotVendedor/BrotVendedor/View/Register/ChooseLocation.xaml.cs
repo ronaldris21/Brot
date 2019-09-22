@@ -1,4 +1,5 @@
 ﻿using BrotVendedor.ViewModel;
+using BrotVendedor.XStyles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace BrotVendedor.View
         public ChooseLocation()
         {
             InitializeComponent();
+            Mape.MapStyle = MapStyle.FromJson(new XamMapStyle().text);
             Mape.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(13.994778, -89.556642), Distance.FromMeters(250)));
             BindingContext = new ChooseLocationViewModel();
         }
