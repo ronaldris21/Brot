@@ -12,13 +12,11 @@
         <StackLayout>
 
             <ListView VerticalOptions="FillAndExpand"
-                      
                       HasUnevenRows="True"
-                      ItemsSource="{Binding lPosts}"
+                      ItemsSource="{Binding lBrotTen}"
                       SeparatorColor="#ff5001"
                       SeparatorVisibility="Default"
                       x:Name="FeedListView"
-                      ItemSelected="FeedListView_ItemSelected"
                   
                       IsPullToRefreshEnabled="True"
                       IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
@@ -47,7 +45,7 @@
                                                    VerticalOptions="CenterAndExpand"
                                                    Grid.Column="1"/>
 
-                                            <Label Text="{Binding fecha_actualizacion}"
+                                            <Label Text="Prueba"
                                                    TextColor="#ff5001"
                                                    FontSize="Medium"
                                                    HorizontalOptions="CenterAndExpand"
@@ -58,15 +56,14 @@
 
                                     <StackLayout Orientation="Vertical"
                                                  Padding="5">
-                                        <Label Text="{Binding descripcion}"
+                                        <Label Text="Prueba"
                                                TextColor="Black"
                                                FontSize="Medium"
                                                FontAttributes="Bold"/>
 
                                         <Image Source="{Binding img}"
                                                HeightRequest="150"
-                                               Margin="5"
-                                               IsVisible="{Binding isimg}"/>
+                                               Margin="5"/>
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal"
@@ -75,8 +72,7 @@
                                                      HeightRequest="25"
                                                      WidthRequest="25"
                                                      BackgroundColor="Transparent"
-                                                     ClassId="{Binding id_post}"
-                                                     Clicked="ImageButton_Clicked"/>
+                                                     ClassId="{Binding user.id_user}"/>
                                         <Label Text="# Brots"
                                                VerticalOptions="Center"
                                                TextColor="Black"

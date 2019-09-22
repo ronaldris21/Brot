@@ -42,7 +42,7 @@ namespace BrotCliente.ViewModels
         public FeedViewModel()
         {
             this.lPosts = new ObservableCollection<ResponsePublicacionFeed>();
-            cargarImgs();
+            cargarImgs();//Borraar luego
         }
 
         public async void Refresh()

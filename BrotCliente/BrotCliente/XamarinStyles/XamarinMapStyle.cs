@@ -21,7 +21,7 @@ namespace BrotCliente.XamarinStyles
             try
             {
                 var assembly = IntrospectionExtensions.GetTypeInfo(typeof(XamarinMapStyle)).Assembly;
-                Stream stream = assembly.GetManifestResourceStream("BrotCliente.XamarinStyles.MapStyleBrot.json");
+                Stream stream = assembly.GetManifestResourceStream("BrotCliente.XamarinStyles.MapStyleBrot2.json");
 
                 using (var reader = new System.IO.StreamReader(stream))
                 {
