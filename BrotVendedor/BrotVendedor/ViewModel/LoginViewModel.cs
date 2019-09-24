@@ -106,7 +106,7 @@ namespace BrotVendedor.ViewModel
             {
                 strm.Write(result);
             }
-            App.Current.MainPage = new NavigationPage(new Inicio());
+            App.Current.MainPage = new NavigationPage(new InicioMaster());
         }
         #endregion
     }

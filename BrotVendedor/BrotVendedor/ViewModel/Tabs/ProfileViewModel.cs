@@ -7,6 +7,7 @@
     using Plugin.Media.Abstractions;
     using System;
     using System.IO;
+    using System.Net.Http;
     using System.Windows.Input;
     using Xamarin.Forms;
 
@@ -156,6 +157,29 @@
             {
                 return _mediaFile.GetStream();
             });
+            var resp = await App.Current.MainPage.DisplayAlert("Confirmacion","Desea que esta sea su foto de perfil?", "Aceptar", "Cancelar");
+            if (resp)
+            {
+                UploadImage();
+            }
+        }
+
+        private async void UploadImage()
+        {
+            //metodo para publicar la imagen en el servidor web
+            try
+            {
+                var content = new MultipartFormDataContent();
+                content.Add(new StreamContent(_mediaFile.GetStream()), "\"file\"", $"\"{_mediaFile.Path}\"");
+                var httpClient = new HttpClient();
+                var uploadServiceBaseAddress = "http://brotimages.somee.com/api/Files/Uploads";
+                var httpResponseMessage = await httpClient.PostAsync(uploadServiceBaseAddress, content);
+                //await DisplayAlert("Exito", await httpResponseMessage.Content.ReadAsStringAsync(), "Aceptar");
+            }
+            catch (Exception e)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", e.Message, "Aceptar");
+            }
         }
         #endregion
     }
