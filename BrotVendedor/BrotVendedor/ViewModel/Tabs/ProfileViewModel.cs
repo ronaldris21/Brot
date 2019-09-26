@@ -6,6 +6,7 @@
     using Plugin.Media;
     using Plugin.Media.Abstractions;
     using System;
+    using System.Diagnostics;
     using System.IO;
     using System.Net.Http;
     using System.Windows.Input;
@@ -172,8 +173,9 @@
                 var content = new MultipartFormDataContent();
                 content.Add(new StreamContent(_mediaFile.GetStream()), "\"file\"", $"\"{_mediaFile.Path}\"");
                 var httpClient = new HttpClient();
-                var uploadServiceBaseAddress = "http://brotimages.somee.com/api/Files/Uploads";
+                var uploadServiceBaseAddress = "http://images.somee.com/api/Files/Upload";
                 var httpResponseMessage = await httpClient.PostAsync(uploadServiceBaseAddress, content);
+                Debug.Print(await httpResponseMessage.Content.ReadAsStringAsync());
                 //await DisplayAlert("Exito", await httpResponseMessage.Content.ReadAsStringAsync(), "Aceptar");
             }
             catch (Exception e)

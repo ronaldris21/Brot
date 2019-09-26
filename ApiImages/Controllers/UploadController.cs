@@ -9,13 +9,13 @@ namespace ApiImages.Controllers
 {
     public class UploadController : ApiController
     {
-        [Route ("api/Files/Upload ")]
+        [Route("api/Files/Upload")]
         public async Task<string> Post()
         {
             try
             {
                 var httpRequest = HttpContext.Current.Request;
-                if (httpRequest.Files.Count>0)
+                if (httpRequest.Files.Count > 0)
                 {
                     foreach (string file in httpRequest.Files)
                     {
@@ -23,13 +23,14 @@ namespace ApiImages.Controllers
                         var fileName = postedFile.FileName.Split('\\').LastOrDefault().Split('/').LastOrDefault();
                         var filePath = HttpContext.Current.Server.MapPath("~/Uploads/" + fileName);
                         postedFile.SaveAs(filePath);
-                        return "/Uploads/" + fileName;
+                        return fileName;
                     }
                 }
+
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                return ex.Message;
+                return "Algo ha fallado: " + e.Message;
             }
             return "";
         }
