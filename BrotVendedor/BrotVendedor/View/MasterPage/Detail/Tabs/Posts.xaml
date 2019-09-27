@@ -46,6 +46,7 @@
                                                      HeightRequest="32" 
                                                      WidthRequest="32" 
                                                      BackgroundColor="Transparent" 
+                                                     Command="{Binding takePhoto}"
                                                      HorizontalOptions='End' 
                                                      Grid.Row="1" 
                                                      Grid.Column="0"

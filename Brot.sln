@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrotVendedor.iOS", "BrotVen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLL", "DLL\DLL.csproj", "{68D737DC-1FD3-42BC-9368-FC370FA935D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiImages", "ApiImages\ApiImages.csproj", "{314B6050-8670-4DA0-9232-B79E99A620C3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,18 +119,6 @@ Global
 		{68D737DC-1FD3-42BC-9368-FC370FA935D2}.Release|iPhone.Build.0 = Release|Any CPU
 		{68D737DC-1FD3-42BC-9368-FC370FA935D2}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{68D737DC-1FD3-42BC-9368-FC370FA935D2}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{314B6050-8670-4DA0-9232-B79E99A620C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{314B6050-8670-4DA0-9232-B79E99A620C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{314B6050-8670-4DA0-9232-B79E99A620C3}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{314B6050-8670-4DA0-9232-B79E99A620C3}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{314B6050-8670-4DA0-9232-B79E99A620C3}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{314B6050-8670-4DA0-9232-B79E99A620C3}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{314B6050-8670-4DA0-9232-B79E99A620C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{314B6050-8670-4DA0-9232-B79E99A620C3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{314B6050-8670-4DA0-9232-B79E99A620C3}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{314B6050-8670-4DA0-9232-B79E99A620C3}.Release|iPhone.Build.0 = Release|Any CPU
-		{314B6050-8670-4DA0-9232-B79E99A620C3}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{314B6050-8670-4DA0-9232-B79E99A620C3}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

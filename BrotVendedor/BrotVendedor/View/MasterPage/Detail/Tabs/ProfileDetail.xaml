@@ -7,10 +7,68 @@
              x:Class="BrotVendedor.View.Tabs.MasterPage.Detail.ProfileDetail"
              Title="Your profile">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout VerticalOptions="Fill" HorizontalOptions="Fill">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding user_Pic}" Grid.Column="0"/>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Text="{Binding UserName}" 
+                           Grid.Row="0" 
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center"
+                           />
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="{Binding cantVistas}"
+                               Grid.Column="0"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               />
+                        <Label Text="{Binding cantBrots}"
+                               Grid.Column="1"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               />
+                        <Label Text="{Binding cantComments}"
+                               Grid.Column="2"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               />
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid Padding="10" HorizontalOptions="Center" VerticalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ImageButton Source="edit_profile.png" Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" Aspect="AspectFit"/>
+                <Label Text="Editar Perfil" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" TextColor="Black"/>
+                <ImageButton Source="Position2.png" Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Aspect="AspectFit"/>
+                <Label Text="Ubicacion" Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" TextColor="Black"/>
+                <ImageButton Source="analysis.png" Grid.Column="0" Grid.Row="2" BackgroundColor="Transparent" Aspect="AspectFit"/>
+                <Label Text="Analytics" Grid.Column="0" Grid.Row="3" HorizontalOptions="Center" TextColor="Black"/>
+                <ImageButton Source="publications.png" Grid.Column="1" Grid.Row="2" BackgroundColor="Transparent" Aspect="AspectFit"/>
+                <Label Text="Ver Publicaciones" Grid.Column="1" Grid.Row="3" HorizontalOptions="Center" TextColor="Black"/>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

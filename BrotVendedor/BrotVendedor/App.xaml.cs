@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Plugin.Media;
 
 namespace BrotVendedor
 {
@@ -13,6 +14,14 @@ namespace BrotVendedor
         public App()
         {
             InitializeComponent();
+            //Device.BeginInvokeOnMainThread(async () =>
+            //{
+            //    if (!CrossMedia.Current.IsPickPhotoSupported)
+            //    {
+            //        await App.Current.MainPage.DisplayAlert("Error", "No es posible elegir una foto", "Aceptar");
+            //        return;
+            //    }
+            //});
             try
             {
                 string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
