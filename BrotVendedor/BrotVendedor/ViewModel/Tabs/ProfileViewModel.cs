@@ -120,13 +120,7 @@
         public ProfileViewModel()
         {
             picture = "user128x128";
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            string filePath = Path.Combine(path, "user.txt");
-            using (var file = File.Open(filePath, FileMode.Open, FileAccess.Read))
-            using (var strm = new StreamReader(file))
-            {
-                u = Newtonsoft.Json.JsonConvert.DeserializeObject<LocalUser>(strm.ReadToEnd());
-            }
+            u = Class.Singleton.current.Json.ReadData();
             usuario = u.username;
             clave = u.pass;
         }
@@ -136,7 +130,7 @@
         {
             get
             {
-                return new RelayCommand(ChangePicture);
+                return new RelayCommand(Singleton.current.ChangePic);
             }
         }
         #endregion
