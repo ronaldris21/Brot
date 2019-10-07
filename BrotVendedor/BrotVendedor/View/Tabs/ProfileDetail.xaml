@@ -60,14 +60,49 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <ImageButton Source="edit_profile.png" Grid.Column="0" Grid.Row="0" BackgroundColor="Transparent" Aspect="AspectFit"/>
-                <Label Text="Editar Perfil" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" TextColor="Black"/>
-                <ImageButton Source="Position2.png" Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Aspect="AspectFit"/>
-                <Label Text="Ubicacion" Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" TextColor="Black"/>
-                <ImageButton Source="analysis.png" Grid.Column="0" Grid.Row="2" BackgroundColor="Transparent" Aspect="AspectFit"/>
-                <Label Text="Analytics" Grid.Column="0" Grid.Row="3" HorizontalOptions="Center" TextColor="Black"/>
-                <ImageButton Source="publications.png" Grid.Column="1" Grid.Row="2" BackgroundColor="Transparent" Aspect="AspectFit"/>
-                <Label Text="Ver Publicaciones" Grid.Column="1" Grid.Row="3" HorizontalOptions="Center" TextColor="Black"/>
+                <ImageButton Source="edit_profile.png" 
+                             Grid.Column="0" 
+                             Grid.Row="0" 
+                             BackgroundColor="Transparent" 
+                             Aspect="AspectFit" 
+                             Command="{Binding GoToSettings}"/>
+                <Label Text="Editar Perfil" 
+                       Grid.Column="0" 
+                       Grid.Row="1" 
+                       HorizontalOptions="Center" 
+                       TextColor="Black"/>
+                <ImageButton Source="Position2.png" 
+                             Grid.Column="1" Grid.Row="0" 
+                             BackgroundColor="Transparent" 
+                             Aspect="AspectFit" 
+                             Command="{Binding GoToLocation}"/>
+                <Label Text="Ubicacion" 
+                       Grid.Column="1" 
+                       Grid.Row="1" 
+                       HorizontalOptions="Center" 
+                       TextColor="Black"/>
+                <ImageButton Source="analysis.png" 
+                             Grid.Column="0" 
+                             Grid.Row="2" 
+                             BackgroundColor="Transparent" 
+                             Aspect="AspectFit" 
+                             Command="{Binding GoToAnalytics}"/>
+                <Label Text="Analytics" 
+                       Grid.Column="0" 
+                       Grid.Row="3" 
+                       HorizontalOptions="Center" 
+                       TextColor="Black"/>
+                <ImageButton Source="publications.png" 
+                             Grid.Column="1" 
+                             Grid.Row="2" 
+                             BackgroundColor="Transparent" 
+                             Aspect="AspectFit" 
+                             Command="{Binding GoToPublications}"/>
+                <Label Text="Ver Publicaciones" 
+                       Grid.Column="1" 
+                       Grid.Row="3" 
+                       HorizontalOptions="Center" 
+                       TextColor="Black"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

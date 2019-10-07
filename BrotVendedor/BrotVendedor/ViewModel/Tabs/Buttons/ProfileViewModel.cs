@@ -2,6 +2,7 @@
 {
     using BrotApi0.Models;
     using BrotVendedor.Class;
+    using BrotVendedor.View.Tabs.Buttons;
     using GalaSoft.MvvmLight.Command;
     using Plugin.Media;
     using Plugin.Media.Abstractions;
@@ -133,8 +134,10 @@
                 return new RelayCommand(Singleton.current.ChangePic);
             }
         }
+       
         #endregion
         #region Metodos
+        
         public async void ChangePicture()
         {
             await CrossMedia.Current.Initialize();

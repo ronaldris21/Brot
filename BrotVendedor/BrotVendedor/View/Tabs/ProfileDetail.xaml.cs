@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BrotVendedor.ViewModel;
+using BrotVendedor.ViewModel.Tabs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,7 @@ namespace BrotVendedor.View.Tabs.MasterPage.Detail
         public ProfileDetail()
         {
             InitializeComponent();
+            BindingContext = new ProfileDetailViewModel();
         }
     }
 }

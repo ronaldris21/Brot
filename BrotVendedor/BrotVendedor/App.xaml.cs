@@ -14,23 +14,9 @@ namespace BrotVendedor
         public App()
         {
             InitializeComponent();
-            //Device.BeginInvokeOnMainThread(async () =>
-            //{
-            //    if (!CrossMedia.Current.IsPickPhotoSupported)
-            //    {
-            //        await App.Current.MainPage.DisplayAlert("Error", "No es posible elegir una foto", "Aceptar");
-            //        return;
-            //    }
-            //});
             try
             {
-                string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                string filePath = Path.Combine(path, "user.txt");
-                using (var file = File.Open(filePath, FileMode.Open, FileAccess.Read))
-                using (var strm = new StreamReader(file))
-                {
-                    u = Newtonsoft.Json.JsonConvert.DeserializeObject<LocalUser>(strm.ReadToEnd());
-                }
+                u = Singleton.current.Json.ReadData();
                 if (u.RememberMe)
                 {
                     MainPage = new NavigationPage(new Inicio());
@@ -45,7 +31,6 @@ namespace BrotVendedor
                 MainPage = new NavigationPage(new Login());
             }
         }
-
         protected override void OnStart()
         {
             // Handle when your app starts
