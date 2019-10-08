@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BrotVendedor.Class
 {
-    class LocalUser
+    public class LocalUser
     {
         public int id_user { get; set; }
         public string username { get; set; }

@@ -111,6 +111,13 @@
                 return new RelayCommand<int>(Like);
             }
         }
+        public ICommand takePhoto
+        {
+            get
+            {
+                return new RelayCommand(PhotoForPost);
+            }
+        }
         //public ICommand ShareIt
         //{
         //    get
@@ -162,6 +169,10 @@
                 Title="Puto el que lo reciba",
                 File= new ShareFile(filePath)
             });
+        }
+        public void PhotoForPost()
+        {
+
         }
         #endregion
     }

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BrotVendedor.View.Tabs.Buttons.AllPosts">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding posts}"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Frame BackgroundColor="White">
+                                    <StackLayout>
+                                        <StackLayout Padding="5">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="2*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <ImageButton Source="{Binding imgPath}"
+                                                   HeightRequest="50"
+                                                             BackgroundColor="Transparent"
+                                                   Grid.Column="0"/>
+                                                <Label Text="{Binding usuario}"
+                                                   TextColor="#ff5001"
+                                                   FontSize="Default"
+                                                   HorizontalOptions="CenterAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Grid.Column="1"/>
+                                                <Label Text="{Binding hora}"
+                                                   TextColor="#ff5001"
+                                                   FontSize="Default"
+                                                   HorizontalOptions="CenterAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Grid.Column="2"/>
+                                            </Grid>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Vertical"
+                                                 Padding="5">
+                                            <Label Text="{Binding texto}"
+                                               TextColor="Black"
+                                               FontSize="Medium"
+                                               FontAttributes="Bold"/>
+                                            <Image Source="{Binding img}"
+                                               HeightRequest="150"
+                                               Margin="5"
+                                               IsVisible="{Binding isimg}"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal"
+                                                 Padding="5">
+                                            <ImageButton Source="{Binding like}"
+                                                     HeightRequest="25"
+                                                     WidthRequest="25"
+                                                     BackgroundColor="Transparent"
+                                                     ClassId="{Binding id_Post}"
+                                                     />
+                                            <Label Text="# Brots"
+                                               VerticalOptions="Center"
+                                               TextColor="Black"
+                                               FontAttributes="Bold"/>
+                                            <ImageButton Source="Comment.ico"
+                                                     HeightRequest="25"
+                                                     WidthRequest="25"
+                                                     BackgroundColor="Transparent"/>
+                                            <Label Text="# Comments"
+                                               VerticalOptions="Center"
+                                               TextColor="Black"
+                                               FontAttributes="Bold"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                                <BoxView HeightRequest="1">
+                                </BoxView>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -98,15 +98,8 @@ namespace BrotVendedor.ViewModel
             {
                 u.RememberMe = false;
             }
-            String result = Newtonsoft.Json.JsonConvert.SerializeObject(u);
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            string filePath = Path.Combine(path, "user.txt");
-            using (var file = File.Open(filePath, FileMode.Create, FileAccess.Write))
-            using (var strm = new StreamWriter(file))
-            {
-                strm.Write(result);
-            }
-            App.Current.MainPage = new NavigationPage(new Inicio());
+            Singleton.current.Json.SaveData(u);
+            App.Current.MainPage = new NavigationPage(new InicioMaster());
         }
         #endregion
     }
