@@ -31,5 +31,6 @@
         <Pages:Feed/>
         <Pages:SellersMap/>
         <Pages:BrotTen/>
+        <Pages:Profile/>
     </TabbedPage.Children>
 </TabbedPage>

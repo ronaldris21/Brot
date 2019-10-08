@@ -17,7 +17,6 @@
                       SeparatorColor="#ff5001"
                       SeparatorVisibility="Default"
                       x:Name="FeedListView"
-                  
                       IsPullToRefreshEnabled="True"
                       IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
                       RefreshCommand="{Binding RefreshCommand}">
@@ -56,14 +55,10 @@
 
                                     <StackLayout Orientation="Vertical"
                                                  Padding="5">
-                                        <Label Text="Prueba"
+                                        <Label Text="Descripcion"
                                                TextColor="Black"
                                                FontSize="Medium"
                                                FontAttributes="Bold"/>
-
-                                        <Image Source="{Binding img}"
-                                               HeightRequest="150"
-                                               Margin="5"/>
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal"
