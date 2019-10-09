@@ -99,7 +99,7 @@ namespace BrotVendedor.ViewModel
                 u.RememberMe = false;
             }
             Singleton.current.Json.SaveData(u);
-            App.Current.MainPage = new NavigationPage(new InicioMaster());
+            App.Current.MainPage = new NavigationPage(new Inicio());
         }
         #endregion
     }
