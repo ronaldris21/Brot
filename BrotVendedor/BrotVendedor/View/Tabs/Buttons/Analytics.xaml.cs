@@ -37,7 +37,8 @@ namespace BrotVendedor.View.Tabs.Buttons
         public Analytics()
         {
             InitializeComponent();
-            Chart1.Chart = new BarChart { Entries = entries , LabelTextSize=35};
+            Chart1.Chart = new BarChart { Entries = entries, LabelTextSize = 35 };
+            //Chart1.Chart = new LineChart { Entries = entries , LabelTextSize=35,PointMode=PointMode.Square};
         }
     }
 }

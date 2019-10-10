@@ -1,7 +1,12 @@
-﻿using Plugin.Media.Abstractions;
+﻿using Plugin.Media;
+using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace BrotVendedor.Class
 {
@@ -38,5 +43,6 @@ namespace BrotVendedor.Class
         {
             img.ChangePicture();
         }
+        
     }
 }

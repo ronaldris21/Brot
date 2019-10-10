@@ -115,16 +115,9 @@
         {
             get
             {
-                return new RelayCommand(PhotoForPost);
+                return new RelayCommand(Singleton.current.ChangePic);
             }
         }
-        //public ICommand ShareIt
-        //{
-        //    get
-        //    {
-        //        return new RelayCommand(ShareText);
-        //    }
-        //}
         #endregion
         #region Metodos
         public void AddPost()
