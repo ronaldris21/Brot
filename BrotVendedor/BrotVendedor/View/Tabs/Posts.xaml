@@ -9,12 +9,13 @@
              x:Class="BrotVendedor.View.Posts"
              x:Name="CAGroupMembersViewPage"
              >
-    
+
     <ContentPage.Content>
         <StackLayout Padding="5">
             <ListView VerticalOptions="FillAndExpand"
                       HasUnevenRows="True"
                       ItemsSource="{Binding posts}"
+                      Header="{Binding}"
                       SeparatorColor="#ff5001"
                       SeparatorVisibility="Default"
                       x:Name="FeedListView">
