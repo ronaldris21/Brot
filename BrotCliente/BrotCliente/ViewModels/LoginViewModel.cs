@@ -18,11 +18,11 @@ namespace BrotCliente.ViewModels
             }
         }
 
-        public ICommand GoToMainCommand
+        public ICommand LoginCommand
         {
             get
             {
-                return new RelayCommand(GoToMainPage);
+                return new RelayCommand(Login);
             }
         }
 
@@ -33,7 +33,7 @@ namespace BrotCliente.ViewModels
             Application.Current.MainPage.Navigation.PushAsync(new Signup());
         }
 
-        public void GoToMainPage()
+        public void Login()
         {
             Application.Current.MainPage = new NavigationPage(new Master());
         }

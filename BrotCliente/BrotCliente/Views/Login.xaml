@@ -34,7 +34,8 @@
                                                 CornerRadius="10"
                                                 Placeholder="Type your username"
                                                 PlaceholderColor="#E8720C"
-                                                TextColor="#ff5001"/>
+                                                TextColor="#ff5001"
+                                                Text="{Binding EntryUsername}"/>
                     
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 BorderColor="#ff5001"
@@ -43,7 +44,8 @@
                                                 Placeholder="Type your password"
                                                 PlaceholderColor="#E8720C"
                                                 IsPassword="True"
-                                                TextColor="#ff5001"/>
+                                                TextColor="#ff5001"
+                                                Text="{Binding TextPassword}"/>
                 </StackLayout>
 
                 <StackLayout Margin="0, 20">
@@ -53,7 +55,7 @@
                             CornerRadius="10"
                             HorizontalOptions="Center"
                             Padding="40, 15"
-                            Command="{Binding GoToMainCommand}"/>
+                            Command="{Binding LoginCommand}"/>
 
                     <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="Center"
