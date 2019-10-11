@@ -8,7 +8,9 @@
              
              Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="FillAndExpand"
+
+        <!--  OLD CODE  XAML-->
+        <!--<StackLayout HorizontalOptions="FillAndExpand"
                      BackgroundColor="#f3f3f3">
 
             <StackLayout Padding="15"
@@ -63,6 +65,143 @@
                         Text="Comment"
                         TextColor="White"/>
             </StackLayout>
+        </StackLayout>-->
+
+
+        <StackLayout>
+            <ListView VerticalOptions="FillAndExpand"
+                      
+                      ItemsSource="{Binding ComentariosData}"
+                      Header="{Binding Post.publicacion}"
+                      
+                      SeparatorColor="#ff5001"
+                      SeparatorVisibility="Default"
+                      x:Name="FeedListView"
+                      HasUnevenRows="True"
+                  
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                      RefreshCommand="{Binding RefreshCommand}">
+
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame BackgroundColor="#fff">
+                                <StackLayout>
+                                    <StackLayout Padding="5">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image Source="{Binding UsuarioCreator.img}"
+                                                   HeightRequest="50"
+                                                   Grid.Column="0"/>
+
+                                            <Label Text="{Binding UsuarioCreator.username}"
+                                                   TextColor="#ff5001"
+                                                   FontSize="Large"
+                                                   HorizontalOptions="CenterAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Grid.Column="1"/>
+
+                                            <Label Text="{Binding publicacion.fecha_creacion}"
+                                                   TextColor="#ff5001"
+                                                   FontSize="Medium"
+                                                   HorizontalOptions="CenterAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Grid.Column="2"/>
+                                        </Grid>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Vertical"
+                                                 Padding="5">
+                                        <Label Text="{Binding publicacion.descripcion}"
+                                               TextColor="Black"
+                                               FontSize="Medium"
+                                               FontAttributes="Bold"/>
+
+                                        <Image Source="{Binding publicacion.img}"
+                                               HeightRequest="150"
+                                               Margin="5"
+                                               IsVisible="{Binding publicacion.isImg}"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Padding="5">
+                                        <ImageButton Source="PinBlack.ico"
+                                                     HeightRequest="25"
+                                                     WidthRequest="25"
+                                                     BackgroundColor="Transparent"
+                                                     ClassId="{Binding publicacion.id_post}"
+                                                     />
+                                        <Label Text="{Binding cantLikes,StringFormat='{0} # Brots'}"
+                                               VerticalOptions="Center"
+                                               TextColor="Black"
+                                               FontAttributes="Bold"/>
+                                        <ImageButton Source="Comment.ico"
+                                                     HeightRequest="25"
+                                                     WidthRequest="25"
+                                                     BackgroundColor="Transparent"/>
+                                        <Label Text="{Binding cantComentarios,StringFormat='{0} # Comments'}"
+                                               VerticalOptions="Center"
+                                               TextColor="Black"
+                                               FontAttributes="Bold"/>
+                                    </StackLayout>
+
+                                    <Button BackgroundColor="#ff5001"
+                                            Margin="10"
+                                            CornerRadius="10"
+                                            Text="Comment"
+                                            TextColor="White"/> 
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="{Binding usuario.img}"
+                                       HeightRequest="50"
+                                       HorizontalOptions="Center"
+                                       Grid.Column="0"/>
+
+                                <StackLayout Grid.Column="1">
+
+                                    <Label Text="{Binding comentario.contenido}"/>
+                                    <StackLayout Orientation="Horizontal" Padding="5">
+                                        <ImageButton Source="PinBlack.ico"
+	                                                     HeightRequest="25"
+	                                                     WidthRequest="25"
+	                                                     BackgroundColor="Transparent"
+	                                                     ClassId="{Binding comentario.id_comentario}"
+	                                                     />
+                                        <Label Text="{Binding CantLikes,StringFormat='{0} # Brots'}"
+	                                               VerticalOptions="Center"
+	                                               TextColor="Black"
+	                                               FontAttributes="Bold"/>
+                                    </StackLayout>
+                                    <Label Text="{Binding comentario.fecha_creacion}"/>
+
+                                </StackLayout>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>

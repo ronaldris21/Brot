@@ -15,12 +15,10 @@ namespace BrotCliente.Views.Tabs
     [DesignTimeVisible(true)]
     public partial class Profile : ContentPage
     {
-        private ProfileViewModel ViewModel;
         public Profile()
         {
             InitializeComponent();
 
-            BindingContext = this.ViewModel = new ProfileViewModel();
         }
     }
 }

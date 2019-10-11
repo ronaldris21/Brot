@@ -19,7 +19,6 @@ namespace BrotCliente.Views
         {
             InitializeComponent();
 
-            BindingContext = new LoginViewModel();
         }
     }
 }

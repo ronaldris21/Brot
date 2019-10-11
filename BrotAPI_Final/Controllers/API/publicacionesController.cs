@@ -412,7 +412,7 @@ namespace BrotAPI_Final.Controllers.API
 
             item.fecha_creacion = DateTime.Now;
             item.fecha_actualizacion = null;
-
+            item.isDeleted = false;
             //Intenta el post
             if (r.Post(item))
             {

@@ -86,7 +86,8 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal comentario, id: {id}");
             }
-            item.isDeleted = true;
+            item.isDeleted = false;
+            item.fecha_creacion = DateTime.Now;
             if (r.Put(id, item))
             {
                 return Request.CreateResponse(HttpStatusCode.OK, $"comentario {id} fue eliminado correctamente");

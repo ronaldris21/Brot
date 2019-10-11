@@ -7,7 +7,13 @@
              x:Class="BrotCliente.Views.Signup"
              
              Title="Sign Up"
+             xmlns:viewmodels ="clr-namespace:BrotCliente.ViewModels"
              xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls">
+
+    <ContentPage.BindingContext>
+        <viewmodels:SignupViewModel/>
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Orientation="Vertical"
@@ -18,8 +24,14 @@
                        Text="Start Using Brot"
                        TextColor="#ff5001"/>
 
-                <StackLayout Margin="0, 20">
+                <Label FontSize="Medium" 
+                       HorizontalOptions="Center"
+                       Text="Recuerda tus datos ingresados ya que los necesitarás para iniciar sesión, esto nos ayuda a poder verificar tu usuario"
+                       TextColor="#000"/>
+
+                <StackLayout Margin="0, 20" >
                     <Rounded:RoundedBorderEntry Margin="10"
+                                                Text="{Binding Usuario.nombre}"
                                                 BorderColor="#ff5001"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
@@ -31,6 +43,7 @@
                                                 BorderColor="#ff5001"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
+                                                Text="{Binding Usuario.apellido}"
                                                 Placeholder="Type your lastname"
                                                 PlaceholderColor="#E8720C"
                                                 TextColor="#ff5001"/>
@@ -40,6 +53,8 @@
                                                 BorderThickness="2"
                                                 CornerRadius="10"
                                                 Placeholder="Type your username"
+                                                Text="{Binding Usuario.username}"
+
                                                 PlaceholderColor="#E8720C"
                                                 TextColor="#ff5001"/>
                     
@@ -49,6 +64,7 @@
                                                 BorderThickness="2"
                                                 CornerRadius="10"
                                                 Placeholder="Type your E-mail"
+                                                Text="{Binding Usuario.email}"
                                                 PlaceholderColor="#E8720C"
                                                 TextColor="#ff5001"/>
                     
@@ -57,6 +73,7 @@
                                                 BorderThickness="2"
                                                 CornerRadius="10"
                                                 Placeholder="Type your password"
+                                                Text="{Binding Usuario.pass}"
                                                 PlaceholderColor="#E8720C"
                                                 IsPassword="True"
                                                 TextColor="#ff5001"/>
@@ -67,6 +84,8 @@
                                                 CornerRadius="10"
                                                 Placeholder="Repeat your password"
                                                 PlaceholderColor="#E8720C"
+                                                Text="{Binding passConfirmation}"
+                                                
                                                 IsPassword="True"
                                                 TextColor="#ff5001"/>
                 </StackLayout>
@@ -78,7 +97,7 @@
                             CornerRadius="10"
                             HorizontalOptions="Center"
                             Padding="40, 15"
-                            Command="{Binding GoToMainCommand}"/>
+                            Command="{Binding RegisterCommand}"/>
 
                     <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="Center"
@@ -94,7 +113,7 @@
                                 VerticalOptions="Center"
                                 FontAttributes="Bold"
                                 BackgroundColor="Transparent"
-                                Command="{Binding LoginCommand}"/>
+                                Command="{Binding BackLoginCommand}"/>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DLL.Services
+namespace DLL.Service
 {
     using DLL.Models;
     using DLL.ResponseModels;
@@ -13,7 +13,7 @@ namespace DLL.Services
     public static class RestAPI
     {
         //private static string urlBase = "cibomarket.somee.com/api/"; 
-        private static string urlBase = "brotproject.somee.com/api/"; 
+        private static string urlBase = "brotproject.somee.com/api/";
         public static bool isConnectedToInterned()  //Lo ideal seria mandar esto desde la app antes de usar el REST
         {
             var current = Connectivity.NetworkAccess;
@@ -190,7 +190,20 @@ namespace DLL.Services
 
 
 
-
+        //[Route("UsernameDisponible/{username}")]
+        public static async Task<bool> validandoUsername(string username)
+        {
+            if (isConnectedToInterned())
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string urlComplete = $"{urlBase}{TableName.userst}/UsernameDisponible /{ username}";
+                    var response = await client.GetAsync(urlComplete);
+                    return response.IsSuccessStatusCode;
+                }
+            }
+            return false;
+        }
 
 
         public static async Task<userModel> login(string pass, string userOrEmail)
@@ -273,6 +286,24 @@ namespace DLL.Services
             return null;
         }
 
+        //[Route("vendors")]
+        public static async Task<List<userModel>> getVendedores()//idUser es el seguido
+        {
+            if (isConnectedToInterned())
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string urlComplete = $"{urlBase}{TableName.userst}/vendors";
+                    var response = await client.GetAsync(urlComplete);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        return Newtonsoft.Json.JsonConvert.DeserializeObject<List<userModel>>(json);
+                    }
+                }
+            }
+            return null;
+        }
 
         //[Route("{idUser}/seguidores")]
         public static async Task<List<userModel>> getSeguidores(int idUser)//idUser es el seguido

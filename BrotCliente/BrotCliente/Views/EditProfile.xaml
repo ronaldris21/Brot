@@ -7,7 +7,10 @@
              x:Class="BrotCliente.Views.EditProfile"
              
              Title="@Username"
-             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls">
+             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+             >
+
+
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="save.png"/>
     </ContentPage.ToolbarItems>

@@ -7,7 +7,18 @@
              x:Class="BrotCliente.Views.Tabs.Profile"
              
              Title="Profile"
-             Icon="Profile250.ico">
+             Icon="Profile250.ico"
+             
+             
+             xmlns:viewmodels="clr-namespace:BrotCliente.ViewModels"
+             >
+    <ContentPage.BindingContext>
+        <viewmodels:ProfileViewModel/>
+    </ContentPage.BindingContext>
+    
+    
+    
+    
     <ContentPage.Content>
         <StackLayout Orientation="Vertical"
                      Padding="20">
@@ -21,17 +32,20 @@
                 <StackLayout Orientation="Vertical"
                              Padding="5"
                              HorizontalOptions="FillAndExpand">
-                    <Label Text="@Username"
+                    <Label Text="{Binding Usuario.username}"
                            FontSize="Large"
                            FontAttributes="Bold"
                            TextColor="#ff5001"/>
-                    <Label Text="User full name"
+                    <Label Text="{Binding FullName}"
                            FontSize="Medium"
                            TextColor="Black"/>
-                    <Label Text="Status"
+                    <StackLayout>
+                        <Label Text="Activo"
                            FontSize="Medium"
                            FontAttributes="Bold"
                            TextColor="#ff5001"/>
+                        <Switch IsToggled="{Binding Usuario.isActive}"/>
+                    </StackLayout>
                     <Label Text="lorem ipsum dolor sit amet..."
                            FontSize="Medium"
                            TextColor="Black"/>
@@ -47,7 +61,8 @@
                 <Button Text="Sign Out"
                         TextColor="#ff5001"
                         BackgroundColor="Transparent"
-                        HorizontalOptions="FillAndExpand"/>
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding SignoutCommand}"/>
             </StackLayout>
 
             <ScrollView VerticalOptions="FillAndExpand">

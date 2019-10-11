@@ -7,8 +7,15 @@
              x:Class="BrotCliente.Views.Login"
              
              Title="Login"
-             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls">
-
+             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+             
+             xmlns:viewmodels="clr-namespace:BrotCliente.ViewModels"
+             >
+    <ContentPage.BindingContext>
+        <viewmodels:LoginViewModel/>
+    </ContentPage.BindingContext>
+    
+    
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Orientation="Vertical"
@@ -32,11 +39,13 @@
                                                 BorderColor="#ff5001"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
+                                                Text="{Binding usuarioText}"
                                                 Placeholder="Type your username"
                                                 PlaceholderColor="#E8720C"
                                                 TextColor="#ff5001"/>
                     
                     <Rounded:RoundedBorderEntry Margin="10"
+                                                Text="{Binding Passs}"
                                                 BorderColor="#ff5001"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
@@ -44,6 +53,10 @@
                                                 PlaceholderColor="#E8720C"
                                                 IsPassword="True"
                                                 TextColor="#ff5001"/>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    	<Label Text="Mantener la sesión abierta        " VerticalOptions="Center"/>
+	                    <Switch IsToggled="{Binding SwitchMantenerSesion}"/>
+                    </StackLayout>
                 </StackLayout>
 
                 <StackLayout Margin="0, 20">
@@ -53,7 +66,7 @@
                             CornerRadius="10"
                             HorizontalOptions="Center"
                             Padding="40, 15"
-                            Command="{Binding GoToMainCommand}"/>
+                            Command="{Binding LoginCommand}"/>
 
                     <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="Center"

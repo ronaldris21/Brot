@@ -21,13 +21,29 @@ namespace BrotAPI_Final.Controllers.API
         private RusersDB r = new RusersDB();
 
         #region Gets
+
+        [HttpGet]
+        [Route("UsernameDisponible/{username}")]
+        public HttpResponseMessage validandoUsername(string username)
+        {
+            using (var db = new SomeeDBBrotEntities())
+            {
+                var datos = db.users.Where(u => u.username == username).ToList();
+                if (datos.Count > 0)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Ya existe ese nombre nombre de usuario");
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, "Nombre de usuario disponible");
+            }
+        }
+
         //Login
         [HttpPost]  //Retorno el usuario completop para guardarlo en la base de datos
         [Route("login")]
         public HttpResponseMessage login(users item)
         {
             //Retorno objeto con id
-            if (item==null)
+            if (item == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible analizar los datos proporcionados");
             }
@@ -36,7 +52,7 @@ namespace BrotAPI_Final.Controllers.API
                 using (var db = new SomeeDBBrotEntities())
                 {
                     var userObtenido = db.users.Where(u => u.username == item.username || u.email == item.username).ToList();
-                    if (userObtenido.Count<=0)
+                    if (userObtenido.Count <= 0)
                     {
                         return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No se encontro el usuario o correo proporcionado");
                     }
@@ -94,13 +110,41 @@ namespace BrotAPI_Final.Controllers.API
 
 
 
-        ////Vendors obtener vendedores
-        //[HttpGet]
-        //[Route("vendors")]
-        //public HttpResponseMessage vendors()
-        //{
-        //    return Request.CreateResponse(HttpStatusCode.OK, "Res");
-        //}
+        //Vendors obtener vendedores
+        [HttpGet]
+        [Route("vendors")]
+        public HttpResponseMessage vendors()
+        {
+            using (var db = new SomeeDBBrotEntities())
+            {
+                var vendedores = db.users
+                    .Where(u => u.isVendor)
+                    .Select(u =>
+                        new userModel
+                        {
+                            apellido = u.apellido,
+                            descripcion = u.descripcion,
+                            email = u.email,
+                            id_user = u.id_user,
+                            isVendor = u.isVendor,
+                            nombre = u.nombre,
+                            pass = u.pass,
+                            puntaje = u.puntaje,
+                            username = u.username,
+                            img = u.img,
+                            puesto_name = u.puesto_name,
+                            isActive = u.isActive,
+                            dui = u.dui,
+                            isDeleted = u.isDeleted,
+                            num_telefono = u.num_telefono,
+                            xlat = u.xlat,
+                            ylon = u.ylon
+                        }
+                    ).ToList();
+                return Request.CreateResponse(HttpStatusCode.OK, vendedores);
+            }
+
+        }
 
 
 
@@ -200,7 +244,7 @@ namespace BrotAPI_Final.Controllers.API
                    u =>
                    new ResponseUserProfile
                    {
-                       isFollowed = u.seguidores1.FirstOrDefault(ss=>ss.seguidor_id==idVisitante)==default(seguidores)?false:true,
+                       isFollowed = u.seguidores1.FirstOrDefault(ss => ss.seguidor_id == idVisitante) == default(seguidores) ? false : true,
 
                        cantSeguidores = u.seguidores1
                            .Where(s => s.id_seguido == idUserProfile && s.users.isDeleted == false).ToList().Count,
@@ -229,7 +273,7 @@ namespace BrotAPI_Final.Controllers.API
                        },
 
                        publicacionesUser = u.publicaciones
-                       .Where(pu=>pu.isDeleted==false)
+                       .Where(pu => pu.isDeleted == false)
                        .Select(
                            b =>
                                new ResponsePublicacionFeed
@@ -317,7 +361,7 @@ namespace BrotAPI_Final.Controllers.API
                        },
 
                        publicacionesUser = u.publicaciones
-                       .Where(pu=>pu.isDeleted==false)
+                       .Where(pu => pu.isDeleted == false)
                        .Select(
                            b =>
                                new ResponsePublicacionFeed
@@ -368,7 +412,7 @@ namespace BrotAPI_Final.Controllers.API
 
 
                        publicacionesGuardadas = u.publicacion_guardada
-                       .Where(pu=>pu.publicaciones.isDeleted==false)
+                       .Where(pu => pu.publicaciones.isDeleted == false)
                        .Select(
                            b =>
                                new ResponsePublicacionGuardada
@@ -500,7 +544,7 @@ namespace BrotAPI_Final.Controllers.API
         #endregion
 
 
-       
+
 
         #region DELETE - POST - PUT 
 
@@ -542,6 +586,11 @@ namespace BrotAPI_Final.Controllers.API
             }
 
             item.isDeleted = false;
+            if (!item.isVendor)
+            {
+                item.descripcion = "Soy un nuevo BrotAmigo";
+                item.puesto_name = "BrotAmigo";
+            }
             if (r.Post(item))
             {
                 return Request.CreateResponse(HttpStatusCode.Created, "user guardado correctamente");

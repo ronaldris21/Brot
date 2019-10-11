@@ -14,11 +14,12 @@
             <ListView VerticalOptions="FillAndExpand"
                       HasUnevenRows="True"
                       ItemsSource="{Binding lBrotTen}"
+                      CachingStrategy="RecycleElement"
                       SeparatorColor="#ff5001"
                       SeparatorVisibility="Default"
                       x:Name="FeedListView"
                       IsPullToRefreshEnabled="True"
-                      IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                      IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
                       RefreshCommand="{Binding RefreshCommand}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -33,18 +34,18 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Image Source="DefaultUser.png"
+                                            <Image Source="{Binding userData.img}"
                                                    HeightRequest="50"
                                                    Grid.Column="0"/>
 
-                                            <Label Text="USERNAME"
+                                            <Label Text="{Binding userData.puesto_name}"
                                                    TextColor="#ff5001"
                                                    FontSize="Large"
                                                    HorizontalOptions="CenterAndExpand"
                                                    VerticalOptions="CenterAndExpand"
                                                    Grid.Column="1"/>
 
-                                            <Label Text="Prueba"
+                                            <Label Text="{Binding userData.username}"
                                                    TextColor="#ff5001"
                                                    FontSize="Medium"
                                                    HorizontalOptions="CenterAndExpand"
@@ -67,7 +68,7 @@
                                                      HeightRequest="25"
                                                      WidthRequest="25"
                                                      BackgroundColor="Transparent"
-                                                     ClassId="{Binding user.id_user}"/>
+                                                     ClassId="{Binding userData.id_user}"/>
                                         <Label Text="# Brots"
                                                VerticalOptions="Center"
                                                TextColor="Black"

@@ -1,4 +1,7 @@
-﻿using BrotCliente.Views;
+﻿using BrotCliente.Class;
+using BrotCliente.Views;
+using DLL.Models;
+using DLL.Service;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -10,7 +13,7 @@ namespace BrotCliente.ViewModels
 {
     public class SignupViewModel : BaseViewModel
     {
-        public ICommand LoginCommand
+        public ICommand BackLoginCommand
         {
             get
             {
@@ -18,11 +21,11 @@ namespace BrotCliente.ViewModels
             }
         }
 
-        public ICommand GoToMainCommand
+        public ICommand RegisterCommand
         {
             get
             {
-                return new RelayCommand(GoToMainPage);
+                return new RelayCommand(RegisterMethod);
             }
         }
 
@@ -31,12 +34,52 @@ namespace BrotCliente.ViewModels
 
         public void LoginUser()
         {
-            Application.Current.MainPage.Navigation.PopAsync();
+            Application.Current.MainPage = new NavigationPage(new Login());
         }
 
-        public void GoToMainPage()
+        public async void RegisterMethod()
         {
-            Application.Current.MainPage = new NavigationPage(new Master());
+            if (Usuario.pass==passConfirmation)
+            {
+                if (! await RestAPI.validandoUsername(Usuario.username))
+                {
+                    Dialogos.ToastBAD("Ya existe el nombre de usuario elegido", 2000);
+                    return;
+                }
+                if (await RestAPI.Post<userModel>(Usuario,TableName.userst))
+                {
+                    Dialogos.ToastOk("Acabas de registrarte exitosamente, ahora debes de iniciar sesión", 2000);
+                    Application.Current.MainPage = new NavigationPage(new Master());
+                }
+            }
+        }
+
+        private userModel _usuario;
+        public userModel Usuario
+        {
+            get { return _usuario; }
+            set
+            {
+                if(_usuario != value)
+                {
+                    _usuario = value;
+                    OnPropertyChanged("Usuario");
+                }
+            }
+        }
+
+        private string _passConfirmation;
+        public string passConfirmation
+        {
+            get { return _passConfirmation; }
+            set
+            {
+                if(_passConfirmation != value)
+                {
+                    _passConfirmation = value;
+                    OnPropertyChanged("passConfirmation");
+                }
+            }
         }
 
         #endregion

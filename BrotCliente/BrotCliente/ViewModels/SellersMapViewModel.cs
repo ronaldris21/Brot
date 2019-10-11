@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using DLL.Service;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,8 +27,14 @@ namespace BrotCliente.ViewModels
             this.Pins = new ObservableCollection<Pin>();
         }
 
-        public void InitPins()
+        public async void InitPins()
         {
+            var usuarios = await RestAPI.getVendedores();
+            if (usuarios!=null)
+            {
+                //Asignar pines!!
+            }
+
             Pin p1 = new Pin()
             {
                 //Icon = BitmapDescriptorFactory.DefaultMarker(Color.Green),

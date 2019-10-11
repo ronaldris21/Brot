@@ -12,12 +12,10 @@ namespace BrotCliente.Views.Tabs
     [DesignTimeVisible(true)]
     public partial class Feed : ContentPage
     {
-        FeedViewModel ViewModel;
         public Feed()
         {
             InitializeComponent();
 
-            BindingContext = ViewModel = new FeedViewModel();
         }
 
         private void ImageButton_Clicked(object sender, EventArgs e)
@@ -26,7 +24,7 @@ namespace BrotCliente.Views.Tabs
 
             if (int.TryParse(LikePressed.ClassId, out int idLikeButton))
             {
-                this.ViewModel.LikeCommand.Execute(idLikeButton);
+                ((FeedViewModel)this.BindingContext).LikeCommand.Execute(idLikeButton);
             }
         }
 
