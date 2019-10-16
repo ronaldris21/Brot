@@ -10,6 +10,5 @@
              x:Class="BrotVendedor.View.Inicio">
 
     <pg:Posts></pg:Posts>
-    <pg:Notifications></pg:Notifications>
     <master:ProfileDetail/>
 </TabbedPage>

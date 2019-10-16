@@ -1,4 +1,5 @@
-﻿using BrotVendedor.View;
+﻿using BrotVendedor.Model;
+using BrotVendedor.View;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -127,7 +128,20 @@ namespace BrotVendedor.ViewModel
             {
                 App.Current.MainPage.DisplayAlert("Error", "Uno o mas campos estan vacios", "Aceptar");
             }
-            App.Current.MainPage.Navigation.PushAsync(new ChooseLocation());
+            Usuario user = new Usuario
+            {
+                username = usuario,
+                nombre = nombre,
+                apellido = apellido,
+                pass = clave,
+                email = correo,
+                num_telefono = telefono,
+                dui = dui,
+                isVendor = true,
+                isActive=true,
+                isDeleted=false
+            };
+            App.Current.MainPage.Navigation.PushAsync(new ChooseLocation(user, "Registrar"));
 
         }
         public void Dispose()

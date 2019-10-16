@@ -5,12 +5,13 @@ using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Plugin.Media;
+using BrotVendedor.Model;
 
 namespace BrotVendedor
 {
     public partial class App : Application
     {
-        LocalUser u;
+        Usuario u;
         public App()
         {
             InitializeComponent();

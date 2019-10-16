@@ -1,5 +1,6 @@
 ﻿using BrotApi0.Models;
 using BrotVendedor.Class;
+using BrotVendedor.Model;
 using BrotVendedor.View;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -17,6 +18,7 @@ namespace BrotVendedor.ViewModel
         private String _usuario;
         private String _clave;
         private bool _remember;
+        private ApiService api;
         #endregion
         #region Propiedades
         public String usuario
@@ -57,6 +59,7 @@ namespace BrotVendedor.ViewModel
         public LoginViewModel()
         {
             remember = false;
+            api = new ApiService();
         }
         #endregion
         #region Comandos
@@ -80,16 +83,23 @@ namespace BrotVendedor.ViewModel
         {
             App.Current.MainPage.Navigation.PushAsync(new Register());
         }
-        public void GoToMain()
+        public async void GoToMain()
         {
             //check the user and pass
             if (String.IsNullOrEmpty(usuario) || String.IsNullOrEmpty(clave))
             {
-                App.Current.MainPage.DisplayAlert("Error", "Uno o mas campos estan vacios", "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Error", "Uno o mas campos estan vacios", "Aceptar");
             }
-            LocalUser u = new LocalUser();
+            Usuario u = new Usuario();
             u.username = usuario;
             u.pass = clave;
+            Response result = await api.Post<Usuario>("users/login", u);
+            if (!result.isSuccess)
+            {
+                await App.Current.MainPage.DisplayAlert("Error",result.Message,"Aceptar");
+                return;
+            }
+            u = (Usuario)result.Result;
             if (remember)
             {
                 u.RememberMe = true;

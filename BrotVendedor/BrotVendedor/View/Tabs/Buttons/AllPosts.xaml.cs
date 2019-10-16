@@ -16,7 +16,7 @@ namespace BrotVendedor.View.Tabs.Buttons
         public AllPosts()
         {
             InitializeComponent();
-            BindingContext = new AllPostsViewModel();
+            //BindingContext = new AllPostsViewModel();
         }
     }
 }
