@@ -1,5 +1,6 @@
 ﻿namespace BrotVendedor.ViewModel.Tabs
 {
+    using BrotVendedor.Class;
     using BrotVendedor.View;
     using BrotVendedor.View.Tabs.Buttons;
     using GalaSoft.MvvmLight.Command;
@@ -46,7 +47,7 @@
 
         private void gotoLocation()
         {
-            App.Current.MainPage.Navigation.PushAsync(new ChooseLocation());
+            App.Current.MainPage.Navigation.PushAsync(new ChooseLocation(Singleton.current.user,"Actualizar"));
         }
 
         private void gotoSettings()

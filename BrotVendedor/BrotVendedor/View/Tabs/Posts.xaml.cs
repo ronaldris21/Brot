@@ -43,7 +43,7 @@ namespace BrotVendedor.View
 
         private async void ImageButton_Clicked(object sender, EventArgs e)
         {
-            await BindingObject.ShareText();
+            //await BindingObject.ShareText();
         }
     }
 }

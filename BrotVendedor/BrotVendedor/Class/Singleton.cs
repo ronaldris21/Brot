@@ -1,4 +1,5 @@
-﻿using Plugin.Media;
+﻿using BrotVendedor.Model;
+using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace BrotVendedor.Class
         private userJson json;
         private MediaFile _mediaFile;
         private PickPhotoAsync img;
+        private Usuario _user;
         public static Singleton current
         {
             get
@@ -32,6 +34,17 @@ namespace BrotVendedor.Class
             get
             {
                 return json;
+            }
+        }
+        public Usuario user
+        {
+            get
+            {
+                return _user;
+            }
+            set
+            {
+                _user = value;
             }
         }
         public Singleton()

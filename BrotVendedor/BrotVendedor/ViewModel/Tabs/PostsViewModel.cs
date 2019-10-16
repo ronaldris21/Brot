@@ -1,6 +1,9 @@
 ﻿namespace BrotVendedor.ViewModel
 {
+    using BrotApi0.Models;
     using BrotVendedor.Class;
+    using BrotVendedor.Model;
+    using DLL.ResponseModels;
     using GalaSoft.MvvmLight.Command;
     using System;
     using System.Collections.ObjectModel;
@@ -10,22 +13,12 @@
     using System.Windows.Input;
     using Xamarin.Essentials;
 
-    public struct Post
-    {
-        public int id_Post { get; set; }
-        public String texto { get; set; }
-        public String imgPath { get; set; }
-        public String usuario { get; set; }
-        public String hora { get; set; }
-        public String img { get; set; }
-        public String like { get; set; }
-        public bool isimg { get; set; }
-    }
     public class PostsViewModel : BaseViewModel
     {
         #region Atributos
-        private ObservableCollection<Post> _posts;
+        private ObservableCollection<ResponsePublicacionFeed> _posts;
         private String _texto;
+        private ApiService api;
         #endregion
         #region Propiedades
         public String texto
@@ -39,7 +32,7 @@
                 _texto = value; OnPropertyChanged("texto");
             }
         }
-        public ObservableCollection<Post> posts
+        public ObservableCollection<ResponsePublicacionFeed> posts
         {
             get
             {
@@ -57,43 +50,9 @@
         #region Constructor
         public PostsViewModel()
         {
-            posts = new ObservableCollection<Post>();
-            Post p = new Post
-            {
-                texto = "Post 1",
-                imgPath = "userTab64x64.png",
-                usuario = "SilkenHarbor6",
-                hora = "15:05",
-                img = "Bro.png",
-                like = "NoLike.png",
-                id_Post = posts.Count,
-                isimg = true
-            };
-            posts.Insert(0, p);
-            Post p2 = new Post
-            {
-                texto = "Post 2",
-                imgPath = "userTab64x64.png",
-                usuario = "Ris",
-                hora = "15:05",
-                img = "Bro.png",
-                like = "NoLike.png",
-                id_Post = posts.Count,
-                isimg = false
-            };
-            posts.Insert(0,p2);
-        }
-        #endregion
-        #region Destructor
-        ~PostsViewModel()
-        {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            string filePath = Path.Combine(path, "user.txt");
-            using (var file = File.Open(filePath, FileMode.Create, FileAccess.Write))
-            using (var strm = new StreamWriter(file))
-            {
-                strm.Write(Newtonsoft.Json.JsonConvert.SerializeObject(default(LocalUser)));
-            }
+            api = new ApiService();
+            posts = new ObservableCollection<ResponsePublicacionFeed>();
+            LoadPost();
         }
         #endregion
         #region Command
@@ -120,49 +79,55 @@
         }
         #endregion
         #region Metodos
-        public void AddPost()
+        public async void LoadPost()
         {
-            Post niu = new Post();
-            var h = DateTime.Now.ToString().Split(' ');
-            var time = h[1].Split(':');
-            niu.hora = time[0] + ":" + time[1];
-            niu.usuario = "SilkenHarbor6";
-            niu.imgPath = "userTab64x64.png";
-            niu.img = "Bro.png";
-            niu.texto = texto;
-            niu.id_Post = posts.Count;
-            niu.like = "NoLike.png";
-            niu.isimg = false;
-            posts.Insert(0, niu);
-            texto = "";
+            Response resp = await api.GetAll<ResponsePublicacionFeed>("publicaciones/feed/" + Singleton.current.user.id_user);
+            posts = (ObservableCollection<ResponsePublicacionFeed>)resp.Result;
         }
-        public void Like(int arg)
+        public async void AddPost()
         {
-            Post selec;
-
-            var x = from c in posts where c.id_Post == arg select c;
-            selec = x.First();
-            
-            if (selec.like.Equals("NoLike.png"))
+            publicacionesModel niu = new publicacionesModel();
+            niu.fecha_creacion = DateTime.Now;
+            niu.id_user =Singleton.current.user.id_user;
+            if (PickPhotoAsync.name == null)
             {
-                selec.like = "Like.png";
+                niu.img = null;
+                niu.isImg = false;
             }
             else
             {
-                selec.like = "NoLike.png";
+                niu.img = PickPhotoAsync.name;
+                niu.isImg = true;
             }
-            posts[posts.Count-1-selec.id_Post] = selec;
-        }
-        public async Task ShareText()
-        {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            string filePath = Path.Combine(path, "user.txt");
-            await Share.RequestAsync(new ShareFileRequest
+            niu.descripcion = texto;
+            niu.isDeleted = false;
+            niu.fecha_actualizacion = null;
+            texto = "";
+            PickPhotoAsync.name = null;
+            Response resp = await api.Post<publicacionesModel>("publicaciones", niu);
+            if (!resp.isSuccess)
             {
-                Title="Puto el que lo reciba",
-                File= new ShareFile(filePath)
-            });
+                await App.Current.MainPage.DisplayAlert("Error",resp.Message,"Aceptar");
+            }
         }
+        public void Like(int arg)
+        {
+            //ResponsePublicacionFeed selec;
+
+            //var x = from c in posts where c.publicacion.id_post == arg select c;
+            //selec = x.First();
+
+            //if (selec.like.Equals("NoLike.png"))
+            //{
+            //    selec.like = "Like.png";
+            //}
+            //else
+            //{
+            //    selec.like = "NoLike.png";
+            //}
+            //posts[posts.Count - 1 - selec.id_Post] = selec;
+        }
+      
         public void PhotoForPost()
         {
 

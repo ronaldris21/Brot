@@ -1,25 +1,20 @@
-﻿using System;
+﻿using BrotApi0.Models;
+using BrotVendedor.Class;
+using BrotVendedor.Model;
+using DLL.ResponseModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace BrotVendedor.ViewModel.Tabs.Buttons
 {
-    public struct Post
-    {
-        public int id_Post { get; set; }
-        public String texto { get; set; }
-        public String imgPath { get; set; }
-        public String usuario { get; set; }
-        public String hora { get; set; }
-        public String img { get; set; }
-        public String like { get; set; }
-        public bool isimg { get; set; }
-    }
     class AllPostsViewModel:BaseViewModel
     {
-        private ObservableCollection<Post> _posts;
-        public ObservableCollection<Post> posts
+        private ObservableCollection<ResponsePublicacionFeed> _posts;
+        private ApiService api;
+        public ObservableCollection<ResponsePublicacionFeed> posts
         {
             get
             {
@@ -35,32 +30,27 @@ namespace BrotVendedor.ViewModel.Tabs.Buttons
         }
         public AllPostsViewModel()
         {
-            posts = new ObservableCollection<Post>();
-            Post p = new Post
-            {
-                texto = "Post 1",
-                imgPath = "userTab64x64.png",
-                usuario = "SilkenHarbor6",
-                hora = "15:05",
-                img = "Bro.png",
-                like = "NoLike.png",
-                id_Post = posts.Count,
-                isimg = true
-            };
-            posts.Insert(0, p);
-            Post p2 = new Post
-            {
-                texto = "Post 2",
-                imgPath = "userTab64x64.png",
-                usuario = "Ris",
-                hora = "15:05",
-                img = "Bro.png",
-                like = "NoLike.png",
-                id_Post = posts.Count,
-                isimg = false
-            };
-            posts.Insert(0, p2);
+            api = new ApiService();
+            LoadPosts();
         }
-
+        public async void LoadPosts()
+        {
+            Response resp = await api.GetAll<ResponsePublicacionFeed>("publicaciones/all/"+Singleton.current.user.id_user);
+            ObservableCollection<ResponsePublicacionFeed> temp = (ObservableCollection<ResponsePublicacionFeed>)resp.Result;
+            foreach (var item in temp)
+            {
+                item.publicacion.img = "http://images.somee.com/Uploads/" + item.publicacion.img;
+                item.UsuarioCreator.img= "http://images.somee.com/Uploads/" + item.UsuarioCreator.img;
+            }
+            ObservableCollection<ResponsePublicacionFeed> temp2 = new ObservableCollection<ResponsePublicacionFeed>();
+            for (int i = 0; i < temp.Count; i++)
+            {
+                if (temp[i].UsuarioCreator.id_user==Singleton.current.user.id_user)
+                {
+                    temp2.Add(temp[i]);
+                }
+            }
+            posts = temp2;
+        }
     }
 }
