@@ -62,29 +62,29 @@
                                                FontSize="Small"
                                                FontAttributes="Bold"/>
 
-                                        <Image Source="https://py-softwaresv.com/wp-content/uploads/2019/08/Logo_Square_512-300x300.png/"
-                                               HeightRequest="150"
+                                        <Image Source="{Binding publicacion.img}"
+                                               HeightRequest="250"
                                                Margin="5"
                                                IsVisible="{Binding publicacion.isImg}"/>
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal"
                                                  Padding="5">
-                                        <ImageButton Source="PinBlack.ico"
+                                        <ImageButton Source="PinBlack250.png"
                                                      HeightRequest="25"
                                                      WidthRequest="25"
                                                      BackgroundColor="Transparent"
-                                                     ClassId="{Binding descripcion.id_post}"
+                                                     ClassId="{Binding publicacion.id_post}"
                                                      Clicked="ImageButton_Clicked"/>
-                                        <Label Text="# Brots"
+                                        <Label Text="{Binding cantLikes, StringFormat='{0} Brots'}"
                                                VerticalOptions="Center"
                                                TextColor="Black"
                                                FontAttributes="Bold"/>
-                                        <ImageButton Source="Comment.ico"
+                                        <ImageButton Source="comment.png"
                                                      HeightRequest="25"
                                                      WidthRequest="25"
                                                      BackgroundColor="Transparent"/>
-                                        <Label Text="# Comments"
+                                        <Label Text="{Binding cantComentarios, StringFormat='{0} Comments'}"
                                                VerticalOptions="Center"
                                                TextColor="Black"
                                                FontAttributes="Bold"/>

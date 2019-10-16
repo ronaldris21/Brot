@@ -75,11 +75,12 @@ namespace BrotCliente.ViewModels
 
             try
             {
-                await App.Current.MainPage.DisplayAlert("Refresh", "Refreshing", "ok");
+                this.lPosts.Clear();
+                LoadFeed();
             }
             catch (Exception)
             {
-                Debug.WriteLine("Is Busy");
+                await Singleton.Instance.Dialogs.Message("Is busy", "Couldn't load items");
             }
             finally
             {
@@ -92,8 +93,6 @@ namespace BrotCliente.ViewModels
             await App.Current.MainPage.DisplayAlert("EXITO", "Has presionado el boton " + idLike, "Ok");
         }
 
-        //SOLO PRUBEA
-        //BORRAR CUANDO FUNCIONE EL API
         public async void LoadFeed()
         {
             var result = await RestClient.GetAll<ResponsePublicacionFeed>($"publicaciones/all/{Singleton.Instance.User.id_user}/");
@@ -106,63 +105,9 @@ namespace BrotCliente.ViewModels
 
             foreach (var post in (ObservableCollection<ResponsePublicacionFeed>) result.Result)
             {
-                post.publicacion.img = $"http://images.somee.com/Uploads/{post.publicacion.img}";
+                post.publicacion.img = "http://images.somee.com/uploads/" + post.publicacion.img;
                 this.lPosts.Add(post);
             }
-
-            ResponsePublicacionFeed p1 = new ResponsePublicacionFeed()
-            {
-                UsuarioCreator = new userModel()
-                {
-                    username = "Mario"
-                },
-                publicacion = new publicacionesModel()
-                {
-                    fecha_creacion = DateTime.Now,
-                    img = "https://py-softwaresv.com/wp-content/uploads/2019/08/Logo_Square_512-300x300.png",
-                    isImg = true
-                }
-            };
-
-            this.lPosts.Add(p1);
-
-            //ResponsePublicacionFeed p2 = new ResponsePublicacionFeed()
-            //{
-            //    id_post = 2,
-            //    descripcion = "Este es un post de prueba sin imagen",
-            //    fecha_actualizacion = DateTime.Now,
-            //    fecha_creacion = DateTime.Now,
-            //    id_user = 2,
-            //    img = null,
-            //    isimg = false
-            //};
-
-            //ResponsePublicacionFeed p3 = new ResponsePublicacionFeed()
-            //{
-            //    id_post = 3,
-            //    descripcion = "Este es otro post de prueba con imagen",
-            //    fecha_actualizacion = DateTime.Now,
-            //    fecha_creacion = DateTime.Now,
-            //    id_user = 1,
-            //    img = "https://py-softwaresv.com/wp-content/uploads/2019/08/Logo_Square_512-300x300.png",
-            //    isimg = true
-            //};
-
-            //ResponsePublicacionFeed p4 = new ResponsePublicacionFeed()
-            //{
-            //    id_post = 4,
-            //    descripcion = "Este es otro post de prueba sin imagen",
-            //    fecha_actualizacion = DateTime.Now,
-            //    fecha_creacion = DateTime.Now,
-            //    id_user = 2,
-            //    img = null,
-            //    isimg = false
-            //};
-
-            //this.lPosts.Add(p1);
-            //this.lPosts.Add(p2);
-            //this.lPosts.Add(p3);
-            //this.lPosts.Add(p4);
         }
 
         #endregion

@@ -6652,25 +6652,31 @@ namespace BrotCliente.Droid
 			public const int Pin = 2131165527;
 			
 			// aapt resource value: 0x7F070158
-			public const int PinBlack = 2131165528;
+			public const int Pin250 = 2131165528;
 			
 			// aapt resource value: 0x7F070159
-			public const int PinWhite250 = 2131165529;
+			public const int PinBlack = 2131165529;
 			
 			// aapt resource value: 0x7F07015A
-			public const int pinwhite500 = 2131165530;
+			public const int PinBlack250 = 2131165530;
 			
 			// aapt resource value: 0x7F07015B
-			public const int Profile250 = 2131165531;
+			public const int PinWhite250 = 2131165531;
 			
 			// aapt resource value: 0x7F07015C
-			public const int save = 2131165532;
+			public const int pinwhite500 = 2131165532;
 			
 			// aapt resource value: 0x7F07015D
-			public const int tooltip_frame_dark = 2131165533;
+			public const int Profile250 = 2131165533;
 			
 			// aapt resource value: 0x7F07015E
-			public const int tooltip_frame_light = 2131165534;
+			public const int save = 2131165534;
+			
+			// aapt resource value: 0x7F07015F
+			public const int tooltip_frame_dark = 2131165535;
+			
+			// aapt resource value: 0x7F070160
+			public const int tooltip_frame_light = 2131165536;
 			
 			static Drawable()
 			{
