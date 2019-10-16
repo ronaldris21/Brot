@@ -1,4 +1,7 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using BrotApi0.Models;
+using BrotCliente.Patterns;
+using BrotCliente.Services;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,46 +29,27 @@ namespace BrotCliente.ViewModels
             this.Pins = new ObservableCollection<Pin>();
         }
 
-        public void InitPins()
+        public async void InitPins()
         {
-            Pin p1 = new Pin()
-            {
-                //Icon = BitmapDescriptorFactory.DefaultMarker(Color.Green),
-                Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
-                Label = "Brot 1",
-                //Position(lat, long)
-                Position = new Position(13.9803544047914, -89.7502448454499)
-            };
+            var result = await RestClient.GetAll<userModel>("users/vendors/");
 
-            Pin p2 = new Pin()
+            if (!result.IsSuccess)
             {
-                Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
-                Label = "Brot 2",
-                //Position(lat, long)
-                Position = new Position(13.9966387066901, -89.5510578900576)
-            };
+                await Singleton.Instance.Dialogs.Message("Error trying to get sellers", result.Message);
+                return;
+            }
 
-            Pin p3 = new Pin()
+            foreach (var seller in (ObservableCollection<userModel>) result.Result)
             {
-                //Icon = BitmapDescriptorFactory.DefaultMarker(Color.Green),
-                Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
-                Label = "Brot 3",
-                //Position(lat, long)
-                Position = new Position(13.9804544047914, -89.5602448454499)
-            };
+                Pin pin = new Pin()
+                {
+                    Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
+                    Label = $"Seller name: {seller.username} Description: {seller.descripcion}",
+                    Position = new Position(Convert.ToDouble(seller.xlat), Convert.ToDouble(seller.ylon))
+                };
 
-            Pin p4 = new Pin()
-            {
-                Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
-                Label = "Brot 4",
-                //Position(lat, long)
-                Position = new Position(13.9967097066901, -89.9610578900576)
-            };
-
-            this.Pins.Add(p1);
-            this.Pins.Add(p2);
-            this.Pins.Add(p3);
-            this.Pins.Add(p4);
+                this.Pins.Add(pin);
+            }
         }
 
         #region InCaseYouWantToAddPins

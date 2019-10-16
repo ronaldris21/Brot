@@ -20,28 +20,28 @@
                                  Padding="14, 16">
                         
                         <Image Source="DefaultUser.png" 
-                               Margin="25"
-                               HeightRequest="100"/>
-                        
-                        <Label Text="@Username"
+                               Margin="15"
+                               HeightRequest="80"/>
+
+                        <Label Text="{Binding CurrentUser.username, StringFormat='@{0}'}"
                                TextColor="#ff5001"
-                               HorizontalOptions="CenterAndExpand"
-                               FontSize="30"/>
+                               FontSize="Medium"
+                               HorizontalOptions="CenterAndExpand"/>
                     </StackLayout>
                 </ContentView>
 
                 <StackLayout Orientation="Vertical"
-                             Margin="20">
+                             Margin="10">
                     <Label Text="Name"
                            TextColor="#ff5001"
-                           FontSize="Large"
+                           FontSize="Medium"
                            FontAttributes="Bold"
                            VerticalOptions="Center"/>
 
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="First Name [Second one]"
-                               TextColor="#ff5001"
-                               FontSize="Medium"
+                        <Label Text="{Binding CurrentUser.nombre}"
+                               TextColor="#000"
+                               FontSize="Small"
                                HorizontalOptions="StartAndExpand"
                                VerticalOptions="Center"/>
 
@@ -55,17 +55,17 @@
                 </StackLayout>
 
                 <StackLayout Orientation="Vertical"
-                             Margin="20">
+                             Margin="10">
                     <Label Text="Lastname"
                            TextColor="#ff5001"
-                           FontSize="Large"
+                           FontSize="Medium"
                            FontAttributes="Bold"
                            VerticalOptions="Center"/>
 
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="First Lastname [Second one]"
-                               TextColor="#ff5001"
-                               FontSize="Medium"
+                        <Label Text="{Binding CurrentUser.apellido}"
+                               TextColor="#000"
+                               FontSize="Small"
                                HorizontalOptions="StartAndExpand"
                                VerticalOptions="Center"/>
 
@@ -79,17 +79,17 @@
                 </StackLayout>
 
                 <StackLayout Orientation="Vertical"
-                             Margin="20">
+                             Margin="10">
                     <Label Text="Description"
                            TextColor="#ff5001"
-                           FontSize="Large"
+                           FontSize="Medium"
                            FontAttributes="Bold"
                            VerticalOptions="Center"/>
 
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Lorem ipsum dolor sit amet"
-                               TextColor="#ff5001"
-                               FontSize="Medium"
+                        <Label Text="{Binding CurrentUser.descripcion}"
+                               TextColor="#000"
+                               FontSize="Small"
                                HorizontalOptions="StartAndExpand"
                                VerticalOptions="Center"/>
 
@@ -104,7 +104,7 @@
 
                 <StackLayout VerticalOptions="EndAndExpand">
                     <Button Text="Sign out"
-                            TextColor="#ff5001"
+                            TextColor="#000"
                             BackgroundColor="Transparent"
                             Padding="10, 20"
                             VerticalOptions="CenterAndExpand"

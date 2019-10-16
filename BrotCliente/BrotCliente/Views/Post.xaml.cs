@@ -28,18 +28,7 @@ namespace BrotCliente.Views
         {
             InitializeComponent();
 
-            ResponsePublicacionFeed item = new ResponsePublicacionFeed()
-            {
-                id_post = 2,
-                descripcion = "Default post without image",
-                fecha_actualizacion = DateTime.Now,
-                fecha_creacion = DateTime.Now,
-                id_user = 2,
-                img = null,
-                isimg = false
-            };
-
-            BindingContext = ViewModel = new PostViewModel(item);
+            BindingContext = ViewModel = new PostViewModel(new ResponsePublicacionFeed());
         }
     }
 }

@@ -10,7 +10,6 @@
              IconImageSource="BWhite250.ico">
     <ContentPage.Content>
         <StackLayout>
-
             <ListView VerticalOptions="FillAndExpand"
                       
                       HasUnevenRows="True"
@@ -39,17 +38,17 @@
                                             <Image Source="DefaultUser.png"
                                                    HeightRequest="50"
                                                    Grid.Column="0"/>
-                                            
-                                            <Label Text="USERNAME"
+
+                                            <Label Text="{Binding UsuarioCreator.username, StringFormat='@{0}'}"
                                                    TextColor="#ff5001"
-                                                   FontSize="Large"
+                                                   FontSize="Medium"
                                                    HorizontalOptions="CenterAndExpand"
                                                    VerticalOptions="CenterAndExpand"
                                                    Grid.Column="1"/>
 
-                                            <Label Text="{Binding fecha_actualizacion}"
+                                            <Label Text="{Binding publicacion.fecha_creacion}"
                                                    TextColor="#ff5001"
-                                                   FontSize="Medium"
+                                                   FontSize="Small"
                                                    HorizontalOptions="CenterAndExpand"
                                                    VerticalOptions="CenterAndExpand"
                                                    Grid.Column="2"/>
@@ -58,15 +57,15 @@
 
                                     <StackLayout Orientation="Vertical"
                                                  Padding="5">
-                                        <Label Text="{Binding descripcion}"
+                                        <Label Text="{Binding publicacion.descripcion}"
                                                TextColor="Black"
-                                               FontSize="Medium"
+                                               FontSize="Small"
                                                FontAttributes="Bold"/>
 
-                                        <Image Source="{Binding img}"
+                                        <Image Source="https://py-softwaresv.com/wp-content/uploads/2019/08/Logo_Square_512-300x300.png/"
                                                HeightRequest="150"
                                                Margin="5"
-                                               IsVisible="{Binding isimg}"/>
+                                               IsVisible="{Binding publicacion.isImg}"/>
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal"
@@ -75,7 +74,7 @@
                                                      HeightRequest="25"
                                                      WidthRequest="25"
                                                      BackgroundColor="Transparent"
-                                                     ClassId="{Binding id_post}"
+                                                     ClassId="{Binding descripcion.id_post}"
                                                      Clicked="ImageButton_Clicked"/>
                                         <Label Text="# Brots"
                                                VerticalOptions="Center"

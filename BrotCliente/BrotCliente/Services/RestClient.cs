@@ -9,13 +9,13 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClienteRest.Service
+namespace BrotCliente.Services
 {
-    public class ApiService
+    public static class RestClient
     {
-        private String url = "http://cdsapirest.somee.com/api/";
-        public HttpClient cliente = new HttpClient();
-        public async Task<Response> GetAll<T>(String Controller)
+        private static string url = "http://brotproject.somee.com/api/";
+        private static HttpClient cliente = new HttpClient();
+        public static async Task<Response> GetAll<T>(String Controller)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace ClienteRest.Service
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "Error de respuesta del servidor"
+                        Message = JsonConvert.DeserializeObject<Response>(await response.Content.ReadAsStringAsync()).Message
                     };
                 }
 
@@ -48,27 +48,39 @@ namespace ClienteRest.Service
                 };
             }
         }
-        public async Task<bool> Post<T>(String Controller, T item)
+        public static async Task<Response> Post<T>(string controller, T item)
         {
             try
             {
                 var json = JsonConvert.SerializeObject(item);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await cliente.PostAsync(url + Controller, content);
-                //String mensaje = JsonConvert.DeserializeObject<String>(await response.Content.ReadAsStringAsync());
-                //Debug.Print(mensaje);
+                HttpResponseMessage response = await cliente.PostAsync($"{url}{controller}", content);
+
                 if (!response.IsSuccessStatusCode)
                 {
-                    return false;
+                    return new Response()
+                    {
+                        Message = JsonConvert.DeserializeObject<Response>(await response.Content.ReadAsStringAsync()).Message,
+                        IsSuccess = false
+                    };
                 }
-                return true;
+
+                return new Response()
+                {
+                    IsSuccess = true,
+                    Result = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync())
+                };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
+                return new Response()
+                {
+                    IsSuccess = false,
+                    Message = "Error Ex " + ex.Message
+                };
             }
         }
-        public async Task<bool> Delete<T>(String controller, int id)
+        public static async Task<bool> Delete<T>(String controller, int id)
         {
             try
             {
@@ -84,7 +96,7 @@ namespace ClienteRest.Service
                 return false;
             }
         }
-        public async Task<bool> Put<T>(String controller, int id, T item)
+        public static async Task<bool> Put<T>(String controller, int id, T item)
         {
             try
             {

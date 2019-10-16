@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BrotCliente.Models
+namespace BrotCliente.Patterns
 {
-    public class User
+    public static class Facade
     {
     }
 }

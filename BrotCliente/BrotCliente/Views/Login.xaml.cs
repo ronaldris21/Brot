@@ -1,7 +1,10 @@
-﻿using BrotCliente.ViewModels;
+﻿using BrotApi0.Models;
+using BrotCliente.Patterns;
+using BrotCliente.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,14 +15,15 @@ using Xamarin.Forms.Xaml;
 namespace BrotCliente.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    [DesignTimeVisible(false)]
+    [DesignTimeVisible(true)]
     public partial class Login : ContentPage
     {
+        LoginViewModel ViewModel;
         public Login()
         {
             InitializeComponent();
 
-            BindingContext = new LoginViewModel();
+            BindingContext = this.ViewModel = new LoginViewModel();
         }
     }
 }

@@ -14,26 +14,30 @@
             <StackLayout Orientation="Horizontal">
 
                 <Image Source="DefaultUser.png"
-                       VerticalOptions="Center"
+                       VerticalOptions="StartAndExpand"
                        HorizontalOptions="Center"
-                       HeightRequest="100"/>
+                       HeightRequest="80"
+                       Margin="20"/>
 
                 <StackLayout Orientation="Vertical"
                              Padding="5"
                              HorizontalOptions="FillAndExpand">
-                    <Label Text="@Username"
-                           FontSize="Large"
+                    <Label Text="{Binding CurrentUser.username, StringFormat='@{0}'}"
+                           FontSize="Medium"
                            FontAttributes="Bold"
                            TextColor="#ff5001"/>
-                    <Label Text="User full name"
-                           FontSize="Medium"
+                    <Label Text="{Binding CurrentUser.nombre}"
+                           FontSize="Small"
                            TextColor="Black"/>
-                    <Label Text="Status"
+                    <Label Text="{Binding CurrentUser.apellido}"
+                           FontSize="Small"
+                           TextColor="Black"/>
+                    <Label Text="Description"
                            FontSize="Medium"
                            FontAttributes="Bold"
                            TextColor="#ff5001"/>
-                    <Label Text="lorem ipsum dolor sit amet..."
-                           FontSize="Medium"
+                    <Label Text="{Binding CurrentUser.descripcion}"
+                           FontSize="Small"
                            TextColor="Black"/>
                 </StackLayout>
             </StackLayout>
