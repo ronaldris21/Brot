@@ -1,6 +1,8 @@
 ﻿using BrotCliente.Patterns;
 using BrotCliente.Services;
+using DLL.Models;
 using DLL.ResponseModels;
+using DLL.Service;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ using System.Windows.Input;
 
 namespace BrotCliente.ViewModels
 {
-    public class PostViewModel :  GalaSoft.MvvmLight.ViewModelBase
+    public class PostViewModel :  BaseViewModel
     {
         private ObservableCollection<ResponseComentarios> _comentariosData;
         private ResponsePublicacion _Post;
@@ -21,23 +23,42 @@ namespace BrotCliente.ViewModels
             get { return _comentariosData; }
             set
             {
-                Set(ref _comentariosData, value);
-                //if (_comentariosData != value)
-                //{
-                //    _comentariosData = value;
-                //    //OnPropertyChanged("ComentariosData");
-                //}
+                if (_comentariosData != value)
+                {
+                    _comentariosData = value;
+                    OnPropertyChanged("ComentariosData");
+                }
             }
         }
-        public bool IsRefreshing;
         public ResponsePublicacion Post
         {
             get { return _Post; }
-            set { Set(ref _Post, value); }                
+            set
+            {
+                if (_Post!=value)
+                {
+                    _Post = value;
+                    OnPropertyChanged("Post");
+                }
+            }
+        }
+        private string _texto;
+        public string texto
+        {
+            get { return _texto; }
+            set
+            {
+                if (_texto != value)
+                {
+                    _texto = value;
+                    OnPropertyChanged("texto");
+                }
+            }
         }
 
         public PostViewModel(ResponsePublicacionFeed postFeed)
         {
+            isActivityActive = true;
             this.idPost = postFeed.publicacion.id_post;
             Post = new ResponsePublicacion();
             ComentariosData = new ObservableCollection<ResponseComentarios>();
@@ -45,6 +66,7 @@ namespace BrotCliente.ViewModels
             Post.publicacion = postFeed;
             Post.comentarios = new List<ResponseComentarios>();
             CargarDatos();
+            isActivityActive = false;
         }
 
         private async void CargarDatos()
@@ -55,13 +77,12 @@ namespace BrotCliente.ViewModels
             IsRefreshing = true;
             try
             {
-                var prueba = await RestAPI.GetPublicacionesALL(Post.publicacion.UsuarioCreator.id_user);
-                Debug.Print(prueba.ToString());
 
                 ResponsePublicacion publicacionData = await RestAPI.Getpublicacion(this.idPost, Singleton.Instance.User.id_user);
                 if (publicacionData != null)
                 {
                     Post = publicacionData;
+                    ComentariosData = new ObservableCollection<ResponseComentarios>();
                     if (Post.comentarios.Count > 0)
                     {
                         //Siempre validar cuando instanciamos un Observable Collection porque por default es null
@@ -80,12 +101,52 @@ namespace BrotCliente.ViewModels
                 IsRefreshing = false;
             }
         }
+        private async void comentar()
+        {
+            isActivityActive = true;
+            comentariosModel coment = new comentariosModel()
+            {
+                contenido = texto,
+                id_user = Singleton.Instance.User.id_user,
+                id_post = idPost
+            };
+            var result = await RestAPI.Post<comentariosModel>(coment, TableName.comentariost);
+            if (result)
+            {
+                CargarDatos();
+                texto = "";
+            }
 
+            isActivityActive = false;
+        }
+
+        public ICommand ComentarCommand
+        {
+            get { return new RelayCommand(comentar); }
+        }
+
+        
 
         public ICommand RefreshCommand
         {
             get { return new RelayCommand(CargarDatos); }
         }
+
+                private bool _isActivityActive;
+                public bool isActivityActive
+                {
+                    get { return _isActivityActive; }
+                    set
+                    {
+                        if(_isActivityActive != value)
+                        {
+                            _isActivityActive = value;
+                            OnPropertyChanged("isActivityActive");
+                        }
+                    }
+                }
+
+                
 
     }
 }

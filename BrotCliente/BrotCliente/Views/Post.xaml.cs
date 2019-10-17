@@ -1,4 +1,7 @@
-﻿using BrotCliente.ViewModels;
+﻿using BrotCliente.Patterns;
+using BrotCliente.Services;
+using BrotCliente.ViewModels;
+using DLL.Models;
 using DLL.ResponseModels;
 using System;
 using System.Collections.Generic;
@@ -9,6 +12,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using FFImageLoading.Forms;
 
 namespace BrotCliente.Views
 {
@@ -31,51 +35,36 @@ namespace BrotCliente.Views
             BindingContext = ViewModel = new PostViewModel(new ResponsePublicacionFeed());
         }
 
-        private void ImageButton_ClickedPOST_Like(object sender, EventArgs e)
+        protected override void OnAppearing()
         {
-            bool isliked;
-            try
-            {
-                isliked = (bool)((ImageButton)sender).CommandParameter;
-            }
-            catch (Exception)
-            {
-                isliked = false;
-            }
-            //Saber si ya era like o no? Retorna FALSE para el pin negro y retorna True para el pin Naranja
-            if (isliked)
-            {
-                ((ImageButton)sender).Source = "PinBlack250.png";
-            }
-            else
-            {
-                ((ImageButton)sender).Source = "Pin250.png";
-            }
-            ((ImageButton)sender).CommandParameter = !isliked;
-
-            var postactualizado = ((PostViewModel)BindingContext).Post;
-            postactualizado.publicacion.IsLiked = !isliked;
-            ((PostViewModel)BindingContext).Post = postactualizado;
-
-
-            ((PostViewModel)BindingContext).Post.publicacion.IsLiked = !isliked;
-
-
+            base.OnAppearing();
         }
 
-        private void ImageButton_ClickedCOMMENT_Like(object sender, EventArgs e)
+
+        private async void ImageIconLikePost_Tapped(object sender, EventArgs e)
         {
-            bool isliked = (bool)((ImageButton)sender).CommandParameter;
+            bool isliked;
+            isliked = ((CachedImage)sender).AutomationId=="True"?true:false ;
             //Saber si ya era like o no? Retorna FALSE para el pin negro y retorna True para el pin Naranja
+            var like = new like_postModel()
+            {
+                id_post = Convert.ToInt32(((CachedImage)sender).ClassId),
+                id_user = Singleton.Instance.User.id_user
+            };
             if (isliked)
             {
-                ((ImageButton)sender).Source = "PinBlack.ico";
+                //Se quita el like
+                ((CachedImage)sender).Source = "PinBlack250.png";
+                await RestClient.Post<like_postModel>("like_comentario/borrar", like);
             }
             else
             {
-                ((ImageButton)sender).Source = "Pin.ico";
+                //se crea el like!
+                ((CachedImage)sender).Source = "Pin250.png";
+                await RestClient.Post<like_postModel>("like_comentario", like);
             }
-            ((ImageButton)sender).CommandParameter = !isliked;
+            ((CachedImage)sender).AutomationId = !isliked ? "True" : "False";
+
         }
     }
 }

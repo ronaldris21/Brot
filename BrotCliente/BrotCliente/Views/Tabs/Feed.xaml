@@ -34,7 +34,7 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Image Source="DefaultUser.png"
+                                        <Image Source="{Binding UsuarioCreator.img,StringFormat='http://images.somee.com/uploads/{0}'}"
                                                 HeightRequest="50"
                                                 Grid.Column="0"/>
 

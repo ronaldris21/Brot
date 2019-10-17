@@ -26,7 +26,7 @@ namespace BrotCliente.ViewModels
             set
             {
                 _IsRefreshing = value;
-                OnPropertyChanged();
+                OnPropertyChanged("IsRefreshing");
             }
         }
 
@@ -49,7 +49,7 @@ namespace BrotCliente.ViewModels
             set
             {
                 _Title = value;
-                OnPropertyChanged();
+                OnPropertyChanged("Title");
             }
         }
 

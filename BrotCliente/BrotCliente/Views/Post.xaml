@@ -6,13 +6,17 @@
              mc:Ignorable="d"
              x:Class="BrotCliente.Views.Post"
              
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             xmlns:Trigger="clr-namespace:BrotCliente.Patterns"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:models="clr-namespace:BrotCliente.Models"
+             >
     <ContentPage.Content>
-        
+
         <ListView VerticalOptions="FillAndExpand"
                       
                     ItemsSource="{Binding ComentariosData}"
-                    Header="{Binding Post.publicacion}"
+                    Header="{Binding }"
                     SeparatorColor="#ff5001"
                     SeparatorVisibility="Default"
                     HasUnevenRows="True"
@@ -34,18 +38,18 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Image Source="{Binding UsuarioCreator.img}"
+                                        <Image Source="{Binding Post.publicacion.UsuarioCreator.img,StringFormat='http://images.somee.com/uploads/{0}'}"
                                                 HeightRequest="50"
                                                 Grid.Column="0"/>
 
-                                        <Label Text="{Binding UsuarioCreator.username}"
+                                        <Label Text="{Binding Post.publicacion.UsuarioCreator.username}"
                                                 TextColor="#ff5001"
                                                 FontSize="Large"
                                                 HorizontalOptions="Center"
                                                 VerticalOptions="Center"
                                                 Grid.Column="1"/>
 
-                                        <Label Text="{Binding publicacion.fecha_creacion}"
+                                        <Label Text="{Binding Post.publicacion.publicacion.fecha_creacion}"
                                                 TextColor="#ff5001"
                                                 FontSize="Medium"
                                                 HorizontalOptions="Center"
@@ -53,37 +57,58 @@
                                                 Grid.Column="2"/>
                                     </Grid>
                                 </StackLayout>
-                                <ImageButton Source="PinBlack.ico"
-                                                    HeightRequest="25"
-                                                    WidthRequest="25"
-                                                    BackgroundColor="Transparent"
-                                                    Clicked="ImageButton_ClickedPOST_Like"
-                                                    />
 
                                 <StackLayout Orientation="Vertical"
                                                 Padding="5">
-                                    <Label Text="{Binding publicacion.descripcion}"
+                                    <Label Text="{Binding Post.publicacion.publicacion.descripcion}"
                                             TextColor="Black"
                                             FontSize="Medium"
                                             FontAttributes="Bold"/>
 
-                                    <Image Source="{Binding publicacion.img,StringFormat='http://images.somee.com/uploads/{0}'}"
-                                            HeightRequest="150"
-                                            Margin="5"
-                                            IsVisible="{Binding publicacion.isImg}"/>
+                                    <Image Source="{Binding Post.publicacion.publicacion.img,StringFormat='http://images.somee.com/uploads/{0}'}"
+                                           HorizontalOptions="Fill"
+                                           Aspect="AspectFit"
+                                           Margin="5"
+                                           IsVisible="{Binding Post.publicacion.publicacion.isImg}"/>
                                 </StackLayout>
 
+
+                                <!--<models:ImageCachedBottonPersonalized 
+                                        ErrorPlaceholder="Profile250.ico"
+                                        LoadingPlaceholder="Profile250.ico"
+                                        CacheDuration="2"
+                                     HeightRequest="25"
+                                    BackgroundColor="Black"
+                                                    WidthRequest="25"
+                                        ClassId="{Binding Post.publicacion.publicacion.id_post}"
+                                        AutomationId="{Binding Post.publicacion.IsLiked}"
+                                    
+                                    isLiked="{Binding Post.publicacion.IsLiked}"
+                                        >
+                                    <ff:CachedImage.Triggers>
+                                        <EventTrigger Event="{Binding Source={x:Reference TapGestureReco.Tapped}}">
+                                            <Trigger:btnFFimageLoadingTrigger/>
+                                        </EventTrigger>
+                                    </ff:CachedImage.Triggers>
+                                </models:ImageCachedBottonPersonalized>-->
+                                
                                 <StackLayout Orientation="Horizontal"
-                                                Padding="5">
+                                                Padding="5"
+                                             >
                                     <ImageButton Source="PinBlack.ico"
                                                     HeightRequest="25"
                                                     WidthRequest="25"
                                                     BackgroundColor="Transparent"
-                                                    Clicked="ImageButton_ClickedPOST_Like"
-                                                    ClassId="{Binding publicacion.id_post}"
-                                                    CommandParameter="{Binding IsLiked}"
-                                                    />
-                                    <Label Text="{Binding cantLikes,StringFormat='{0} # Brots'}"
+                                                    ClassId="{Binding Post.publicacion.publicacion.id_post}"
+                                                    CommandParameter="{Binding Post.publicacion.IsLiked}"
+                                                    >
+                                        <ImageButton.Triggers>
+                                            <EventTrigger Event="Clicked">
+                                                <Trigger:btnLikePostTrigger/>
+                                            </EventTrigger>
+                                        </ImageButton.Triggers>
+                                    </ImageButton>
+                                    <Label Text="{Binding Post.publicacion.cantLikes,StringFormat='{0} # Brots'}"
                                             VerticalOptions="Center"
                                             TextColor="Black"
                                             FontAttributes="Bold"/>
@@ -91,7 +116,7 @@
                                                     HeightRequest="25"
                                                     WidthRequest="25"
                                                     BackgroundColor="Transparent"/>
-                                    <Label Text="{Binding cantComentarios,StringFormat='{0} # Comments'}"
+                                    <Label Text="{Binding Post.publicacion.cantComentarios,StringFormat='{0} # Comments'}"
                                             VerticalOptions="Center"
                                             TextColor="Black"
                                             FontAttributes="Bold"/>
@@ -106,8 +131,10 @@
                                 <Button BackgroundColor="#ff5001"
                                         Margin="10"
                                         CornerRadius="10"
+                                        Command="{Binding ComentarCommand}"
                                         Text="Comment"
                                         TextColor="White"/>
+
                             </StackLayout>
                         </Frame>
                     </ContentView>
@@ -124,7 +151,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Image Source="{Binding usuario.img}"
+                            <Image Source="{Binding usuario.img,StringFormat='http://images.somee.com/uploads/{0}'}"
                                     HeightRequest="50"
                                     HorizontalOptions="Center"
                                     Grid.Column="0"/>
@@ -137,10 +164,15 @@
 	                                             HeightRequest="25"
 	                                             WidthRequest="25"
 	                                             BackgroundColor="Transparent"
-                                                 Clicked="ImageButton_ClickedCOMMENT_Like"
 	                                             ClassId="{Binding comentario.id_comentario}"
                                                  CommandParameter="{Binding isLiked}"
-	                                             />
+	                                             >
+                                        <ImageButton.Triggers>
+                                            <EventTrigger Event="Clicked">
+                                                <Trigger:btnLikeCommentTrigger/>
+                                            </EventTrigger>
+                                        </ImageButton.Triggers>
+                                    </ImageButton>
                                     <Label Text="{Binding CantLikes,StringFormat='{0} # Brots'}"
 	                                            VerticalOptions="Center"
 	                                            TextColor="Black"
