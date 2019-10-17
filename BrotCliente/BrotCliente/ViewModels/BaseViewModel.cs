@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BrotApi0.Models;
+using BrotCliente.Patterns;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -12,6 +14,7 @@ namespace BrotCliente.ViewModels
 
         private bool _IsRefreshing = false;
         private string _Title = "Empty";
+        private userModel _CurrentUser;
 
         #endregion
 
@@ -27,6 +30,19 @@ namespace BrotCliente.ViewModels
             }
         }
 
+        public userModel CurrentUser
+        {
+            get { return this._CurrentUser; }
+            set
+            {
+                if (this._CurrentUser == value)
+                    return;
+
+                this._CurrentUser = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Title
         {
             get { return this._Title; }
@@ -35,6 +51,15 @@ namespace BrotCliente.ViewModels
                 _Title = value;
                 OnPropertyChanged();
             }
+        }
+
+        #endregion
+
+        #region Constructor
+
+        public BaseViewModel()
+        {
+            this.CurrentUser = Singleton.Instance.User;
         }
 
         #endregion

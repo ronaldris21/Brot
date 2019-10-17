@@ -19,22 +19,24 @@
                              Margin="0, 20">
 
                     <Image Source="Brot500.png"
-                           WidthRequest="250"/>
+                           WidthRequest="175"/>
 
-                    <Label FontSize="40" 
+                    <Label FontSize="30" 
                            HorizontalOptions="Center"
                            Text="Welcome"
                            TextColor="#ff5001"/>
                 </StackLayout>
 
-                <StackLayout Margin="0, 20">
+                <StackLayout Margin="0, 10">
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 BorderColor="#ff5001"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
                                                 Placeholder="Type your username"
                                                 PlaceholderColor="#E8720C"
-                                                TextColor="#ff5001"/>
+                                                TextColor="#ff5001"
+                                                FontSize="Small"
+                                                Text="{Binding Username}"/>
                     
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 BorderColor="#ff5001"
@@ -43,17 +45,31 @@
                                                 Placeholder="Type your password"
                                                 PlaceholderColor="#E8720C"
                                                 IsPassword="True"
-                                                TextColor="#ff5001"/>
+                                                TextColor="#ff5001"
+                                                FontSize="Small"
+                                                Text="{Binding Password}"/>
+
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="EndAndExpand">
+                        <Label Text="Keep session alive?"
+                               TextColor="#ff5001"
+                               VerticalOptions="Center"/>
+
+                        <Switch IsToggled="{Binding Remember}"
+                                OnColor="#ff5001"
+                                ThumbColor="#000"/>
+                    </StackLayout>
                 </StackLayout>
 
-                <StackLayout Margin="0, 20">
+                <StackLayout Margin="0, 10">
                     <Button Text="Login"
                             TextColor="White"
                             BackgroundColor="#ff5001"
                             CornerRadius="10"
+                            FontSize="Small"
                             HorizontalOptions="Center"
-                            Padding="40, 15"
-                            Command="{Binding GoToMainCommand}"/>
+                            Padding="40, 10"
+                            Command="{Binding LoginCommand}"/>
 
                     <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="Center"

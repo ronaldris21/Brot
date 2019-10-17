@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using BrotCliente.Views;
 using Xamarin.Forms.Xaml;
 using BrotCliente.Views.Tabs;
+using BrotCliente.Patterns;
 
 namespace BrotCliente
 {
@@ -12,11 +13,21 @@ namespace BrotCliente
         {
             InitializeComponent();
 
-            //MainPage = new NavigationPage(new Login());
-            MainPage = new NavigationPage(new Login());
+            if (VerifyLogin())
+            {
+                MainPage = new NavigationPage(new Master());
+            } else
+            {
+                MainPage = new NavigationPage(new Login());
+            }
+
             ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#ff5001");
         }
 
+        private bool VerifyLogin()
+        {
+            return Singleton.Instance.LocalJson.IsUserLogged();
+        }
         protected override void OnStart()
         {
             // Handle when your app starts

@@ -1,4 +1,6 @@
 ﻿using BrotApi0.Models;
+using BrotCliente.Patterns;
+using BrotCliente.Services;
 using DLL.ResponseModels;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -12,7 +14,14 @@ namespace BrotCliente.ViewModels
 {
     public class FeedViewModel : BaseViewModel
     {
+        #region Attributes
+
         private ObservableCollection<ResponsePublicacionFeed> _lPosts;
+
+        #endregion
+
+        #region Properties
+
         public ObservableCollection<ResponsePublicacionFeed> lPosts
         {
             get { return this._lPosts; }
@@ -25,6 +34,20 @@ namespace BrotCliente.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        #endregion
+
+        #region Constructor
+
+        public FeedViewModel()
+        {
+            this.lPosts = new ObservableCollection<ResponsePublicacionFeed>();
+            LoadFeed();
+        }
+
+        #endregion
+
+        #region Commands
 
         public ICommand RefreshCommand
         {
@@ -39,11 +62,9 @@ namespace BrotCliente.ViewModels
             }
         }
 
-        public FeedViewModel()
-        {
-            this.lPosts = new ObservableCollection<ResponsePublicacionFeed>();
-            cargarImgs();//Borraar luego
-        }
+        #endregion
+
+        #region Methods
 
         public async void Refresh()
         {
@@ -54,11 +75,12 @@ namespace BrotCliente.ViewModels
 
             try
             {
-                await App.Current.MainPage.DisplayAlert("Refresh", "Refreshing", "ok");
+                this.lPosts.Clear();
+                LoadFeed();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Debug.WriteLine("Is Busy");
+                await Singleton.Instance.Dialogs.Message("Is busy", "Couldn't load items");
             }
             finally
             {
@@ -71,58 +93,23 @@ namespace BrotCliente.ViewModels
             await App.Current.MainPage.DisplayAlert("EXITO", "Has presionado el boton " + idLike, "Ok");
         }
 
-        //SOLO PRUBEA
-        //BORRAR CUANDO FUNCIONE EL API 
-        public void cargarImgs()
+        public async void LoadFeed()
         {
-            ResponsePublicacionFeed p1 = new ResponsePublicacionFeed()
-            {
-                id_post = 1,
-                descripcion = "Este es un post de prueba con imagen",
-                fecha_actualizacion = DateTime.Now,
-                fecha_creacion = DateTime.Now,
-                id_user = 1,
-                img = "https://py-softwaresv.com/wp-content/uploads/2019/08/Logo_Square_512-300x300.png",
-                isimg = true
-            };
+            var result = await RestClient.GetAll<ResponsePublicacionFeed>($"publicaciones/all/{Singleton.Instance.User.id_user}/");
 
-            ResponsePublicacionFeed p2 = new ResponsePublicacionFeed()
+            if (!result.IsSuccess)
             {
-                id_post = 2,
-                descripcion = "Este es un post de prueba sin imagen",
-                fecha_actualizacion = DateTime.Now,
-                fecha_creacion = DateTime.Now,
-                id_user = 2,
-                img = null,
-                isimg = false
-            };
+                await Singleton.Instance.Dialogs.Message("There was a problem trying to get the feed", result.Message);
+                return;
+            }
 
-            ResponsePublicacionFeed p3 = new ResponsePublicacionFeed()
+            foreach (var post in (ObservableCollection<ResponsePublicacionFeed>) result.Result)
             {
-                id_post = 3,
-                descripcion = "Este es otro post de prueba con imagen",
-                fecha_actualizacion = DateTime.Now,
-                fecha_creacion = DateTime.Now,
-                id_user = 1,
-                img = "https://py-softwaresv.com/wp-content/uploads/2019/08/Logo_Square_512-300x300.png",
-                isimg = true
-            };
-
-            ResponsePublicacionFeed p4 = new ResponsePublicacionFeed()
-            {
-                id_post = 4,
-                descripcion = "Este es otro post de prueba sin imagen",
-                fecha_actualizacion = DateTime.Now,
-                fecha_creacion = DateTime.Now,
-                id_user = 2,
-                img = null,
-                isimg = false
-            };
-
-            this.lPosts.Add(p1);
-            this.lPosts.Add(p2);
-            this.lPosts.Add(p3);
-            this.lPosts.Add(p4);
+                post.publicacion.img = "http://images.somee.com/uploads/" + post.publicacion.img;
+                this.lPosts.Add(post);
+            }
         }
+
+        #endregion
     }
 }

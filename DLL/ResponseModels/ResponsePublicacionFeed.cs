@@ -11,6 +11,5 @@
         public int cantLikes { get; set; }
         public Nullable<bool> IsLiked { get; set; }
         public Nullable<bool> IsSavedPost { get; set; }
-
     }
 }

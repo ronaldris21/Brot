@@ -1,4 +1,5 @@
-﻿using BrotCliente.Views;
+﻿using BrotCliente.Patterns;
+using BrotCliente.Views;
 using BrotCliente.Views.Popups;
 using GalaSoft.MvvmLight.Command;
 using Rg.Plugins.Popup.Services;
@@ -10,8 +11,10 @@ using Xamarin.Forms;
 
 namespace BrotCliente.ViewModels
 {
-    public class MenuItemsViewModel
+    public class MenuItemsViewModel : BaseViewModel
     {
+        #region Commands
+
         public ICommand SignoutCommand
         {
             get
@@ -41,8 +44,21 @@ namespace BrotCliente.ViewModels
             }
         }
 
+        #endregion
+
+        #region Constructor
+
+
+        #endregion
+
+        #region Methods
+
         private void Signout()
         {
+            if (Singleton.Instance.LocalJson.IsUserLogged())
+                Singleton.Instance.SignOut();
+
+            Singleton.Instance.User = null;
             Application.Current.MainPage = new NavigationPage(new Login());
         }
 
@@ -60,5 +76,7 @@ namespace BrotCliente.ViewModels
         {
             await PopupNavigation.PushAsync(new ChangeName());
         }
+
+        #endregion
     }
 }

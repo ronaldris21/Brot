@@ -16,19 +16,19 @@
             <Frame BackgroundColor="#ff5001"
                    HasShadow="True">
                 <StackLayout Orientation="Vertical"
-                             Padding="15">
-                    <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="White"
+                             Padding="10">
+                    <Rounded:RoundedBorderEntry BorderColor="White"
                                                 TextColor="White"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
                                                 HorizontalOptions="FillAndExpand"
-                                                Text="Actual First Name [and second one]"
+                                                Text="{Binding CurrentUser.nombre}"
                                                 Placeholder="Type your name"
+                                                FontSize="Small"
                                                 PlaceholderColor="#f5f5f5"/>
 
                     <StackLayout Orientation="Horizontal"
-                                 Padding="10">
+                                 Margin="0, 5, 0, 0">
                         <Button Text="Cancel"
                                 TextColor="White"
                                 BorderColor="White"
@@ -36,7 +36,7 @@
                                 BorderWidth="1"
                                 CornerRadius="5"
                                 HorizontalOptions="FillAndExpand"
-                                Padding="40, 15"
+                                Padding="40, 10"
                                 Command="{Binding CancelCommand}"/>
                         
                         <Button Text="Update"
@@ -44,7 +44,7 @@
                                 BackgroundColor="White"
                                 CornerRadius="5"
                                 HorizontalOptions="FillAndExpand"
-                                Padding="40, 15"/>
+                                Padding="40, 10"/>
                     </StackLayout>
                 </StackLayout>
             </Frame>

@@ -10,7 +10,6 @@
              IconImageSource="BWhite250.ico">
     <ContentPage.Content>
         <StackLayout>
-
             <ListView VerticalOptions="FillAndExpand"
                       
                       HasUnevenRows="True"
@@ -39,17 +38,17 @@
                                             <Image Source="DefaultUser.png"
                                                    HeightRequest="50"
                                                    Grid.Column="0"/>
-                                            
-                                            <Label Text="USERNAME"
+
+                                            <Label Text="{Binding UsuarioCreator.username, StringFormat='@{0}'}"
                                                    TextColor="#ff5001"
-                                                   FontSize="Large"
+                                                   FontSize="Medium"
                                                    HorizontalOptions="CenterAndExpand"
                                                    VerticalOptions="CenterAndExpand"
                                                    Grid.Column="1"/>
 
-                                            <Label Text="{Binding fecha_actualizacion}"
+                                            <Label Text="{Binding publicacion.fecha_creacion}"
                                                    TextColor="#ff5001"
-                                                   FontSize="Medium"
+                                                   FontSize="Small"
                                                    HorizontalOptions="CenterAndExpand"
                                                    VerticalOptions="CenterAndExpand"
                                                    Grid.Column="2"/>
@@ -58,34 +57,34 @@
 
                                     <StackLayout Orientation="Vertical"
                                                  Padding="5">
-                                        <Label Text="{Binding descripcion}"
+                                        <Label Text="{Binding publicacion.descripcion}"
                                                TextColor="Black"
-                                               FontSize="Medium"
+                                               FontSize="Small"
                                                FontAttributes="Bold"/>
 
-                                        <Image Source="{Binding img}"
-                                               HeightRequest="150"
+                                        <Image Source="{Binding publicacion.img}"
+                                               HeightRequest="250"
                                                Margin="5"
-                                               IsVisible="{Binding isimg}"/>
+                                               IsVisible="{Binding publicacion.isImg}"/>
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal"
                                                  Padding="5">
-                                        <ImageButton Source="PinBlack.ico"
+                                        <ImageButton Source="PinBlack250.png"
                                                      HeightRequest="25"
                                                      WidthRequest="25"
                                                      BackgroundColor="Transparent"
-                                                     ClassId="{Binding id_post}"
+                                                     ClassId="{Binding publicacion.id_post}"
                                                      Clicked="ImageButton_Clicked"/>
-                                        <Label Text="# Brots"
+                                        <Label Text="{Binding cantLikes, StringFormat='{0} Brots'}"
                                                VerticalOptions="Center"
                                                TextColor="Black"
                                                FontAttributes="Bold"/>
-                                        <ImageButton Source="Comment.ico"
+                                        <ImageButton Source="comment.png"
                                                      HeightRequest="25"
                                                      WidthRequest="25"
                                                      BackgroundColor="Transparent"/>
-                                        <Label Text="# Comments"
+                                        <Label Text="{Binding cantComentarios, StringFormat='{0} Comments'}"
                                                VerticalOptions="Center"
                                                TextColor="Black"
                                                FontAttributes="Bold"/>
