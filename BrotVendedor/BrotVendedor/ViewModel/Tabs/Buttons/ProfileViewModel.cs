@@ -199,7 +199,7 @@
             correo = u.email;
             dui = u.dui;
             telefono = u.num_telefono;
-            picture = "http://images.somee.com/Uploads/" + u.img;
+            picture = "http://images.somee.com/Uploads/" + Singleton.current.user.img;
             firstTime = false;
         }
         #endregion
@@ -208,7 +208,7 @@
         {
             get
             {
-                return new RelayCommand(Singleton.current.ChangePic);
+                return new RelayCommand(ChangePicture);
             }
         }
         public ICommand UpdateData
@@ -227,6 +227,19 @@
         }
         #endregion
         #region Metodos
+        private void ChangePicture()
+        {
+            Singleton.current.ChangePic();
+            if (String.IsNullOrEmpty(PickPhotoAsync.name))
+            {
+                return;
+            }
+            picture = "http://images.somee.com/Uploads/" + Singleton.current.user.img;
+            PickPhotoAsync.name = null;
+            Modificado = true;
+            clicked = true;
+            img = "save.png";
+        }
         private void clickeado()
         {
             clicked = true;
@@ -249,6 +262,7 @@
                     return;
                 }
                 await App.Current.MainPage.DisplayAlert("Exito", "La informacion ha sido actualizada con exito", "Aceptar");
+                Singleton.current.Json.SaveData(Singleton.current.user);
                 return;
             }
             //await App.Current.MainPage.DisplayAlert("Error", "No hay informacion para actualizar", "Aceptar");

@@ -156,12 +156,11 @@
                                 MaxLength="9"
                                 
                             />
-                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="0" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn1" Clicked="Btn1_Clicked" Command="{Binding click}"/>
                             <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="1" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn2" Clicked="Btn2_Clicked" Command="{Binding click}"/>
                             <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="2" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn3" Clicked="Btn3_Clicked" Command="{Binding click}"/>
-                                <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="3" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn4" Clicked="Btn4_Clicked" Command="{Binding click}"/>
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="3" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn4" Clicked="Btn4_Clicked" Command="{Binding click}"/>
                             <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="4" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn5" Clicked="Btn5_Clicked" Command="{Binding click}"/>
-                                    <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="5" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn6" Clicked="Btn6_Clicked" Command="{Binding click}"/>
+                            <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="5" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn6" Clicked="Btn6_Clicked" Command="{Binding click}"/>
                             <ImageButton Source="edit64x64.png" Grid.Column="1" Grid.Row="6" BackgroundColor="Transparent" Aspect="AspectFit" x:Name="btn7" Clicked="Btn7_Clicked" Command="{Binding click}"/>
                         </Grid>
                     </StackLayout>

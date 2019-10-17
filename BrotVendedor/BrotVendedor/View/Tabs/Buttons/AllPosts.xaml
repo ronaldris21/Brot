@@ -51,6 +51,10 @@
                                                TextColor="Black"
                                                FontSize="Medium"
                                                FontAttributes="Bold"/>
+                                            <!--<Image Source="https://py-softwaresv.com/wp-content/uploads/2019/08/Logo_Square_512-300x300.png"
+                                               HeightRequest="150"
+                                               Margin="5"
+                                               IsVisible="{Binding publicacion.isImg}"/>-->
                                             <Image Source="{Binding publicacion.img}"
                                                HeightRequest="150"
                                                Margin="5"
@@ -64,7 +68,7 @@
                                                      BackgroundColor="Transparent"
                                                      ClassId="{Binding id_Post}"
                                                      />
-                                            <Label Text="# Brots"
+                                            <Label Text="{Binding publicacion.cantLikes}"
                                                VerticalOptions="Center"
                                                TextColor="Black"
                                                FontAttributes="Bold"/>
@@ -72,7 +76,7 @@
                                                      HeightRequest="25"
                                                      WidthRequest="25"
                                                      BackgroundColor="Transparent"/>
-                                            <Label Text="# Comments"
+                                            <Label Text="{Binding publicacion.cantComentarios}"
                                                VerticalOptions="Center"
                                                TextColor="Black"
                                                FontAttributes="Bold"/>

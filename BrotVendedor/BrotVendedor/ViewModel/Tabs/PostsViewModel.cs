@@ -19,8 +19,20 @@
         private ObservableCollection<ResponsePublicacionFeed> _posts;
         private String _texto;
         private ApiService api;
+        private bool brefreshing;
         #endregion
         #region Propiedades
+        public bool bRefreshing
+        {
+            get
+            {
+                return brefreshing;
+            }
+            set
+            {
+                brefreshing = value;OnPropertyChanged("bRefreshing");
+            }
+        }
         public String texto
         {
             get
@@ -50,12 +62,20 @@
         #region Constructor
         public PostsViewModel()
         {
+            bRefreshing = false;
             api = new ApiService();
             posts = new ObservableCollection<ResponsePublicacionFeed>();
             LoadPost();
         }
         #endregion
         #region Command
+        public ICommand cRefresh
+        {
+            get
+            {
+                return new RelayCommand(LoadPost);
+            }
+        }
         public ICommand PostSomething
         {
             get
@@ -81,8 +101,20 @@
         #region Metodos
         public async void LoadPost()
         {
-            Response resp = await api.GetAll<ResponsePublicacionFeed>("publicaciones/feed/" + Singleton.current.user.id_user);
-            posts = (ObservableCollection<ResponsePublicacionFeed>)resp.Result;
+            bRefreshing = true;
+            Response resp = await api.GetAll<ResponsePublicacionFeed>("publicaciones/all/" + Singleton.current.user.id_user);
+            ObservableCollection<ResponsePublicacionFeed> temp = (ObservableCollection<ResponsePublicacionFeed>)resp.Result;
+            foreach (var item in temp)
+            {
+                item.publicacion.img = "http://images.somee.com/Uploads/" + item.publicacion.img;
+                item.UsuarioCreator.img = "http://images.somee.com/Uploads/" + item.UsuarioCreator.img;
+                if (String.IsNullOrEmpty(item.UsuarioCreator.img))
+                {
+                    item.UsuarioCreator.img = "user128x128.png";
+                }
+            }
+            posts = temp;
+            bRefreshing = false;
         }
         public async void AddPost()
         {
@@ -109,6 +141,7 @@
             {
                 await App.Current.MainPage.DisplayAlert("Error",resp.Message,"Aceptar");
             }
+            LoadPost();
         }
         public void Like(int arg)
         {

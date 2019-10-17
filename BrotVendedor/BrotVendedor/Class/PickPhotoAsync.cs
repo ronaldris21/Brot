@@ -1,4 +1,5 @@
-﻿using Plugin.Media;
+﻿using BrotVendedor.ViewModel;
+using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using Xamarin.Forms;
 
 namespace BrotVendedor.Class
 {
@@ -13,6 +15,7 @@ namespace BrotVendedor.Class
     {
         private MediaFile _mediaFile;
         public static String name;
+        public static ImageSource path;
         public async void ChangePicture()
         {
             await CrossMedia.Current.Initialize();
@@ -27,10 +30,14 @@ namespace BrotVendedor.Class
                 return;
             }
             name = _mediaFile.Path.Split('/').LastOrDefault();
-            Singleton.current.user.img = name;
             var resp = await App.Current.MainPage.DisplayAlert("Confirmacion", "Desea utilizar esta imagen", "Aceptar", "Cancelar");
             if (resp)
             {
+                Singleton.current.user.img = name;
+                path = ImageSource.FromStream(() =>
+                {
+                    return _mediaFile.GetStream();
+                });
                 UploadImage();
             }
         }
