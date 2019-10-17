@@ -20,10 +20,11 @@
                       Header="{Binding}"
                       SeparatorColor="#ff5001"
                       SeparatorVisibility="Default"
+                      CachingStrategy="RecycleElement"
                       IsRefreshing="{Binding bRefreshing}"
                       RefreshCommand="{Binding cRefresh}"
                       IsPullToRefreshEnabled="True"
-                      x:Name="FeedListView">
+                      >
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <ContentView>
@@ -97,14 +98,14 @@
                                                 <Label Text="{Binding UsuarioCreator.username}"
                                                    TextColor="#ff5001"
                                                    FontSize="Default"
-                                                   HorizontalOptions="CenterAndExpand"
-                                                   VerticalOptions="CenterAndExpand"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
                                                    Grid.Column="1"/>
                                                 <Label Text="{Binding publicacion.fecha_creacion}"
                                                    TextColor="#ff5001"
                                                    FontSize="Default"
-                                                   HorizontalOptions="CenterAndExpand"
-                                                   VerticalOptions="CenterAndExpand"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
                                                    Grid.Column="2"/>
                                             </Grid>
                                         </StackLayout>
@@ -121,24 +122,24 @@
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal"
                                                  Padding="5">
-                                            <ImageButton Source="{Binding like}"
-                                                     HeightRequest="25"
-                                                     WidthRequest="25"
-                                                     BackgroundColor="Transparent"
-                                                     ClassId="{Binding id_Post}"
-                                                     Clicked="LikeButton_Clicked"/>
-                                            <Label Text="{Binding publicacion.cantLikes}"
-                                               VerticalOptions="Center"
-                                               TextColor="Black"
-                                               FontAttributes="Bold"/>
-                                            <ImageButton Source="Comment.ico"
-                                                     HeightRequest="25"
-                                                     WidthRequest="25"
-                                                     BackgroundColor="Transparent"/>
-                                            <Label Text="{Binding publicacion.cantComentarios}"
-                                               VerticalOptions="Center"
-                                               TextColor="Black"
-                                               FontAttributes="Bold"/>
+                                            <ImageButton Source="PinBlack250.png"
+                                                    HeightRequest="25"
+                                                    WidthRequest="25"
+                                                    BackgroundColor="Transparent"
+                                                    ClassId="{Binding publicacion.id_post}"
+                                                    Clicked="ImageButton_Clicked"/>
+                                            <Label Text="{Binding cantLikes, StringFormat='{0} Brots'}"
+                                                    VerticalOptions="Center"
+                                                    TextColor="Black"
+                                                    FontAttributes="Bold"/>
+                                            <ImageButton Source="comment.png"
+                                                    HeightRequest="25"
+                                                    WidthRequest="25"
+                                                    BackgroundColor="Transparent"/>
+                                            <Label Text="{Binding cantComentarios, StringFormat='{0} Comments'}"
+                                                    VerticalOptions="Center"
+                                                    TextColor="Black"
+                                                    FontAttributes="Bold"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>

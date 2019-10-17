@@ -7,94 +7,92 @@
              x:Class="BrotCliente.Views.Tabs.Feed"
              
              Title="Feed"
-             IconImageSource="BWhite250.ico">
+             IconImageSource="BWhite250.ico"
+             BackgroundColor="{StaticResource NaranjaBrot}"
+             >
     <ContentPage.Content>
-        <StackLayout>
-            <ListView VerticalOptions="FillAndExpand"
-                      
-                      HasUnevenRows="True"
-                      ItemsSource="{Binding lPosts}"
-                      SeparatorColor="#ff5001"
-                      SeparatorVisibility="Default"
-                      x:Name="FeedListView"
-                      ItemSelected="FeedListView_ItemSelected"
-                  
-                      IsPullToRefreshEnabled="True"
-                      IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
-                      RefreshCommand="{Binding RefreshCommand}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Frame BackgroundColor="#fff">
-                                <StackLayout>
-                                    <StackLayout Padding="5">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="2*"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
+        <ListView VerticalOptions="FillAndExpand"
+                    CachingStrategy="RecycleElement"
+                    HasUnevenRows="True"
+                    ItemsSource="{Binding lPosts}"
+                    SeparatorColor="#ff5001"
+                    SeparatorVisibility="None"
+                    SelectedItem="{Binding selectedItemLista}"
+                    IsPullToRefreshEnabled="True"
+                    IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                    RefreshCommand="{Binding RefreshCommand}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame BackgroundColor="#fff" Margin="0,5">
+                            <StackLayout>
+                                <StackLayout Padding="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                            <Image Source="DefaultUser.png"
-                                                   HeightRequest="50"
-                                                   Grid.Column="0"/>
+                                        <Image Source="DefaultUser.png"
+                                                HeightRequest="50"
+                                                Grid.Column="0"/>
 
-                                            <Label Text="{Binding UsuarioCreator.username, StringFormat='@{0}'}"
-                                                   TextColor="#ff5001"
-                                                   FontSize="Medium"
-                                                   HorizontalOptions="CenterAndExpand"
-                                                   VerticalOptions="CenterAndExpand"
-                                                   Grid.Column="1"/>
+                                        <Label Text="{Binding UsuarioCreator.username, StringFormat='@{0}'}"
+                                                TextColor="#ff5001"
+                                                FontSize="Medium"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                Grid.Column="1"/>
 
-                                            <Label Text="{Binding publicacion.fecha_creacion}"
-                                                   TextColor="#ff5001"
-                                                   FontSize="Small"
-                                                   HorizontalOptions="CenterAndExpand"
-                                                   VerticalOptions="CenterAndExpand"
-                                                   Grid.Column="2"/>
-                                        </Grid>
-                                    </StackLayout>
-
-                                    <StackLayout Orientation="Vertical"
-                                                 Padding="5">
-                                        <Label Text="{Binding publicacion.descripcion}"
-                                               TextColor="Black"
-                                               FontSize="Small"
-                                               FontAttributes="Bold"/>
-
-                                        <Image Source="{Binding publicacion.img}"
-                                               HeightRequest="250"
-                                               Margin="5"
-                                               IsVisible="{Binding publicacion.isImg}"/>
-                                    </StackLayout>
-
-                                    <StackLayout Orientation="Horizontal"
-                                                 Padding="5">
-                                        <ImageButton Source="PinBlack250.png"
-                                                     HeightRequest="25"
-                                                     WidthRequest="25"
-                                                     BackgroundColor="Transparent"
-                                                     ClassId="{Binding publicacion.id_post}"
-                                                     Clicked="ImageButton_Clicked"/>
-                                        <Label Text="{Binding cantLikes, StringFormat='{0} Brots'}"
-                                               VerticalOptions="Center"
-                                               TextColor="Black"
-                                               FontAttributes="Bold"/>
-                                        <ImageButton Source="comment.png"
-                                                     HeightRequest="25"
-                                                     WidthRequest="25"
-                                                     BackgroundColor="Transparent"/>
-                                        <Label Text="{Binding cantComentarios, StringFormat='{0} Comments'}"
-                                               VerticalOptions="Center"
-                                               TextColor="Black"
-                                               FontAttributes="Bold"/>
-                                    </StackLayout>
+                                        <Label Text="{Binding publicacion.fecha_creacion}"
+                                                TextColor="#ff5001"
+                                                FontSize="Small"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                Grid.Column="2"/>
+                                    </Grid>
                                 </StackLayout>
-                            </Frame>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+
+                                <StackLayout Orientation="Vertical"
+                                                Padding="5">
+                                    <Label Text="{Binding publicacion.descripcion}"
+                                            TextColor="Black"
+                                            FontSize="Small"
+                                            FontAttributes="Bold"/>
+
+                                    <Image Source="{Binding publicacion.img}"
+                                            HeightRequest="250"
+                                            Margin="5"
+                                            IsVisible="{Binding publicacion.isImg}"/>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal"
+                                                Padding="5">
+                                    <ImageButton Source="PinBlack250.png"
+                                                    HeightRequest="25"
+                                                    WidthRequest="25"
+                                                    BackgroundColor="Transparent"
+                                                    ClassId="{Binding publicacion.id_post}"
+                                                    Clicked="ImageButton_Clicked"/>
+                                    <Label Text="{Binding cantLikes, StringFormat='{0} Brots'}"
+                                            VerticalOptions="Center"
+                                            TextColor="Black"
+                                            FontAttributes="Bold"/>
+                                    <ImageButton Source="comment.png"
+                                                    HeightRequest="25"
+                                                    WidthRequest="25"
+                                                    BackgroundColor="Transparent"/>
+                                    <Label Text="{Binding cantComentarios, StringFormat='{0} Comments'}"
+                                            VerticalOptions="Center"
+                                            TextColor="Black"
+                                            FontAttributes="Bold"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

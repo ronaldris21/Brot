@@ -1,5 +1,5 @@
 ﻿
-using BrotApi0.Models;
+using DLL.Models;
 using DLL.ResponseModels;
 using System;
 using System.Collections.Generic;
@@ -39,7 +39,7 @@ namespace BrotCliente.ViewModels
             ResponseUserProfile u1 = new ResponseUserProfile()
             {
                 cantSeguidores = 100,
-                user = new userModel()
+                UserProfile = new userModel()
                 {
                     nombre = "Ingeniero",
                     apellido = "Original",
@@ -53,7 +53,7 @@ namespace BrotCliente.ViewModels
             ResponseUserProfile u2 = new ResponseUserProfile()
             {
                 cantSeguidores = 100,
-                user = new userModel()
+                UserProfile  = new userModel()
                 {
                     nombre = "Panito",
                     apellido = "Original",
@@ -67,7 +67,7 @@ namespace BrotCliente.ViewModels
             ResponseUserProfile u3 = new ResponseUserProfile()
             {
                 cantSeguidores = 100,
-                user = new userModel()
+                UserProfile  = new userModel()
                 {
                     nombre = "Catedral",
                     apellido = "Unknown",
@@ -81,7 +81,7 @@ namespace BrotCliente.ViewModels
             ResponseUserProfile u4 = new ResponseUserProfile()
             {
                 cantSeguidores = 100,
-                user = new userModel()
+                UserProfile = new userModel()
                 {
                     nombre = "Otros",
                     apellido = "Panes",

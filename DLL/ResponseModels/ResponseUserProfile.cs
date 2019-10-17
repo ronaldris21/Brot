@@ -1,16 +1,16 @@
-﻿using BrotApi0.Models;
-using System;
+﻿using DLL.Models;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DLL.ResponseModels
 {
     public class ResponseUserProfile
     {
-        public userModel user { get; set; }
+        public userModel UserProfile { get; set; }
         public int cantSeguidores { get; set; }
+        public int cantSeguidos { get; set; }
         public bool isFollowed { get; set; }
         public List<ResponsePublicacionFeed> publicacionesUser {get;set;}
+        public List<ResponsePublicacionGuardada> publicacionesGuardadas {get;set; }
 
     }
 }

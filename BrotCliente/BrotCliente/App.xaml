@@ -6,6 +6,9 @@
              mc:Ignorable="d"
              x:Class="BrotCliente.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="NaranjaBrot">#ff5001</Color>
+        </ResourceDictionary>
 
     </Application.Resources>
 </Application>

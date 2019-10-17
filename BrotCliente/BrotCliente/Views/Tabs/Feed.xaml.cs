@@ -20,6 +20,11 @@ namespace BrotCliente.Views.Tabs
             BindingContext = ViewModel = new FeedViewModel();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ((FeedViewModel)BindingContext).selectedItemLista = null;
+        }
         private void ImageButton_Clicked(object sender, EventArgs e)
         {
             ImageButton LikePressed = (sender as ImageButton);
@@ -30,16 +35,5 @@ namespace BrotCliente.Views.Tabs
             }
         }
 
-        private async void FeedListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            var post = e.SelectedItem as ResponsePublicacionFeed;
-
-            if (post == null)
-                return;
-
-            await Navigation.PushAsync(new Post(new PostViewModel(post)));
-
-            this.FeedListView.SelectedItem = null;
-        }
     }
 }

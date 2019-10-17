@@ -1,4 +1,4 @@
-﻿using BrotApi0.Models;
+﻿using DLL.Models;
 using BrotCliente.Patterns;
 using BrotCliente.Services;
 using DLL.ResponseModels;
@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
+using BrotCliente.Views;
 
 namespace BrotCliente.ViewModels
 {
@@ -21,7 +22,22 @@ namespace BrotCliente.ViewModels
         #endregion
 
         #region Properties
+        private ResponsePublicacionFeed _selectedItemLista;
+        public ResponsePublicacionFeed selectedItemLista
+        {
+            get { return _selectedItemLista; }
+            set
+            {
+                if (!EqualityComparer<object>.Default.Equals(_selectedItemLista, value))
+                {
+                    _selectedItemLista = value;
+                    App.Current.MainPage.Navigation.PushAsync(new Post(new PostViewModel(_selectedItemLista)));
+                    _selectedItemLista = null;
+                    OnPropertyChanged("selectedItemLista");
 
+                }
+            }
+        }
         public ObservableCollection<ResponsePublicacionFeed> lPosts
         {
             get { return this._lPosts; }
@@ -109,6 +125,8 @@ namespace BrotCliente.ViewModels
                 this.lPosts.Add(post);
             }
         }
+
+        
 
         #endregion
     }

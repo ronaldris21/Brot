@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,5 +18,29 @@ namespace BrotCliente.Services
         {
             return await App.Current.MainPage.DisplayAlert(title, message, ok, cancel);
         }
+
+        public void ToastOk(string mensaje, int miliSegundos)
+        {
+            ToastConfig toastito = new ToastConfig(mensaje)
+                .SetPosition(ToastPosition.Top)
+                .SetBackgroundColor(Color.Green)
+                .SetMessageTextColor(Color.Black)
+                .SetDuration(miliSegundos);
+
+            UserDialogs.Instance.Toast(toastito);
+        }
+
+        public void ToastBAD(string mensaje, int miliSegundos)
+        {
+            ToastConfig toastito = new ToastConfig(mensaje)
+                .SetPosition(ToastPosition.Top)
+                .SetBackgroundColor(Color.LightCoral)
+                .SetMessageTextColor(Color.Black)
+                .SetDuration(miliSegundos);
+
+            UserDialogs.Instance.Toast(toastito);
+        }
+
+
     }
 }
