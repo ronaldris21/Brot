@@ -1,4 +1,5 @@
 ﻿using BrotVendedor.Model;
+using DLL.Models;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
@@ -17,7 +18,7 @@ namespace BrotVendedor.Class
         private userJson json;
         private MediaFile _mediaFile;
         private PickPhotoAsync img;
-        private Usuario _user;
+        private userModel _user;
         public static Singleton current
         {
             get
@@ -36,7 +37,7 @@ namespace BrotVendedor.Class
                 return json;
             }
         }
-        public Usuario user
+        public userModel user
         {
             get
             {
@@ -51,11 +52,21 @@ namespace BrotVendedor.Class
         {
             json = new userJson();
             img = new PickPhotoAsync();
+            VerifyLoggedUser();
+
         }
         public void ChangePic()
         {
             img.ChangePicture();
         }
-        
+
+        private void VerifyLoggedUser()
+        {
+            if (!this.json.IsUserLogged())
+                return;
+
+            this.user = this.json.ReadData();
+        }
+
     }
 }

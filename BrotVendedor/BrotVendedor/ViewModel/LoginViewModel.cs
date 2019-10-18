@@ -90,26 +90,25 @@ namespace BrotVendedor.ViewModel
             {
                 await App.Current.MainPage.DisplayAlert("Error", "Uno o mas campos estan vacios", "Aceptar");
             }
-            Usuario u = new Usuario();
+            userModel u = new userModel();
             u.username = usuario;
             u.pass = clave;
-            Response result = await api.Post<Usuario>("users/login", u);
+            Response result = await api.Post<userModel>("users/login", u);
             if (!result.isSuccess)
             {
                 await App.Current.MainPage.DisplayAlert("Error",result.Message,"Aceptar");
                 return;
             }
-            u = (Usuario)result.Result;
-            if (remember)
+            u = (userModel)result.Result;
+            if (u.isVendor)
             {
-                u.RememberMe = true;
+                Singleton.current.Json.SaveData(u);
+                App.Current.MainPage = new NavigationPage(new Inicio());
             }
             else
             {
-                u.RememberMe = false;
+                await App.Current.MainPage.DisplayAlert("Error", "Su cuenta no es de un vendedor, por favor inicie sesión como un usuario de tipo vendedor o registre una nueva cuenta", "Aceptar");
             }
-            Singleton.current.Json.SaveData(u);
-            App.Current.MainPage = new NavigationPage(new Inicio());
         }
         #endregion
     }

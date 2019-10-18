@@ -1,4 +1,5 @@
-﻿using BrotCliente.Views;
+﻿using BrotCliente.Patterns;
+using BrotCliente.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ namespace BrotCliente.ViewModels
         {
             get { return new RelayCommand(EditProfile); }
         }
+        public ICommand SignOutCommand { get { return new RelayCommand(Signout); } }
+
+      
 
         #endregion
 
@@ -25,6 +29,12 @@ namespace BrotCliente.ViewModels
         {
             Application.Current.MainPage.Navigation.PushAsync(new EditProfile());
         }
+        private void Signout()
+        {
+            Singleton.Instance.LocalJson.SignOut();
+            App.Current.MainPage = new NavigationPage(new Login());
+        }
+
 
         #endregion
     }

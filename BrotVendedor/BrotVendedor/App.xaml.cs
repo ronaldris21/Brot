@@ -11,27 +11,30 @@ namespace BrotVendedor
 {
     public partial class App : Application
     {
-        Usuario u;
         public App()
         {
             InitializeComponent();
+            inicializar();
+        }
+
+        private async void inicializar()
+        {
             try
             {
-                u = Singleton.current.Json.ReadData();
-                if (u.RememberMe)
+
+                if (Singleton.current.Json.IsUserLogged())
                 {
-                    MainPage = new NavigationPage(new Inicio());
-                }
-                else
-                {
-                    MainPage = new NavigationPage(new Login());
+                    if (await Singleton.current.Json.validarUsuarioinDB())
+                    {
+                        MainPage = new NavigationPage(new Inicio());
+                    }
                 }
             }
-            catch (Exception)
-            {
-                MainPage = new NavigationPage(new Login());
-            }
+            catch (Exception) { }
+            MainPage = new NavigationPage(new Login());
+
         }
+
         protected override void OnStart()
         {
             // Handle when your app starts
@@ -46,5 +49,6 @@ namespace BrotVendedor
         {
             // Handle when your app resumes
         }
+
     }
 }

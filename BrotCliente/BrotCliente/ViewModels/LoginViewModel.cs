@@ -112,7 +112,7 @@ namespace BrotCliente.ViewModels
                 Singleton.Instance.User = (userModel)result.Result;
 
                 if (this.Remember)
-                    Singleton.Instance.LocalJson.SaveUser((userModel) result.Result);
+                    Singleton.Instance.LocalJson.SaveData((userModel) result.Result);
 
                 Toast.MakeText(Android.App.Application.Context, $"Bienvenido {Singleton.Instance.User.username}", ToastLength.Short).Show();
                 Application.Current.MainPage = new NavigationPage(new Master());

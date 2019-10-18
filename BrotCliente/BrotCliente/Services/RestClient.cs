@@ -12,6 +12,8 @@ namespace BrotCliente.Services
     public static class RestClient
     {
         private static string url = "http://brotproject.somee.com/api/";
+        //private static string url = "http://192.168.22.127:61092/api/";
+
         private static HttpClient cliente = new HttpClient();
 
         public static bool isConnectedToInterned()  //Lo ideal seria mandar esto desde la app antes de usar el REST

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DLL.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,6 +15,6 @@ namespace BrotVendedor.Model
         public Nullable<System.DateTime> fecha_creacion { get; set; }
         public Nullable<System.DateTime> fecha_actualizacion { get; set; }
         public Nullable<bool> isDeleted { get; set; }
-        public virtual Usuario users { get; set; }
+        public virtual userModel users { get; set; }
     }
 }

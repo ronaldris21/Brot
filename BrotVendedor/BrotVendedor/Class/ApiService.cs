@@ -1,4 +1,5 @@
 ﻿using BrotVendedor.Model;
+using DLL.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -121,7 +122,7 @@ namespace BrotVendedor.Class
                     try
                     {
                         T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
-                        if (item.GetType().Equals(typeof(Usuario)))
+                        if (item.GetType().Equals(typeof(userModel)))
                         {
                             return new Response
                             {

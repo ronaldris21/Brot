@@ -69,20 +69,12 @@ namespace BrotCliente.Patterns
 
         #region Methods
 
-        public void VerifyLoggedUser()
+        private void VerifyLoggedUser()
         {
             if (!this._LocalJson.IsUserLogged())
                 return;
 
-            this.User = this._LocalJson.ReadUser();
-        }
-
-        public void SignOut()
-        {
-            if (this.User == null)
-                return;
-
-            this._LocalJson.SignOut();
+            this.User = this._LocalJson.ReadData();
         }
 
         #endregion

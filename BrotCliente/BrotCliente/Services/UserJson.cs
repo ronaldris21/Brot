@@ -18,7 +18,7 @@ namespace BrotCliente.Services
             this._Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             this._FilePath = Path.Combine(this._Path, "user.json");
         }
-        public void SaveUser(userModel user)
+        public void SaveData(userModel user)
         {
             String result = Newtonsoft.Json.JsonConvert.SerializeObject(user);
 
@@ -30,7 +30,7 @@ namespace BrotCliente.Services
                 strm.Close();
             }
         }
-        public userModel ReadUser()
+        public userModel ReadData()
         {            
             using (var file = File.Open(this._FilePath, FileMode.Open, FileAccess.Read))
 
@@ -55,6 +55,26 @@ namespace BrotCliente.Services
             {
                 await Singleton.Instance.Dialogs.Message("Error al borrar user.json", ex.Message);
             }
+        }
+
+        public async Task<bool> validarUsuarioinDB()
+        {
+            try
+            {
+                userModel data = this.ReadData();
+                userModel result = await RestAPI.login(data.pass, data.username);
+                if (result == null)
+                {
+                    SignOut();
+                }
+                this.SaveData(result);
+                return true;
+            }
+            catch (Exception)
+            {
+                this.SignOut();
+            }
+            return false;
         }
     }
 }

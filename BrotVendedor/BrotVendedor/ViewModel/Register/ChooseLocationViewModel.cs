@@ -1,6 +1,7 @@
 ﻿using BrotVendedor.Class;
 using BrotVendedor.Model;
 using BrotVendedor.View;
+using DLL.Models;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace BrotVendedor.ViewModel
     {
         #region Atributos
         private ObservableCollection<Pin> pins;
-        private Usuario local;
+        private userModel local;
         private ApiService api;
         private String estado;
         #endregion
@@ -35,10 +36,10 @@ namespace BrotVendedor.ViewModel
         }
         #endregion
         #region Constructor
-        public ChooseLocationViewModel(Usuario item,String estado)
+        public ChooseLocationViewModel(userModel item,String estado)
         {
             api = new ApiService();
-            if (local==default(Usuario))
+            if (local==default(userModel))
             {
                 local = item;
             }
@@ -50,7 +51,7 @@ namespace BrotVendedor.ViewModel
                 {
                     Icon = BitmapDescriptorFactory.FromBundle("pin100.png"),
                     Label = "Has clic en el icono de posicion para confirmar tu ubicación",
-                    Position = new Position(Singleton.current.user.xlat, Singleton.current.user.ylon)
+                    Position = new Position((double)Singleton.current.user.xlat, (double)Singleton.current.user.ylon)
                 });
 
             }
@@ -87,11 +88,11 @@ namespace BrotVendedor.ViewModel
             }
             else
             {
-                local.xlat = Pins[0].Position.Latitude;
-                local.ylon = Pins[0].Position.Longitude;
+                local.xlat =(float) Pins[0].Position.Latitude;
+                local.ylon = (float) Pins[0].Position.Longitude;
                 if (estado=="Registrar")
                 {
-                    Response response = await api.Post<Usuario>("users", local);
+                    Response response = await api.Post<userModel>("users", local);
                     if (!response.isSuccess)
                     {
                         await App.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
@@ -103,7 +104,7 @@ namespace BrotVendedor.ViewModel
                 else
                 {
                     ///Actualizar
-                    Response response = await api.Put<Usuario>("users", local.id_user,local);
+                    Response response = await api.Put<userModel>("users", local.id_user,local);
                     if (!response.isSuccess)
                     {
                         await App.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");

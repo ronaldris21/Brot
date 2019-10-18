@@ -13,13 +13,25 @@ namespace BrotCliente
         {
             InitializeComponent();
 
-            if (VerifyLogin())
+            inicializar();
+
+        }
+
+        private async void inicializar()
+        {
+            try
             {
-                MainPage = new NavigationPage(new Master());
-            } else
-            {
-                MainPage = new NavigationPage(new Login());
+
+                if (Singleton.Instance.LocalJson.IsUserLogged())
+                {
+                    if (await Singleton.Instance.LocalJson.validarUsuarioinDB())
+                    {
+                        MainPage = new NavigationPage(new Master());
+                    }
+                }
             }
+            catch (Exception) { }
+            MainPage = new NavigationPage(new Login());
 
             ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#ff5001");
         }

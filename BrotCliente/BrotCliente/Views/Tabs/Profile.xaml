@@ -47,11 +47,15 @@
                         TextColor="#ff5001"
                         BackgroundColor="Transparent"
                         HorizontalOptions="FillAndExpand"
-                        Command="{Binding EditProfileCommand}"/>
+                        Command="{Binding EditProfileCommand}"
+                        />
                 <Button Text="Sign Out"
                         TextColor="#ff5001"
                         BackgroundColor="Transparent"
-                        HorizontalOptions="FillAndExpand"/>
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding SignOutCommand}"
+                        
+                        />
             </StackLayout>
 
             <ScrollView VerticalOptions="FillAndExpand">

@@ -2,6 +2,7 @@
 using BrotVendedor.Model;
 using BrotVendedor.ViewModel;
 using BrotVendedor.XStyles;
+using DLL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,13 @@ namespace BrotVendedor.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChooseLocation : ContentPage
     {
-        public ChooseLocation(Usuario local,String estado)
+        public ChooseLocation(userModel local,String estado)
         {
             InitializeComponent();
             Mape.MapStyle = MapStyle.FromJson(new XamMapStyle().text);
             if (Singleton.current.user!=null)
             {
-                Mape.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(Singleton.current.user.xlat, Singleton.current.user.ylon), Distance.FromMeters(250)));
+                Mape.MoveToRegion(MapSpan.FromCenterAndRadius(new Position((double)Singleton.current.user.xlat,(double) Singleton.current.user.ylon), Distance.FromMeters(250)));
             }
             else
             {

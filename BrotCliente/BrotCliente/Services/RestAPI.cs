@@ -12,6 +12,7 @@ namespace BrotCliente.Services
     using Xamarin.Essentials;
     public static class RestAPI
     {
+        //private static string urlBase = "http://192.168.22.127:61092/api/";
         //private static string urlBase = "cibomarket.somee.com/api/"; 
         private static string urlBase = "http://brotproject.somee.com/api/";
         public static bool isConnectedToInterned()  //Lo ideal seria mandar esto desde la app antes de usar el REST

@@ -1,5 +1,6 @@
 ﻿using BrotVendedor.Model;
 using BrotVendedor.View;
+using DLL.Models;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -127,8 +128,9 @@ namespace BrotVendedor.ViewModel
             if (!CheckAll())
             {
                 App.Current.MainPage.DisplayAlert("Error", "Uno o mas campos estan vacios", "Aceptar");
+                return;
             }
-            Usuario user = new Usuario
+            userModel user = new userModel
             {
                 username = usuario,
                 nombre = nombre,

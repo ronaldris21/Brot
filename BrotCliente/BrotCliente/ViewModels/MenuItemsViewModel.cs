@@ -56,7 +56,7 @@ namespace BrotCliente.ViewModels
         private void Signout()
         {
             if (Singleton.Instance.LocalJson.IsUserLogged())
-                Singleton.Instance.SignOut();
+                Singleton.Instance.LocalJson.SignOut();
 
             Singleton.Instance.User = null;
             Application.Current.MainPage = new NavigationPage(new Login());
