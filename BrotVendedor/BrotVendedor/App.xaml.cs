@@ -24,14 +24,22 @@ namespace BrotVendedor
 
                 if (Singleton.current.Json.IsUserLogged())
                 {
-                    if (await Singleton.current.Json.validarUsuarioinDB())
-                    {
-                        MainPage = new NavigationPage(new Inicio());
-                    }
+                    //if (await Singleton.current.Json.validarUsuarioinDB())
+                    //{
+                    MainPage = new NavigationPage(new Inicio());
+                    //}
+                    //else
+                    //{
+                    //    MainPage = new NavigationPage(new Login());
+                    //}
+                }
+                else
+                {
+                    MainPage = new NavigationPage(new Login());
+
                 }
             }
             catch (Exception) { }
-            MainPage = new NavigationPage(new Login());
 
         }
 

@@ -19,16 +19,18 @@
             if (isliked)
             {
                 //Se quita el like
-                //((ImageButton)sender).Source = "PinBlack250.png";
+                ((ImageButton)sender).Source = "PinBlack250.png";
                 await RestClient.Post<like_postModel>("like_post/borrar", like);
             }
             else
             {
                 //se crea el like!
-                //((ImageButton)sender).Source = "Pin250.png";
+                ((ImageButton)sender).Source = "Pin250.png";
                 await RestClient.Post<like_postModel>("like_post", like);   
             }
             ((ImageButton)sender).CommandParameter = !isliked;
+            ((ImageButton)sender).HeightRequest = 25;
+            ((ImageButton)sender).WidthRequest = 25;
 
         }
     }

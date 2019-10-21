@@ -10,10 +10,10 @@
              xmlns:patterns="clr-namespace:BrotCliente.Patterns"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:models="clr-namespace:BrotCliente.Models"
+             xmlns:cells="clr-namespace:BrotCliente.Cells"
              >
     <ContentPage.Resources>
         <ResourceDictionary>
-            <patterns:BoolToStringConverter x:Key="BoolToStringConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -98,7 +98,7 @@
                                         </EventTrigger>
                                     </ff:CachedImage.Triggers>
                                 </models:ImageCachedBottonPersonalized>-->
-                                
+
                                 <StackLayout Orientation="Horizontal"
                                                 Padding="5"
                                              >
@@ -114,7 +114,7 @@
                                                 <patterns:btnLikePostTrigger/>
                                             </EventTrigger>
                                         </ImageButton.Triggers>
-                                       
+
                                     </ImageButton>
                                     <Label Text="{Binding Post.publicacion.cantLikes,StringFormat='{0} # Brots'}"
                                             VerticalOptions="Center"
@@ -124,7 +124,7 @@
                                                     HeightRequest="25"
                                                     WidthRequest="25"
                                                     BackgroundColor="Transparent"/>
-                                    <Label Text="{Binding Post.publicacion.cantComentarios,StringFormat='{0} # Comments'}"
+                                    <Label  Text="{Binding Post.publicacion.cantComentarios,StringFormat='{0} # Comments'}"
                                             VerticalOptions="Center"
                                             TextColor="Black"
                                             FontAttributes="Bold"/>
@@ -148,51 +148,10 @@
                     </ContentView>
                 </DataTemplate>
             </ListView.HeaderTemplate>
-
-
+            
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="60"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Image Source="{Binding usuario.img,StringFormat='http://images.somee.com/uploads/{0}'}"
-                                    HeightRequest="50"
-                                    HorizontalOptions="Center"
-                                    Grid.Column="0"/>
-
-                            <StackLayout Grid.Column="1">
-
-                                <Label Text="{Binding comentario.contenido}"/>
-                                <StackLayout Orientation="Horizontal" Padding="5">
-                                    <ImageButton Source="{Binding isLiked,Converter={StaticResource BoolToStringConverter}}"
-	                                             HeightRequest="25"
-	                                             WidthRequest="25"
-	                                             BackgroundColor="Transparent"
-	                                             ClassId="{Binding comentario.id_comentario}"
-                                                 CommandParameter="{Binding isLiked}"
-	                                             >
-                                        <!--Source="{Binding Post.publicacion.IsLiked,Converter={StaticResource BoolToStringConverter}}"-->
-                                        <ImageButton.Triggers>
-                                            <EventTrigger Event="Clicked">
-                                                <patterns:btnLikeCommentTrigger/>
-                                            </EventTrigger>
-                                        </ImageButton.Triggers>
-                                    </ImageButton>
-                                    <Label Text="{Binding CantLikes,StringFormat='{0} # Brots'}"
-	                                            VerticalOptions="Center"
-	                                            TextColor="Black"
-	                                            FontAttributes="Bold"/>
-                                </StackLayout>
-                                <Label Text="{Binding comentario.fecha_creacion}"/>
-
-                            </StackLayout>
-
-                        </Grid>
-                    </ViewCell>
+                    <cells:ComentariosViewCell/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

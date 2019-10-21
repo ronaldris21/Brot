@@ -24,15 +24,22 @@ namespace BrotCliente
 
                 if (Singleton.Instance.LocalJson.IsUserLogged())
                 {
-                    if (await Singleton.Instance.LocalJson.validarUsuarioinDB())
-                    {
-                        MainPage = new NavigationPage(new Master());
-                    }
+                    //if (await Singleton.Instance.LocalJson.validarUsuarioinDB())
+                    //{
+                    //    Singleton.Instance.User = Singleton.Instance.LocalJson.ReadData();
+                    MainPage = new NavigationPage(new Master());
+                    //}
+                    //else
+                    //{
+                    //    MainPage = new NavigationPage(new Login());
+                    //}
+                }
+                else
+                {
+                    MainPage = new NavigationPage(new Login());
                 }
             }
             catch (Exception) { }
-            MainPage = new NavigationPage(new Login());
-
             ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#ff5001");
         }
 

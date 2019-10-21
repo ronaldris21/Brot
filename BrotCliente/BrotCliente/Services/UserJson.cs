@@ -66,6 +66,7 @@ namespace BrotCliente.Services
                 if (result == null)
                 {
                     SignOut();
+                    return false;
                 }
                 this.SaveData(result);
                 return true;

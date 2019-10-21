@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BrotCliente.Cells.ComentariosViewCell"
+            
+          xmlns:patterns="clr-namespace:BrotCliente.Patterns"
+          >
+    
+    
+  <ViewCell.View>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="{Binding usuario.img,StringFormat='http://images.somee.com/uploads/{0}'}"
+                                    HeightRequest="50"
+                                    HorizontalOptions="Center"
+                                    Grid.Column="0"/>
+
+            <StackLayout Grid.Column="1">
+
+                <Label Text="{Binding comentario.contenido}"/>
+                <StackLayout Orientation="Horizontal" Padding="5">
+                    <ImageButton Source="{Binding isLiked,Converter={StaticResource BoolToStringConverter}}"
+	                                             HeightRequest="25"
+	                                             WidthRequest="25"
+	                                             BackgroundColor="Transparent"
+	                                             ClassId="{Binding comentario.id_comentario}"
+                                                 CommandParameter="{Binding isLiked}"
+	                                             >
+                        <!--Source="{Binding Post.publicacion.IsLiked,Converter={StaticResource BoolToStringConverter}}"-->
+                        <ImageButton.Triggers>
+                            <EventTrigger Event="Clicked">
+                                <patterns:btnLikeCommentTrigger/>
+                            </EventTrigger>
+                        </ImageButton.Triggers>
+                    </ImageButton>
+                    <Label Text="{Binding CantLikes,StringFormat='{0} # Brots'}"
+	                                            VerticalOptions="Center"
+	                                            TextColor="Black"
+	                                            FontAttributes="Bold"/>
+                </StackLayout>
+                <Label Text="{Binding comentario.fecha_creacion}"/>
+
+            </StackLayout>
+
+        </Grid>
+    </ViewCell.View>
+</ViewCell>

@@ -111,7 +111,7 @@ namespace BrotCliente.ViewModels
             {
                 Singleton.Instance.User = (userModel)result.Result;
 
-                if (this.Remember)
+                //if (this.Remember)
                     Singleton.Instance.LocalJson.SaveData((userModel) result.Result);
 
                 Toast.MakeText(Android.App.Application.Context, $"Bienvenido {Singleton.Instance.User.username}", ToastLength.Short).Show();

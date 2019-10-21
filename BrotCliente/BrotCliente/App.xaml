@@ -4,10 +4,14 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:patterns="clr-namespace:BrotCliente.Patterns"
+             
              x:Class="BrotCliente.App">
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="NaranjaBrot">#ff5001</Color>
+            <patterns:BoolToStringConverter x:Key="BoolToStringConverter"/>
+
         </ResourceDictionary>
 
     </Application.Resources>

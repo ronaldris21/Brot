@@ -27,13 +27,12 @@ namespace BrotCliente.Patterns
             }
             else
             {
-                //se crea el like!
                 ((ImageButton)sender).Source = "Pin250.png";
                 await RestClient.Post<like_comentarioModel>("like_comentario", like);
             }
             ((ImageButton)sender).CommandParameter = !isliked;
-
-
+            ((ImageButton)sender).HeightRequest = 25;
+            ((ImageButton)sender).WidthRequest = 25;
         }
     }
 }

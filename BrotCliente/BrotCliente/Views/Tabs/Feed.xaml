@@ -9,6 +9,7 @@
              Title="Feed"
              IconImageSource="BWhite250.ico"
              BackgroundColor="{StaticResource NaranjaBrot}"
+             xmlns:patterns="clr-namespace:BrotCliente.Patterns"
              >
     <ContentPage.Content>
         <ListView VerticalOptions="FillAndExpand"
@@ -69,12 +70,22 @@
 
                                 <StackLayout Orientation="Horizontal"
                                                 Padding="5">
-                                    <ImageButton Source="PinBlack250.png"
+                                    
+
+                                    <ImageButton Source="{Binding IsLiked,Converter={StaticResource BoolToStringConverter}}"
                                                     HeightRequest="25"
                                                     WidthRequest="25"
                                                     BackgroundColor="Transparent"
                                                     ClassId="{Binding publicacion.id_post}"
-                                                    Clicked="ImageButton_Clicked"/>
+                                                    CommandParameter="{Binding IsLiked}"
+                                                    >
+                                        <ImageButton.Triggers>
+                                            <EventTrigger Event="Clicked">
+                                                <patterns:btnLikePostTrigger/>
+                                            </EventTrigger>
+                                        </ImageButton.Triggers>
+
+                                    </ImageButton>
                                     <Label Text="{Binding cantLikes, StringFormat='{0} Brots'}"
                                             VerticalOptions="Center"
                                             TextColor="Black"
