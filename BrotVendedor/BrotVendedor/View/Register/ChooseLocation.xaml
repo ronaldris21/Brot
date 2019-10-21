@@ -15,7 +15,7 @@
             <Maps:Map x:Name="Mape">
                     <Maps:Map.Behaviors>
                     <bindings:BindingPinsBehavior Value="{Binding Pins}"/>
-                    <bindings:MapClickedToCommandBehavior  Command="{Binding MapClickedCommand}"/>
+                    <bindings:MapClickedToCommandBehavior Command="{Binding MapClickedCommand}"/>
                     </Maps:Map.Behaviors>
             </Maps:Map>
         </StackLayout>

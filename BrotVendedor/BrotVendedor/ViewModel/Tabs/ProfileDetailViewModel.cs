@@ -6,6 +6,8 @@
     using GalaSoft.MvvmLight.Command;
     using System;
     using System.Windows.Input;
+    using Xamarin.Forms;
+
     public class ProfileDetailViewModel
     {
         #region Commands
@@ -58,6 +60,14 @@
         private void gotoAnalytics()
         {
             App.Current.MainPage.Navigation.PushAsync(new Analytics());
+        }
+
+        public ICommand SignOutCommand { get { return new RelayCommand(Signout); } }
+
+        private void Signout()
+        {
+            Singleton.current.Json.SignOut();
+            App.Current.MainPage = new NavigationPage(new Login());
         }
         #endregion
     }

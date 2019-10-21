@@ -104,6 +104,13 @@
                        HorizontalOptions="Center" 
                        TextColor="Black"/>
             </Grid>
+            <Button Text="Sign Out"
+                        TextColor="#ff5001"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="Center"
+                        Command="{Binding SignOutCommand}"
+                        
+                        />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

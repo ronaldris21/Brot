@@ -38,6 +38,7 @@ namespace BrotVendedor.ViewModel
         #region Constructor
         public ChooseLocationViewModel(userModel item,String estado)
         {
+            this.estado = estado;
             api = new ApiService();
             if (local==default(userModel))
             {
