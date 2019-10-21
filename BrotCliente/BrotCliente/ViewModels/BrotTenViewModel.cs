@@ -1,6 +1,8 @@
 ﻿
+using BrotCliente.Services;
 using DLL.Models;
 using DLL.ResponseModels;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,9 +12,9 @@ namespace BrotCliente.ViewModels
 {
     class BrotTenViewModel : BaseViewModel
     {
-        private ObservableCollection<ResponseUserProfile> _lBrotTen;
+        private ObservableCollection<ResponseUsuariosFiltro> _lBrotTen;
 
-        public ObservableCollection<ResponseUserProfile> lBrotTen
+        public ObservableCollection<ResponseUsuariosFiltro> lBrotTen
         {
             get { return this._lBrotTen; }
             set
@@ -27,14 +29,14 @@ namespace BrotCliente.ViewModels
 
         public BrotTenViewModel()
         {
-            this.lBrotTen = new ObservableCollection<ResponseUserProfile>();
+            this.lBrotTen = new ObservableCollection<ResponseUsuariosFiltro>();
 
             cargarUsers();
         }
 
         //SOLO PRUBEA
         //BORRAR CUANDO FUNCIONE EL API 
-        public void cargarUsers()
+        public async void cargarUsers()
         {
             ResponseUserProfile u1 = new ResponseUserProfile()
             {
@@ -49,11 +51,10 @@ namespace BrotCliente.ViewModels
                     isActive = true
                 }
             };
-
             ResponseUserProfile u2 = new ResponseUserProfile()
             {
                 cantSeguidores = 100,
-                UserProfile  = new userModel()
+                UserProfile = new userModel()
                 {
                     nombre = "Panito",
                     apellido = "Original",
@@ -63,11 +64,10 @@ namespace BrotCliente.ViewModels
                     isActive = false
                 }
             };
-
             ResponseUserProfile u3 = new ResponseUserProfile()
             {
                 cantSeguidores = 100,
-                UserProfile  = new userModel()
+                UserProfile = new userModel()
                 {
                     nombre = "Catedral",
                     apellido = "Unknown",
@@ -77,7 +77,6 @@ namespace BrotCliente.ViewModels
                     isActive = true
                 }
             };
-
             ResponseUserProfile u4 = new ResponseUserProfile()
             {
                 cantSeguidores = 100,
@@ -92,10 +91,21 @@ namespace BrotCliente.ViewModels
                 }
             };
 
-            this.lBrotTen.Add(u1);
-            this.lBrotTen.Add(u2);
-            this.lBrotTen.Add(u3);
-            this.lBrotTen.Add(u4);
+            //this.lBrotTen.Add(u1);
+            //this.lBrotTen.Add(u2);
+            //this.lBrotTen.Add(u3);
+            //this.lBrotTen.Add(u4);
+
+
+            var result = await RestAPI.getBrotTen();
+            this._lBrotTen.Clear();
+            foreach (var item in result)
+            {
+                lBrotTen = new ObservableCollection<ResponseUsuariosFiltro>(result);
+            }
+
         }
+
+        public System.Windows.Input.ICommand RefreshCommand { get { return new RelayCommand(cargarUsers); } }
     }
 }
