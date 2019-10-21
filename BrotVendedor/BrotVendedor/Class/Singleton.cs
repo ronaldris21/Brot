@@ -17,6 +17,7 @@ namespace BrotVendedor.Class
         private static Singleton instance;
         private userJson json;
         private MediaFile _mediaFile;
+        public static bool fromProfile;
         private PickPhotoAsync img;
         private userModel _user;
         public static Singleton current

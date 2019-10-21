@@ -229,6 +229,7 @@
         #region Metodos
         private void ChangePicture()
         {
+            Singleton.fromProfile = true;
             Singleton.current.ChangePic();
             if (String.IsNullOrEmpty(PickPhotoAsync.name))
             {
@@ -239,6 +240,7 @@
             Modificado = true;
             clicked = true;
             img = "save.png";
+            Singleton.fromProfile = false;
         }
         private void clickeado()
         {

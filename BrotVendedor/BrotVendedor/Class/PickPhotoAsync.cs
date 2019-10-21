@@ -33,7 +33,10 @@ namespace BrotVendedor.Class
             var resp = await App.Current.MainPage.DisplayAlert("Confirmacion", "Desea utilizar esta imagen", "Aceptar", "Cancelar");
             if (resp)
             {
-                Singleton.current.user.img = name;
+                if (Singleton.fromProfile)
+                {
+                    Singleton.current.user.img = name;
+                }
                 path = ImageSource.FromStream(() =>
                 {
                     return _mediaFile.GetStream();
