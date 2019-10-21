@@ -67,6 +67,7 @@ namespace BrotCliente.ViewModels
             Post.comentarios = new List<ResponseComentarios>();
             CargarDatos();
             isActivityActive = false;
+            IsRefreshing = false;
         }
 
         private async void CargarDatos()

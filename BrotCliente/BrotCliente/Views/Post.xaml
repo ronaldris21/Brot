@@ -28,7 +28,7 @@
                     HasUnevenRows="True"
                     SelectionMode="None"
                     IsPullToRefreshEnabled="True"
-                    IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                    IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
                     RefreshCommand="{Binding RefreshCommand}">
 
             <ListView.HeaderTemplate>
