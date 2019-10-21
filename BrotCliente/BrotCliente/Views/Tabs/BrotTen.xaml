@@ -33,18 +33,18 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Image Source="DefaultUser.png"
+                                            <Image Source="{Binding userData.img,StringFormat='http://images.somee.com/uploads/{0}'}"
                                                    HeightRequest="50"
                                                    Grid.Column="0"/>
 
-                                            <Label Text="USERNAME"
+                                            <Label Text="{Binding userData.username}"
                                                    TextColor="#ff5001"
                                                    FontSize="Large"
                                                    HorizontalOptions="CenterAndExpand"
                                                    VerticalOptions="CenterAndExpand"
                                                    Grid.Column="1"/>
 
-                                            <Label Text="Prueba"
+                                            <Label Text="{Binding userData.puesto_name}"
                                                    TextColor="#ff5001"
                                                    FontSize="Medium"
                                                    HorizontalOptions="CenterAndExpand"
@@ -55,13 +55,13 @@
 
                                     <StackLayout Orientation="Vertical"
                                                  Padding="5">
-                                        <Label Text="Descripcion"
+                                        <Label Text="{Binding userData.descripcion}"
                                                TextColor="Black"
                                                FontSize="Medium"
                                                FontAttributes="Bold"/>
                                     </StackLayout>
 
-                                    <StackLayout Orientation="Horizontal"
+                                    <!--<StackLayout Orientation="Horizontal"
                                                  Padding="5">
                                         <ImageButton Source="PinBlack.ico"
                                                      HeightRequest="25"
@@ -80,7 +80,7 @@
                                                VerticalOptions="Center"
                                                TextColor="Black"
                                                FontAttributes="Bold"/>
-                                    </StackLayout>
+                                    </StackLayout>-->
                                 </StackLayout>
                             </Frame>
                         </ViewCell>
