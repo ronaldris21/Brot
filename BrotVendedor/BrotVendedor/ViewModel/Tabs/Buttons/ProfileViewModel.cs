@@ -26,7 +26,7 @@
         private String _dui;
         private String _clave;
         private ImageSource _picture;
-        private userModel u;  
+        private userModel u;
         private bool modificado = false;
         private bool clicked;
         private bool firstTime;
@@ -198,7 +198,6 @@
             apellido = u.apellido;
             correo = u.email;
             dui = u.dui;
-            telefono = u.num_telefono;
             picture = "http://images.somee.com/Uploads/" + Singleton.current.user.img;
             firstTime = false;
         }
