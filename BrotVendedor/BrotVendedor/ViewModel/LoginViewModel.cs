@@ -103,6 +103,7 @@ namespace BrotVendedor.ViewModel
             if (u.isVendor)
             {
                 Singleton.current.Json.SaveData(u);
+                Singleton.current.user = u;
                 App.Current.MainPage = new NavigationPage(new Inicio());
             }
             else
