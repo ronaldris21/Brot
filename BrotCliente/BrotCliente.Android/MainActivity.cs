@@ -27,6 +27,9 @@ namespace BrotCliente.Droid
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             Xamarin.FormsGoogleMapsBindings.Init();
 
+            //Initialazing Rounded Img
+            ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
+
             //Initializaing Popup
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
 
