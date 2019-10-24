@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BrotCliente.Views.SellerProfile"
+             
+             Title="{Binding Usuario.UserProfile.username, StringFormat='@{0}'}"
+             NavigationPage.HasNavigationBar="True"
+             xmlns:Rounded="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:patterns="clr-namespace:BrotCliente.Patterns"
+             xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             >
+    <ContentPage.Content>
+        <StackLayout>
+
+
+
+            <ListView HasUnevenRows="True"
+                      VerticalOptions="Fill"
+                      Header="{Binding }"
+                      ItemsSource="{Binding Usuario.publicacionesUser}"
+                      SelectedItem="{Binding publicacionesThis}"
+                      >
+
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <StackLayout>
+                                <StackLayout BackgroundColor="Transparent" Orientation="Horizontal" Padding="12">
+                                    <Circle:CircleImage Source="{Binding Usuario.UserProfile.img,StringFormat='http://images.somee.com/uploads/{0}'}"
+                                                       Aspect="AspectFit"
+                                        HorizontalOptions="Center">
+                                        <Circle:CircleImage.HeightRequest>
+                                            <OnPlatform x:TypeArguments="x:Double">
+                                                <On Platform="Android, iOS">150</On>
+                                            </OnPlatform>
+                                        </Circle:CircleImage.HeightRequest>
+                                        <Circle:CircleImage.WidthRequest>
+                                            <OnPlatform x:TypeArguments="x:Double">
+                                                <On Platform="Android, iOS">150</On>
+                                            </OnPlatform>
+                                        </Circle:CircleImage.WidthRequest>
+                                    </Circle:CircleImage>
+
+                                    <Frame BackgroundColor="#f0f4ff"
+                           Margin="10"
+                           CornerRadius="15"
+                                           HorizontalOptions="FillAndExpand">
+                                        <StackLayout>
+                                            <Label Text="{Binding Usuario.UserProfile.puesto_name}"
+                                       FontSize="Medium"
+                                       TextColor="Black"/>
+                                            <Label Text="{Binding Usuario.UserProfile.descripcion}"
+                                       />
+                                        </StackLayout>
+                                    </Frame>
+
+                                </StackLayout>
+
+
+                                <Frame BackgroundColor="#f0f4ff"
+                                           CornerRadius="15"
+                                           TranslationY="-10"
+                                       Margin="12"
+                                       >
+                                    <Label Text="Publicaciones"
+                                       FontSize="Medium"
+                                       TextColor="Black"/>
+                                </Frame>
+                            </StackLayout>
+                        </ContentView>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame BackgroundColor="#fff"
+                               Padding="0">
+                                <StackLayout>
+
+                                    <StackLayout Orientation="Vertical"
+                                             Padding="15">
+                                        <!--
+                                        <StackLayout Orientation="Horizontal"
+                                                 Margin="0, 20">
+                                            <Rounded:CircleImage Source="{Binding UsuarioCreator.img,StringFormat='http://images.somee.com/uploads/{0}'}"
+                                                         Aspect="AspectFit"
+                                                         HorizontalOptions="Start"
+                                                         Margin="0, 0, 15, 0">
+                                                <Rounded:CircleImage.WidthRequest>
+                                                    <OnPlatform x:TypeArguments="x:Double">
+                                                        <On Platform="Android, iOS">60</On>
+                                                    </OnPlatform>
+                                                </Rounded:CircleImage.WidthRequest>
+
+                                                <Rounded:CircleImage.HeightRequest>
+                                                    <OnPlatform x:TypeArguments="x:Double">
+                                                        <On Platform="Android, iOS">60</On>
+                                                    </OnPlatform>
+                                                </Rounded:CircleImage.HeightRequest>
+                                            </Rounded:CircleImage>
+
+                                            <Image Source="{Binding UsuarioCreator.img,StringFormat='http://images.somee.com/uploads/{0}'}"
+                                               HeightRequest="50"
+                                               Grid.Column="0"/>
+                                            <StackLayout Orientation="Vertical">
+                                                <Label Text="{Binding UsuarioCreator.username, StringFormat='@{0}'}"
+                                                   TextColor="#000"
+                                                   FontSize="Medium"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   VerticalOptions="Center"/>
+
+                                                
+                                            </StackLayout>
+                                        </StackLayout>
+                                        -->
+                                        
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Vertical"
+                                             Padding="5">
+                                        <Label Text="{Binding publicacion.fecha_creacion}"
+                                                   TextColor="#4e4e4e"
+                                                   FontSize="Micro"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   VerticalOptions="Center"/>
+                                        <Label Text="{Binding publicacion.descripcion}"
+                                            TextColor="#8e8e8e"
+                                            FontSize="Small"
+                                            FontAttributes="Bold"/>
+
+                                        <Image Source="{Binding publicacion.img,StringFormat='http://images.somee.com/uploads/{0}'}"
+                                           Margin="5"
+                                           HorizontalOptions="Fill"
+                                           HeightRequest="250"
+                                           IsVisible="{Binding publicacion.isImg}"
+                                           Aspect="AspectFill"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                Padding="5">
+
+
+                                        <ImageButton Source="{Binding IsLiked,Converter={StaticResource BoolToStringConverter}}"
+                                                    HeightRequest="15"
+                                                    WidthRequest="15"
+                                                    BackgroundColor="Transparent"
+                                                    ClassId="{Binding publicacion.id_post}"
+                                                    CommandParameter="{Binding IsLiked}"
+                                                    >
+                                            <ImageButton.Triggers>
+                                                <EventTrigger Event="Clicked">
+                                                    <patterns:btnLikePostTrigger/>
+                                                </EventTrigger>
+                                            </ImageButton.Triggers>
+
+                                        </ImageButton>
+                                        <Label Text="{Binding cantLikes, StringFormat='{0} Brots'}"
+                                            VerticalOptions="Center"
+                                            TextColor="Black"/>
+                                        <ImageButton Source="comment.png"
+                                                    HeightRequest="15"
+                                                    WidthRequest="15"
+                                                    BackgroundColor="Transparent"/>
+                                        <Label Text="{Binding cantComentarios, StringFormat='{0} Comments'}"
+                                            VerticalOptions="Center"
+                                            TextColor="Black"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+
+            </ListView>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

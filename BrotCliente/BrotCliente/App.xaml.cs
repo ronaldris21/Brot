@@ -40,7 +40,7 @@ namespace BrotCliente
                 }
             }
             catch (Exception) { }
-            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#ff5001");
+            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#031540");
         }
 
         private bool VerifyLogin()

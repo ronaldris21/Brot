@@ -12,88 +12,79 @@
         <ScrollView>
             <StackLayout Orientation="Vertical"
                          VerticalOptions="Fill"
-                         Padding="25">
+                         Padding="5">
                 <Label FontSize="35" 
                        HorizontalOptions="Center"
                        Text="Start Using Brot"
-                       TextColor="#ff5001"/>
+                       TextColor="#031540"/>
 
                 <StackLayout Margin="0, 20">
                     <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="#ff5001"
+                                                BorderColor="#031540"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
                                                 Placeholder="Type your name"
-                                                PlaceholderColor="#E8720C"
-                                                TextColor="#ff5001"/>
-                    
+                                                PlaceholderColor="Gray"
+                                                TextColor="#000"/>
+
                     <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="#ff5001"
+                                                BorderColor="#031540"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
                                                 Placeholder="Type your lastname"
-                                                PlaceholderColor="#E8720C"
-                                                TextColor="#ff5001"/>
-                    
+                                                PlaceholderColor="Gray"
+                                                TextColor="#000"/>
+
                     <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="#ff5001"
+                                                BorderColor="#031540"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
                                                 Placeholder="Type your username"
-                                                PlaceholderColor="#E8720C"
-                                                TextColor="#ff5001"/>
-                    
+                                                PlaceholderColor="Gray"
+                                                TextColor="#000"/>
+
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 Keyboard="Email"
-                                                BorderColor="#ff5001"
+                                                BorderColor="#031540"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
                                                 Placeholder="Type your E-mail"
-                                                PlaceholderColor="#E8720C"
-                                                TextColor="#ff5001"/>
-                    
+                                                PlaceholderColor="Gray"
+                                                TextColor="#000"/>
+
                     <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="#ff5001"
+                                                BorderColor="#031540"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
                                                 Placeholder="Type your password"
-                                                PlaceholderColor="#E8720C"
+                                                PlaceholderColor="Gray"
                                                 IsPassword="True"
-                                                TextColor="#ff5001"/>
-                    
+                                                TextColor="#000"/>
+
                     <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="#ff5001"
+                                                BorderColor="#031540"
                                                 BorderThickness="2"
                                                 CornerRadius="10"
                                                 Placeholder="Repeat your password"
-                                                PlaceholderColor="#E8720C"
+                                                PlaceholderColor="Gray"
                                                 IsPassword="True"
-                                                TextColor="#ff5001"/>
-                </StackLayout>
+                                                TextColor="#000"/>
 
-                <StackLayout Margin="0, 20">
-                    <Button Text="Registrer"
-                            TextColor="White"
-                            BackgroundColor="#ff5001"
-                            CornerRadius="10"
-                            HorizontalOptions="Center"
-                            Padding="40, 15"
-                            Command="{Binding GoToMainCommand}"/>
-
-                    <StackLayout Orientation="Horizontal"
-                                 HorizontalOptions="Center"
-                                 Margin="15"
-                                 Padding="10">
-                        
-                        <Label Text="Do you already have an user?"
-                               TextColor="#ff5001"
-                               VerticalOptions="Center"/>
-                        
-                        <Button Text="Log in"
-                                TextColor="#ff5001"
-                                VerticalOptions="Center"
-                                FontAttributes="Bold"
+                    <StackLayout Margin="10">
+                        <Button Text="Register"
+                                TextColor="#031540"
                                 BackgroundColor="Transparent"
+                                BorderColor="#031540"
+                                BorderWidth="1"
+                                CornerRadius="3"
+                                FontSize="Small"
+                                HorizontalOptions="Fill"
+                                Command="{Binding GoToMainCommand}"/>
+
+                        <Button Text="Login"
+                                TextColor="#fff"
+                                VerticalOptions="Center"
+                                BackgroundColor="#031540"
                                 Command="{Binding LoginCommand}"/>
                     </StackLayout>
                 </StackLayout>

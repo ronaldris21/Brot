@@ -25,7 +25,7 @@
                     <Label Text="{Binding CurrentUser.username, StringFormat='@{0}'}"
                            FontSize="Medium"
                            FontAttributes="Bold"
-                           TextColor="#ff5001"/>
+                           TextColor="#031540"/>
                     <Label Text="{Binding CurrentUser.nombre}"
                            FontSize="Small"
                            TextColor="Black"/>
@@ -35,7 +35,7 @@
                     <Label Text="Description"
                            FontSize="Medium"
                            FontAttributes="Bold"
-                           TextColor="#ff5001"/>
+                           TextColor="#031540"/>
                     <Label Text="{Binding CurrentUser.descripcion}"
                            FontSize="Small"
                            TextColor="Black"/>
@@ -44,13 +44,13 @@
 
             <StackLayout Orientation="Horizontal">
                 <Button Text="Edit Profile"
-                        TextColor="#ff5001"
+                        TextColor="#031540"
                         BackgroundColor="Transparent"
                         HorizontalOptions="FillAndExpand"
                         Command="{Binding EditProfileCommand}"
                         />
                 <Button Text="Sign Out"
-                        TextColor="#ff5001"
+                        TextColor="#031540"
                         BackgroundColor="Transparent"
                         HorizontalOptions="FillAndExpand"
                         Command="{Binding SignOutCommand}"

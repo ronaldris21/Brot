@@ -17,7 +17,7 @@
                   CachingStrategy="RecycleElement"
                   HasUnevenRows="True"
                   ItemsSource="{Binding lPosts}"
-                  SeparatorColor="#ff5001"
+                  SeparatorColor="#031540"
                   SeparatorVisibility="Default"
                   SelectedItem="{Binding selectedItemLista}"
                   IsPullToRefreshEnabled="True"

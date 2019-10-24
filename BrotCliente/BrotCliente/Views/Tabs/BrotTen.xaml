@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="BrotCliente.Views.Tabs.BrotTen"
              
+             xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              Title="Brot Ten"
              IconImageSource="BrotTenWhite250.ico">
     <ContentPage.Content>
@@ -14,75 +15,49 @@
             <ListView VerticalOptions="FillAndExpand"
                       HasUnevenRows="True"
                       ItemsSource="{Binding lBrotTen}"
-                      SeparatorColor="#ff5001"
+                      SeparatorColor="#031540"
                       SeparatorVisibility="Default"
-                      x:Name="FeedListView"
+                      x:Name="BrotTenList"
                       IsPullToRefreshEnabled="True"
+                      ItemSelected="FeedListView_ItemSelected"
                       IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
                       RefreshCommand="{Binding RefreshCommand}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Frame BackgroundColor="White">
-                                <StackLayout>
-                                    <StackLayout Padding="5">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="2*"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
 
-                                            <Image Source="{Binding userData.img,StringFormat='http://images.somee.com/uploads/{0}'}"
-                                                   HeightRequest="50"
-                                                   Grid.Column="0"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="4*"/>
+                                </Grid.ColumnDefinitions>
 
+                                <Circle:CircleImage Source="{Binding userData.img,StringFormat='http://images.somee.com/uploads/{0}'}"
+                                                   Aspect="AspectFit"
+                                Grid.Column="0"
+                                HorizontalOptions="Center">
+                                    <Circle:CircleImage.HeightRequest>
+                                        <OnPlatform x:TypeArguments="x:Double">
+                                            <On Platform="Android, iOS">60</On>
+                                        </OnPlatform>
+                                    </Circle:CircleImage.HeightRequest>
+                                </Circle:CircleImage>
+
+                                <StackLayout Grid.Column="1">
+                                    <Frame BackgroundColor="#f0f4ff"
+                       Margin="10"
+                       CornerRadius="15">
+                                        <StackLayout>
                                             <Label Text="{Binding userData.username}"
-                                                   TextColor="#ff5001"
-                                                   FontSize="Large"
-                                                   HorizontalOptions="CenterAndExpand"
-                                                   VerticalOptions="CenterAndExpand"
-                                                   Grid.Column="1"/>
-
-                                            <Label Text="{Binding userData.puesto_name}"
-                                                   TextColor="#ff5001"
-                                                   FontSize="Medium"
-                                                   HorizontalOptions="CenterAndExpand"
-                                                   VerticalOptions="CenterAndExpand"
-                                                   Grid.Column="2"/>
-                                        </Grid>
-                                    </StackLayout>
-
-                                    <StackLayout Orientation="Vertical"
-                                                 Padding="5">
-                                        <Label Text="{Binding userData.descripcion}"
-                                               TextColor="Black"
-                                               FontSize="Medium"
-                                               FontAttributes="Bold"/>
-                                    </StackLayout>
-
-                                    <!--<StackLayout Orientation="Horizontal"
-                                                 Padding="5">
-                                        <ImageButton Source="PinBlack.ico"
-                                                     HeightRequest="25"
-                                                     WidthRequest="25"
-                                                     BackgroundColor="Transparent"
-                                                     ClassId="{Binding user.id_user}"/>
-                                        <Label Text="# Brots"
-                                               VerticalOptions="Center"
-                                               TextColor="Black"
-                                               FontAttributes="Bold"/>
-                                        <ImageButton Source="Comment.ico"
-                                                     HeightRequest="25"
-                                                     WidthRequest="25"
-                                                     BackgroundColor="Transparent"/>
-                                        <Label Text="# Comments"
-                                               VerticalOptions="Center"
-                                               TextColor="Black"
-                                               FontAttributes="Bold"/>
-                                    </StackLayout>-->
+                                                   TextColor="Black"
+                               FontSize="Medium"/>
+                                            <Label Text="{Binding comentario.contenido}"/>
+                                            <Label Text="{Binding userData.puesto_name}"/>
+                                            <Label Text="{Binding userData.descripcion}"/>
+                                        </StackLayout>
+                                    </Frame>
                                 </StackLayout>
-                            </Frame>
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

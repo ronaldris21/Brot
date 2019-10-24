@@ -8,9 +8,8 @@
              
              Title="{Binding Title}"
              xmlns:patterns="clr-namespace:BrotCliente.Patterns"
-             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:models="clr-namespace:BrotCliente.Models"
-             xmlns:Rounded="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+             xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:cells="clr-namespace:BrotCliente.Cells"
              >
     <ContentPage.Resources>
@@ -21,141 +20,104 @@
     <ContentPage.Content>
 
         <ListView VerticalOptions="FillAndExpand"
-                      
-                    ItemsSource="{Binding ComentariosData}"
-                    Header="{Binding }"
-                    SeparatorColor="#ff5001"
-                    SeparatorVisibility="Default"
-                    HasUnevenRows="True"
-                    SelectionMode="None"
-                    IsPullToRefreshEnabled="True"
-                    IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
-                    RefreshCommand="{Binding RefreshCommand}">
+                  ItemsSource="{Binding ComentariosData}"
+                  Header="{Binding }"
+                  SeparatorColor="#031540"
+                  SeparatorVisibility="Default"
+                  HasUnevenRows="True"
+                  SelectionMode="None"
+                  IsPullToRefreshEnabled="True"
+                  IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                  RefreshCommand="{Binding RefreshCommand}">
 
             <ListView.HeaderTemplate>
                 <DataTemplate>
                     <ContentView>
                         <Frame BackgroundColor="#fff">
-                            <StackLayout>
-                                <StackLayout Orientation="Vertical">
-                                    <StackLayout Orientation="Horizontal"
-                                                 Margin="0, 20">
-                                        <Rounded:CircleImage Source="{Binding Post.publicacion.UsuarioCreator.img,StringFormat='http://images.somee.com/uploads/{0}'}"
-                                                             Aspect="AspectFit"
-                                                         HorizontalOptions="Start"
+                            <StackLayout Orientation="Vertical">
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Circle:CircleImage Source="{Binding Post.publicacion.UsuarioCreator.img,StringFormat='http://images.somee.com/uploads/{0}'}"
+                                                         Aspect="AspectFit"
                                                          Margin="0, 0, 15, 0">
-                                            <Rounded:CircleImage.WidthRequest>
-                                                <OnPlatform x:TypeArguments="x:Double">
-                                                    <On Platform="Android, iOS">60</On>
-                                                </OnPlatform>
-                                            </Rounded:CircleImage.WidthRequest>
+                                        <Circle:CircleImage.HeightRequest>
+                                            <OnPlatform x:TypeArguments="x:Double">
+                                                <On Platform="Android, iOS">55</On>
+                                            </OnPlatform>
+                                        </Circle:CircleImage.HeightRequest>
 
-                                            <Rounded:CircleImage.HeightRequest>
-                                                <OnPlatform x:TypeArguments="x:Double">
-                                                    <On Platform="Android, iOS">60</On>
-                                                </OnPlatform>
-                                            </Rounded:CircleImage.HeightRequest>
-                                        </Rounded:CircleImage>
+                                        <Circle:CircleImage.WidthRequest>
+                                            <OnPlatform x:TypeArguments="x:Double">
+                                                <On Platform="Android, iOS">55</On>
+                                            </OnPlatform>
+                                        </Circle:CircleImage.WidthRequest>
+                                    </Circle:CircleImage>
 
-                                        <!--<Image Source="{Binding UsuarioCreator.img,StringFormat='http://images.somee.com/uploads/{0}'}"
-                                               HeightRequest="50"
-                                               Grid.Column="0"/>-->
-                                        <StackLayout Orientation="Vertical">
-                                            <Label Text="{Binding Post.publicacion.UsuarioCreator.username, StringFormat='@{0}'}"
-                                                   TextColor="#000"
-                                                   FontSize="Medium"
-                                                   HorizontalOptions="StartAndExpand"
-                                                   VerticalOptions="Center"/>
-
-                                            <Label Text="{Binding Post.publicacion.publicacion.fecha_creacion}"
-                                                TextColor="#4e4e4e"
-                                                   FontSize="Micro"
-                                                   HorizontalOptions="StartAndExpand"
-                                                   VerticalOptions="Center"/>
-                                        </StackLayout>
+                                    <StackLayout Orientation="Vertical">
+                                        <Label Text="{Binding Post.publicacion.UsuarioCreator.username, StringFormat='@{0}'}"
+                                               TextColor="#031540"
+                                               FontSize="Large"/>
+                                        <Label Text="{Binding Post.publicacion.publicacion.fecha_creacion}"
+                                               TextColor="Black"
+                                               FontSize="Small"/>
                                     </StackLayout>
-
-                                    <Label Text="{Binding Post.publicacion.publicacion.descripcion}"
-                                            TextColor="#8e8e8e"
-                                            FontSize="Small"
-                                            FontAttributes="Bold"/>
                                 </StackLayout>
 
-                                <StackLayout Orientation="Vertical"
-                                                Padding="5">
-                                    <Image Source="{Binding Post.publicacion.publicacion.img,StringFormat='http://images.somee.com/uploads/{0}'}"
-                                           HeightRequest="450"
-                                           Aspect="AspectFit"
-                                           Margin="5"
-                                           IsVisible="{Binding Post.publicacion.publicacion.isImg}"/>
-                                </StackLayout>
+                                <Label Text="{Binding Post.publicacion.publicacion.descripcion}"
+                                       TextColor="Black"
+                                       FontSize="Medium"
+                                       Margin="0, 20"/>
 
-
-                                <!--<models:ImageCachedBottonPersonalized 
-                                        ErrorPlaceholder="Profile250.ico"
-                                        LoadingPlaceholder="Profile250.ico"
-                                        CacheDuration="2"
-                                     HeightRequest="25"
-                                    BackgroundColor="Black"
-                                                    WidthRequest="25"
-                                        ClassId="{Binding Post.publicacion.publicacion.id_post}"
-                                        AutomationId="{Binding Post.publicacion.IsLiked}"
-                                    
-                                    isLiked="{Binding Post.publicacion.IsLiked}"
-                                    
-                                        >
-                                    <ff:CachedImage.Triggers>
-                                        <EventTrigger Event="{Binding Source={x:Reference }}">
-                                            <patterns:btnFFimageLoadingTrigger  />
-                                        </EventTrigger>
-                                    </ff:CachedImage.Triggers>
-                                </models:ImageCachedBottonPersonalized>-->
+                                <Image Source="{Binding Post.publicacion.publicacion.img, StringFormat='http://images.somee.com/uploads/{0}'}"
+                                       HeightRequest="350"
+                                       Aspect="AspectFit"
+                                       Margin="0"
+                                       IsVisible="{Binding Post.publicacion.publicacion.isImg}"/>
 
                                 <StackLayout Orientation="Horizontal"
-                                                Padding="5"
-                                             >
+                                             Margin="0, 10">
                                     <ImageButton Source="{Binding Post.publicacion.IsLiked,Converter={StaticResource BoolToStringConverter}}"
-                                                    HeightRequest="15"
-                                                    WidthRequest="15"
-                                                    BackgroundColor="Transparent"
-                                                    ClassId="{Binding Post.publicacion.publicacion.id_post}"
-                                                    CommandParameter="{Binding Post.publicacion.IsLiked}"
-                                                    >
+                                                 HeightRequest="15"
+                                                 WidthRequest="15"
+                                                 BackgroundColor="Transparent"
+                                                 ClassId="{Binding Post.publicacion.publicacion.id_post}"
+                                                 CommandParameter="{Binding Post.publicacion.IsLiked}">
                                         <ImageButton.Triggers>
                                             <EventTrigger Event="Clicked">
                                                 <patterns:btnLikePostTrigger/>
                                             </EventTrigger>
                                         </ImageButton.Triggers>
-
                                     </ImageButton>
+                                    
                                     <Label Text="{Binding Post.publicacion.cantLikes,StringFormat='{0} # Brots'}"
-                                            VerticalOptions="Center"
+                                           VerticalOptions="Center"
                                            FontSize="Small"
                                            TextColor="Black"/>
                                     <ImageButton Source="Comment.ico"
-                                                    HeightRequest="15"
-                                                    WidthRequest="15"
-                                                    BackgroundColor="Transparent"/>
-                                    <Label  Text="{Binding Post.publicacion.cantComentarios,StringFormat='{0} # Comments'}"
-                                            VerticalOptions="Center"
-                                            TextColor="Black"
-                                            FontSize="Small"/>
+                                                 HeightRequest="15"
+                                                 WidthRequest="15"
+                                                 BackgroundColor="Transparent"/>
+                                    <Label Text="{Binding Post.publicacion.cantComentarios,StringFormat='{0} # Comments'}"
+                                           VerticalOptions="Center"
+                                           TextColor="Black"
+                                           FontSize="Small"/>
                                 </StackLayout>
-                                <Editor
-                                        Placeholder="Comenta algo ..."
-                                        HeightRequest="150"
-                                        MaxLength="300"
-                                        Text="{Binding texto}"
-                                        />
 
-                                <Button TextColor="#ff5001"
-                                        Margin="0, 20"
-                                        BorderColor="#ff5001"
-                                        BorderWidth="1"
-                                        CornerRadius="2"
-                                        Command="{Binding ComentarCommand}"
-                                        Text="Comment"
-                                        BackgroundColor="Transparent"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Rounded:RoundedBorderEntry BorderColor="#031540"
+                                                                Placeholder="Comment..."
+                                                                HorizontalOptions="FillAndExpand"
+                                                                TextColor="Black"
+                                                                Text="{Binding texto}"
+                                                                MaxLength="300"/>
+                                    <Button TextColor="#fff"
+                                            BackgroundColor="#031540"
+                                            BorderWidth="1"
+                                            CornerRadius="5"
+                                            Command="{Binding ComentarCommand}"
+                                            Text="Comment"/>
+                                </StackLayout>
+                                
 
                             </StackLayout>
                         </Frame>

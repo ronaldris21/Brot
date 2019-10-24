@@ -10,7 +10,7 @@
             NavigationPage.HasNavigationBar="False"
             xmlns:Pages="clr-namespace:BrotCliente.Views.Tabs"
             xmlns:Android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-            BarBackgroundColor="#ff5001"
+            BarBackgroundColor="#031540"
             BarTextColor="White"
             Android:TabbedPage.ToolbarPlacement="Bottom"
             Android:TabbedPage.BarItemColor="White"

@@ -11,7 +11,9 @@
         <ResourceDictionary>
             <Color x:Key="NaranjaBrot">#ff5001</Color>
             <patterns:BoolToStringConverter x:Key="BoolToStringConverter"/>
+            <Color x:Key="MainDarkColor">#031540</Color>
 
+            
         </ResourceDictionary>
 
     </Application.Resources>
