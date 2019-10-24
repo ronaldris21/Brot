@@ -18,7 +18,7 @@ namespace BrotVendedor.ViewModel
     {
         #region Atributos
         private ObservableCollection<Pin> pins;
-        private userModel local;
+        private Usuario local;
         private ApiService api;
         private String estado;
         #endregion
@@ -36,11 +36,11 @@ namespace BrotVendedor.ViewModel
         }
         #endregion
         #region Constructor
-        public ChooseLocationViewModel(userModel item,String estado)
+        public ChooseLocationViewModel(Usuario item,String estado)
         {
             this.estado = estado;
             api = new ApiService();
-            if (local==default(userModel))
+            if (local==default(Usuario))
             {
                 local = item;
             }
@@ -93,7 +93,7 @@ namespace BrotVendedor.ViewModel
                 local.ylon = (float) Pins[0].Position.Longitude;
                 if (estado=="Registrar")
                 {
-                    Response response = await api.Post<userModel>("users", local);
+                    Response response = await api.Post<Usuario>("users", local);
                     if (!response.isSuccess)
                     {
                         await App.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
@@ -105,7 +105,7 @@ namespace BrotVendedor.ViewModel
                 else
                 {
                     ///Actualizar
-                    Response response = await api.Put<userModel>("users", local.id_user,local);
+                    Response response = await api.Put<Usuario>("users", local.id_user,local);
                     if (!response.isSuccess)
                     {
                         await App.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");

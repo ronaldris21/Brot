@@ -15,64 +15,29 @@ namespace BrotVendedor.Class
         private readonly string _Path;
         private readonly string _FilePath;
 
-
-        public userJson()
+        public void SaveData(Usuario u)
         {
-            this._Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            this._FilePath = Path.Combine(this._Path, "user.json");
-        }
-
-
-        public void SaveData(userModel user)
-        {
-            String result = Newtonsoft.Json.JsonConvert.SerializeObject(user);
-
-            using (var file = File.Open(this._FilePath, FileMode.Create, FileAccess.Write))
-
+            Singleton.current.user = u;
+            String result = Newtonsoft.Json.JsonConvert.SerializeObject(u);
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            string filePath = Path.Combine(path, "user.json");
+            using (var file = File.Open(filePath, FileMode.Create, FileAccess.Write))
             using (var strm = new StreamWriter(file))
             {
                 strm.Write(result);
-                strm.Close();
             }
         }
-        public userModel ReadData()
+        public Usuario ReadData()
         {
-            using (var file = File.Open(this._FilePath, FileMode.Open, FileAccess.Read))
-
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            string filePath = Path.Combine(path, "user.json");
+            using (var file = File.Open(filePath, FileMode.Open, FileAccess.Read))
             using (var strm = new StreamReader(file))
             {
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<userModel>(strm.ReadToEnd());
+                Singleton.current.user = Newtonsoft.Json.JsonConvert.DeserializeObject<Usuario>(strm.ReadToEnd());
+                return Singleton.current.user;
             }
         }
 
-        public bool IsUserLogged()
-        {
-            return File.Exists(this._FilePath);
-        }
-
-        public void SignOut()
-        {
-            File.Delete(this._FilePath);
-        }
-
-        public async Task<bool> validarUsuarioinDB()
-        {
-            try
-            {
-                userModel data = this.ReadData();
-                userModel result = await RestAPI.login(data.pass, data.username);
-                if (result==null)
-                {
-                    SignOut();
-                }
-                this.SaveData(result);
-                return true;
-            }
-            catch (Exception)
-            {
-                this.SignOut();
-            }
-            return false;
-        }
     }
 }

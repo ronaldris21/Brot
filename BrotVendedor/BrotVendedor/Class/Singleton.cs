@@ -19,7 +19,7 @@ namespace BrotVendedor.Class
         private MediaFile _mediaFile;
         public static bool fromProfile;
         private PickPhotoAsync img;
-        private userModel _user;
+        private Usuario _user;
         public static Singleton current
         {
             get
@@ -38,7 +38,7 @@ namespace BrotVendedor.Class
                 return json;
             }
         }
-        public userModel user
+        public Usuario user
         {
             get
             {
@@ -53,21 +53,11 @@ namespace BrotVendedor.Class
         {
             json = new userJson();
             img = new PickPhotoAsync();
-            VerifyLoggedUser();
 
         }
         public void ChangePic()
         {
             img.ChangePicture();
         }
-
-        private void VerifyLoggedUser()
-        {
-            if (!this.json.IsUserLogged())
-                return;
-
-            this.user = this.json.ReadData();
-        }
-
     }
 }

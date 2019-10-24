@@ -85,31 +85,31 @@ namespace BrotVendedor.ViewModel
         }
         public async void GoToMain()
         {
-            //check the user and pass
-            if (String.IsNullOrEmpty(usuario) || String.IsNullOrEmpty(clave))
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Uno o mas campos estan vacios", "Aceptar");
-            }
-            userModel u = new userModel();
-            u.username = usuario;
-            u.pass = clave;
-            Response result = await api.Post<userModel>("users/login", u);
-            if (!result.isSuccess)
-            {
-                await App.Current.MainPage.DisplayAlert("Error",result.Message,"Aceptar");
-                return;
-            }
-            u = (userModel)result.Result;
-            if (u.isVendor)
-            {
-                Singleton.current.Json.SaveData(u);
-                Singleton.current.user = u;
-                App.Current.MainPage = new NavigationPage(new Inicio());
-            }
-            else
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Su cuenta no es de un vendedor, por favor inicie sesión como un usuario de tipo vendedor o registre una nueva cuenta", "Aceptar");
-            }
+            ////check the user and pass
+            //if (String.IsNullOrEmpty(usuario) || String.IsNullOrEmpty(clave))
+            //{
+            //    await App.Current.MainPage.DisplayAlert("Error", "Uno o mas campos estan vacios", "Aceptar");
+            //}
+            //userModel u = new userModel();
+            //u.username = usuario;
+            //u.pass = clave;
+            //Response result = await api.Post<userModel>("users/login", u);
+            //if (!result.isSuccess)
+            //{
+            //    await App.Current.MainPage.DisplayAlert("Error",result.Message,"Aceptar");
+            //    return;
+            //}
+            //u = (userModel)result.Result;
+            //if (u.isVendor)
+            //{
+            //    Singleton.current.Json.SaveData(u);
+            //    Singleton.current.user = u;
+            //    App.Current.MainPage = new NavigationPage(new Inicio());
+            //}
+            //else
+            //{
+            //    await App.Current.MainPage.DisplayAlert("Error", "Su cuenta no es de un vendedor, por favor inicie sesión como un usuario de tipo vendedor o registre una nueva cuenta", "Aceptar");
+            //}
         }
         #endregion
     }

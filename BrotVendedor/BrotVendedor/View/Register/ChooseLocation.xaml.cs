@@ -18,7 +18,7 @@ namespace BrotVendedor.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChooseLocation : ContentPage
     {
-        public ChooseLocation(userModel local,String estado)
+        public ChooseLocation(Usuario local,String estado)
         {
             InitializeComponent();
             Mape.MapStyle = MapStyle.FromJson(new XamMapStyle().text);

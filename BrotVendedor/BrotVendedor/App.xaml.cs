@@ -11,38 +11,27 @@ namespace BrotVendedor
 {
     public partial class App : Application
     {
+        Usuario u;
         public App()
         {
             InitializeComponent();
-            inicializar();
-        }
-
-        private async void inicializar()
-        {
             try
             {
-
-                if (Singleton.current.Json.IsUserLogged())
+                u = Singleton.current.Json.ReadData();
+                if (u.RememberMe)
                 {
-                    //if (await Singleton.current.Json.validarUsuarioinDB())
-                    //{
                     MainPage = new NavigationPage(new Inicio());
-                    //}
-                    //else
-                    //{
-                    //    MainPage = new NavigationPage(new Login());
-                    //}
                 }
                 else
                 {
                     MainPage = new NavigationPage(new Login());
-
                 }
             }
-            catch (Exception) { }
-
+            catch (Exception)
+            {
+                MainPage = new NavigationPage(new Login());
+            }
         }
-
         protected override void OnStart()
         {
             // Handle when your app starts

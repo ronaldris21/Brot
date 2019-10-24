@@ -122,7 +122,7 @@ namespace BrotVendedor.Class
                     try
                     {
                         T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
-                        if (item.GetType().Equals(typeof(userModel)))
+                        if (item.GetType().Equals(typeof(Usuario)))
                         {
                             return new Response
                             {

@@ -130,7 +130,7 @@ namespace BrotVendedor.ViewModel
                 App.Current.MainPage.DisplayAlert("Error", "Uno o mas campos estan vacios", "Aceptar");
                 return;
             }
-            userModel user = new userModel
+            Usuario user = new Usuario
             {
                 username = usuario,
                 nombre = nombre,

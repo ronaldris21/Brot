@@ -1,6 +1,7 @@
 ﻿namespace BrotVendedor.ViewModel.Tabs
 {
     using BrotVendedor.Class;
+    using BrotVendedor.Model;
     using BrotVendedor.View;
     using BrotVendedor.View.Tabs.Buttons;
     using GalaSoft.MvvmLight.Command;
@@ -66,7 +67,8 @@
 
         private void Signout()
         {
-            Singleton.current.Json.SignOut();
+            //Singleton.current.Json.SignOut();
+            Singleton.current.Json.SaveData(default(Usuario));
             App.Current.MainPage = new NavigationPage(new Login());
         }
         #endregion
