@@ -7,10 +7,10 @@
              x:Class="BrotCliente.Views.Login"
              
              Title="Login"
-             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls">
-
+             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
-        <ScrollView>
+        <ScrollView BackgroundColor="White">
             <StackLayout Orientation="Vertical"
                          VerticalOptions="Fill"
                          Padding="25">
@@ -21,72 +21,70 @@
                     <Image Source="Brot500.png"
                            WidthRequest="175"/>
 
-                    <Label FontSize="30" 
-                           HorizontalOptions="Center"
-                           Text="Welcome"
-                           TextColor="#ff5001"/>
+                    <Label FontSize="Medium"
+                           TextColor="#ff5001"
+                           Text="Let's find the best place to eat!"
+                           FontAttributes="Bold"
+                           Margin="20"
+                           HorizontalOptions="Center"/>
                 </StackLayout>
 
                 <StackLayout Margin="0, 10">
-                    <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="#ff5001"
+                    <Rounded:RoundedBorderEntry Margin="0, 10"
+                                                BorderColor="#000"
                                                 BorderThickness="2"
-                                                CornerRadius="10"
+                                                CornerRadius="0"
                                                 Placeholder="Type your username"
-                                                PlaceholderColor="#E8720C"
-                                                TextColor="#ff5001"
+                                                PlaceholderColor="Gray"
+                                                TextColor="#000"
                                                 FontSize="Small"
                                                 Text="{Binding Username}"/>
-                    
-                    <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="#ff5001"
+
+                    <Rounded:RoundedBorderEntry Margin="0, 10"
+                                                BorderColor="#000"
                                                 BorderThickness="2"
-                                                CornerRadius="10"
+                                                CornerRadius="0"
                                                 Placeholder="Type your password"
-                                                PlaceholderColor="#E8720C"
+                                                PlaceholderColor="Gray"
                                                 IsPassword="True"
-                                                TextColor="#ff5001"
+                                                TextColor="#000"
                                                 FontSize="Small"
                                                 Text="{Binding Password}"/>
-
+                    
                     <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="EndAndExpand">
                         <Label Text="Keep session alive?"
-                               TextColor="#ff5001"
+                               TextColor="#000"
                                VerticalOptions="Center"/>
 
                         <Switch IsToggled="{Binding Remember}"
-                                OnColor="#ff5001"
-                                ThumbColor="#000"/>
+                                ThumbColor="Black"
+                                x:Name="KeepLogged">
+                            <Switch.Triggers>
+                                <DataTrigger TargetType="Switch" Binding="{Binding Source={x:Reference KeepLogged}, Path=IsToggled}" Value="True">
+                                    <Setter Property="ThumbColor" Value="#ff5001"/>
+                                </DataTrigger>
+                            </Switch.Triggers>
+                        </Switch>
                     </StackLayout>
                 </StackLayout>
 
                 <StackLayout Margin="0, 10">
                     <Button Text="Login"
-                            TextColor="White"
-                            BackgroundColor="#ff5001"
-                            CornerRadius="10"
+                            TextColor="#ff5001"
+                            BackgroundColor="Transparent"
+                            BorderColor="#ff5001"
+                            BorderWidth="1"
+                            CornerRadius="3"
                             FontSize="Small"
-                            HorizontalOptions="Center"
-                            Padding="40, 10"
+                            HorizontalOptions="Fill"
                             Command="{Binding LoginCommand}"/>
 
-                    <StackLayout Orientation="Horizontal"
-                                 HorizontalOptions="Center"
-                                 Margin="15"
-                                 Padding="10">
-                        
-                        <Label Text="Don't you have an user?"
-                               TextColor="#ff5001"
-                               VerticalOptions="Center"/>
-                        
-                        <Button Text="Sign up"
-                                TextColor="#ff5001"
-                                VerticalOptions="Center"
-                                FontAttributes="Bold"
-                                BackgroundColor="Transparent"
-                                Command="{Binding SignupCommand}"/>
-                    </StackLayout>
+                    <Button Text="Register"
+                            TextColor="#fff"
+                            VerticalOptions="Center"
+                            BackgroundColor="#ff5001"
+                            Command="{Binding SignupCommand}"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

@@ -29,8 +29,8 @@
                 await RestClient.Post<like_postModel>("like_post", like);   
             }
             ((ImageButton)sender).CommandParameter = !isliked;
-            ((ImageButton)sender).HeightRequest = 25;
-            ((ImageButton)sender).WidthRequest = 25;
+            ((ImageButton)sender).HeightRequest = 15;
+            ((ImageButton)sender).WidthRequest = 15;
 
         }
     }

@@ -23,12 +23,12 @@
                                     Grid.Column="0"/>
 
             <StackLayout Grid.Column="1">
-
+                <Label Text="{Binding usuario.username}"/>
                 <Label Text="{Binding comentario.contenido}"/>
                 <StackLayout Orientation="Horizontal" Padding="5">
                     <ImageButton Source="{Binding isLiked,Converter={StaticResource BoolToStringConverter}}"
-	                                             HeightRequest="25"
-	                                             WidthRequest="25"
+	                                             HeightRequest="15"
+	                                             WidthRequest="15"
 	                                             BackgroundColor="Transparent"
 	                                             ClassId="{Binding comentario.id_comentario}"
                                                  CommandParameter="{Binding isLiked}"
@@ -42,8 +42,7 @@
                     </ImageButton>
                     <Label Text="{Binding CantLikes,StringFormat='{0} # Brots'}"
 	                                            VerticalOptions="Center"
-	                                            TextColor="Black"
-	                                            FontAttributes="Bold"/>
+	                                            TextColor="Black"/>
                 </StackLayout>
                 <Label Text="{Binding comentario.fecha_creacion}"/>
 
