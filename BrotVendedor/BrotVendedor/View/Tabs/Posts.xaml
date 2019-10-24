@@ -7,7 +7,7 @@
              IconImageSource="Brot.png"
              HeightRequest="35"
              WidthRequest="35"
-             BackgroundColor="#d93c00"
+             BackgroundColor="{StaticResource MainAppCOLOR}"
              x:Class="BrotVendedor.View.Posts"
              x:Name="CAGroupMembersViewPage"
              >
@@ -29,19 +29,21 @@
                     <DataTemplate>
                         <ContentView>
                             <StackLayout>
-                                <Frame BackgroundColor="White" Padding="15">
+                                <Frame BackgroundColor="White" Padding="15" BorderColor="{StaticResource frameBorderColor}">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition Height="*"/>
                                             <RowDefinition Height="45"/>
                                         </Grid.RowDefinitions>
                                         <Editor
                                                 Placeholder="Publica algo ..."
-                                                HeightRequest="150"
+                                                PlaceholderColor="{StaticResource EntryPlaceholderColor}"
+                                                TextColor="{StaticResource EntryTextColor}"
+                                                HeightRequest="75"
                                                 Grid.Column="0"
                                                 Grid.ColumnSpan="2"
                                                 Grid.Row="0"
@@ -60,13 +62,13 @@
                                                      />
                                         <Button 
                                             Text="Publicar"
-                                            TextColor="White"
                                             CornerRadius="10"
-                                            BackgroundColor="#FF5001"
+                                            BackgroundColor="{StaticResource buttonLoginRegisterBg}"
+                                            TextColor="{StaticResource buttonLoginRegisterText}"
                                             WidthRequest="75"
                                             Grid.Column="1"
                                             Grid.Row="1" 
-                                            FontFamily="HirukoBlackAlternate.ttf"
+                                            FontAttributes="Bold"
                                             Command="{Binding PostSomething}"
                                             />
                                     </Grid>
@@ -80,14 +82,14 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout>
-                                <Frame BackgroundColor="White">
+                                <Frame BackgroundColor="White" BorderColor="{StaticResource frameBorderColor}">
                                     <StackLayout>
                                         <StackLayout Padding="5">
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="2*"/>
                                                     <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="2*"/>
                                                 </Grid.ColumnDefinitions>
 
                                                 <ImageButton Source="{Binding UsuarioCreator.img}"
@@ -96,13 +98,13 @@
                                                              Clicked="ImageButton_Clicked"
                                                    Grid.Column="0"/>
                                                 <Label Text="{Binding UsuarioCreator.username}"
-                                                   TextColor="#ff5001"
+                                                   TextColor="{StaticResource EntryTextColor}"
                                                    FontSize="Default"
-                                                   HorizontalOptions="Center"
+                                                   HorizontalOptions="Start"
                                                    VerticalOptions="Center"
                                                    Grid.Column="1"/>
                                                 <Label Text="{Binding publicacion.fecha_creacion}"
-                                                   TextColor="#ff5001"
+                                                   TextColor="{StaticResource EntryTextColor}"
                                                    FontSize="Default"
                                                    HorizontalOptions="Center"
                                                    VerticalOptions="Center"

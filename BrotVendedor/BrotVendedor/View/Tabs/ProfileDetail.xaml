@@ -105,7 +105,7 @@
                        TextColor="Black"/>
             </Grid>
             <Button Text="Sign Out"
-                        TextColor="#ff5001"
+                        TextColor="{StaticResource EntryTextColor}"
                         BackgroundColor="Transparent"
                         HorizontalOptions="Center"
                         Command="{Binding SignOutCommand}"
