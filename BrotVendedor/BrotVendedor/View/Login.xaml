@@ -35,7 +35,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="6"
                         Grid.Row="0"
-                        Placeholder="Nombre de usuario"
+                        Placeholder="Ingrese su correo"
                         PlaceholderColor="{StaticResource EntryPlaceholderColor}"
                         BorderColor="{StaticResource EntryBorderColor}"
                         BorderThickness="2"
@@ -71,7 +71,7 @@
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="Remember me"
+                        <Label Text="Mantener Sesion"
                                Grid.Column="0"
                                VerticalOptions="Center"
                                />

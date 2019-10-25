@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="BrotVendedor.View.Tabs.MasterPage.Detail.ProfileDetail"
-             Title="Your profile">
+             Title="Perfil">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Fill" HorizontalOptions="Fill">
             <Grid>
