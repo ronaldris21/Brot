@@ -14,15 +14,15 @@ namespace BrotVendedor.Model
         public string descripcion { get; set; }
         public string pass { get; set; }
         public bool isVendor { get; set; }
-        public int puntaje { get; set; }
+        public Nullable<int> puntaje { get; set; }
         public string email { get; set; }
-        public double xlat { get; set; }
-        public double ylon { get; set; }
-        public bool isActive { get; set; }
+        public Nullable<float> xlat { get; set; }
+        public Nullable<float> ylon { get; set; }
+        public Nullable<bool> isActive { get; set; }
         public string dui { get; set; }
         public string num_telefono { get; set; }
         public string img { get; set; }
-        public bool isDeleted { get; set; }
+        public Nullable<bool> isDeleted { get; set; }
         public bool RememberMe { get; set; }
     }
 }

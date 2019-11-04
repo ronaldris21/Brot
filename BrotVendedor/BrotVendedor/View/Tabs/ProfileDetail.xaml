@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="BrotVendedor.View.Tabs.MasterPage.Detail.ProfileDetail"
-             Title="Your profile">
+             Title="Perfil">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Fill" HorizontalOptions="Fill">
             <Grid>
@@ -105,7 +105,7 @@
                        TextColor="Black"/>
             </Grid>
             <Button Text="Sign Out"
-                        TextColor="#ff5001"
+                        TextColor="{StaticResource EntryTextColor}"
                         BackgroundColor="Transparent"
                         HorizontalOptions="Center"
                         Command="{Binding SignOutCommand}"

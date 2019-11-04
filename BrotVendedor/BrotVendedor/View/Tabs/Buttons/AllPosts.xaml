@@ -23,8 +23,8 @@
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="2*"/>
                                                     <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="2*"/>
                                                 </Grid.ColumnDefinitions>
 
                                                 <ImageButton Source="{Binding UsuarioCreator.img}"
@@ -32,16 +32,16 @@
                                                              BackgroundColor="Transparent"
                                                    Grid.Column="0"/>
                                                 <Label Text="{Binding UsuarioCreator.username}"
-                                                   TextColor="#ff5001"
+                                                   TextColor="{StaticResource EntryTextColor}"
                                                    FontSize="Default"
-                                                   HorizontalOptions="CenterAndExpand"
-                                                   VerticalOptions="CenterAndExpand"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Center"
                                                    Grid.Column="1"/>
                                                 <Label Text="{Binding publicacion.fecha_creacion}"
-                                                   TextColor="#ff5001"
+                                                   TextColor="{StaticResource EntryTextColor}"
                                                    FontSize="Default"
-                                                   HorizontalOptions="CenterAndExpand"
-                                                   VerticalOptions="CenterAndExpand"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
                                                    Grid.Column="2"/>
                                             </Grid>
                                         </StackLayout>
@@ -51,10 +51,6 @@
                                                TextColor="Black"
                                                FontSize="Medium"
                                                FontAttributes="Bold"/>
-                                            <!--<Image Source="https://py-softwaresv.com/wp-content/uploads/2019/08/Logo_Square_512-300x300.png"
-                                               HeightRequest="150"
-                                               Margin="5"
-                                               IsVisible="{Binding publicacion.isImg}"/>-->
                                             <Image Source="{Binding publicacion.img}"
                                                HeightRequest="150"
                                                Margin="5"
@@ -62,24 +58,24 @@
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal"
                                                  Padding="5">
-                                            <ImageButton Source="{Binding like}"
-                                                     HeightRequest="25"
-                                                     WidthRequest="25"
-                                                     BackgroundColor="Transparent"
-                                                     ClassId="{Binding id_Post}"
-                                                     />
-                                            <Label Text="{Binding publicacion.cantLikes}"
-                                               VerticalOptions="Center"
-                                               TextColor="Black"
-                                               FontAttributes="Bold"/>
-                                            <ImageButton Source="Comment.ico"
-                                                     HeightRequest="25"
-                                                     WidthRequest="25"
-                                                     BackgroundColor="Transparent"/>
-                                            <Label Text="{Binding publicacion.cantComentarios}"
-                                               VerticalOptions="Center"
-                                               TextColor="Black"
-                                               FontAttributes="Bold"/>
+                                            <ImageButton Source="PinBlack250.png"
+                                                    HeightRequest="25"
+                                                    WidthRequest="25"
+                                                    BackgroundColor="Transparent"
+                                                    ClassId="{Binding publicacion.id_post}"
+                                                         />
+                                            <Label Text="{Binding cantLikes, StringFormat='{0} Brots'}"
+                                                    VerticalOptions="Center"
+                                                    TextColor="Black"
+                                                    FontAttributes="Bold"/>
+                                            <ImageButton Source="comment.png"
+                                                    HeightRequest="25"
+                                                    WidthRequest="25"
+                                                    BackgroundColor="Transparent"/>
+                                            <Label Text="{Binding cantComentarios, StringFormat='{0} Comments'}"
+                                                    VerticalOptions="Center"
+                                                    TextColor="Black"
+                                                    FontAttributes="Bold"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>

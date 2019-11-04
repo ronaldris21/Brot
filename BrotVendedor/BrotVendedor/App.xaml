@@ -6,6 +6,17 @@
              mc:Ignorable="d"
              x:Class="BrotVendedor.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="MainAppCOLOR">#FFFFFF</Color>
+            <Color x:Key="buttonLoginRegisterText">#000000</Color>
+            <Color x:Key="buttonLoginRegisterBg">#F9AA33</Color>
+            <Color x:Key="EntryBorderColor">#232F34</Color>
+            <Color x:Key="EntryTextColor">#232F34</Color>
+            <Color x:Key="EntryPlaceholderColor">#4A6572</Color>
+            <Color x:Key="frameBorderColor">#232F34</Color>
+
+        </ResourceDictionary>
+        
 
     </Application.Resources>
 </Application>

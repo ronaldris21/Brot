@@ -26,7 +26,7 @@
         private String _dui;
         private String _clave;
         private ImageSource _picture;
-        private userModel u;
+        private Usuario u;
         private bool modificado = false;
         private bool clicked;
         private bool firstTime;
@@ -256,7 +256,7 @@
                 Singleton.current.user.email = correo;
                 Singleton.current.user.num_telefono = telefono;
                 Singleton.current.user.dui = dui;
-                Response resp = await api.Put<userModel>("users", Singleton.current.user.id_user, Singleton.current.user);
+                Response resp = await api.Put<Usuario>("users", Singleton.current.user.id_user, Singleton.current.user);
                 if (!resp.isSuccess)
                 {
                     await App.Current.MainPage.DisplayAlert("Error", resp.Message, "Aceptar");

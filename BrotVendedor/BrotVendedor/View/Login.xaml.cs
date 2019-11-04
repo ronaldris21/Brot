@@ -18,7 +18,7 @@ namespace BrotVendedor.View
         public Login()
         {
             InitializeComponent();
-            BindingContext = new LoginViewModel();
+            BindingContext = new MyLoginViewModel();
         }
     }
 }
