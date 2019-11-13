@@ -43,8 +43,8 @@
                              Padding="5">
 
                     <ImageButton Source="{Binding isLiked,Converter={StaticResource BoolToStringConverter}}"
-	                             HeightRequest="15"
-	                             WidthRequest="15"
+	                             HeightRequest="30"
+	                             WidthRequest="30"
 	                             BackgroundColor="Transparent"
 	                             ClassId="{Binding comentario.id_comentario}"
                                  CommandParameter="{Binding isLiked}">

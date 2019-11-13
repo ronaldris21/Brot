@@ -6,8 +6,8 @@
              mc:Ignorable="d"
              x:Class="BrotCliente.Views.Tabs.Profile"
              
-             Title="Profile"
-             Icon="Profile250.ico">
+             Icon="DefaultUser.png"
+             Title="Profile">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical"
                      Padding="20">

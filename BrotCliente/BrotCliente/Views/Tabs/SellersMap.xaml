@@ -7,7 +7,7 @@
              x:Class="BrotCliente.Views.Tabs.SellersMap"
              
              Title="Find a Brot"
-             IconImageSource="pinwhite250.ico"
+             IconImageSource="PinBlack250.png"
              xmlns:Maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
              xmlns:MapBinding="clr-namespace:Xamarin.Forms.GoogleMaps.Bindings;assembly=Xamarin.Forms.GoogleMaps.Bindings">
     <ContentPage.Content>

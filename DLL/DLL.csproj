@@ -66,6 +66,5 @@
   <ItemGroup>
     <Content Include="ResponseModels\ControllersRegions.txt" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
