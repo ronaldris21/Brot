@@ -119,9 +119,10 @@ namespace BrotCliente.ViewModels
                 return;
             }
 
-            foreach (var post in (ObservableCollection<ResponsePublicacionFeed>) result.Result)
+            foreach (var post in (ObservableCollection<ResponsePublicacionFeed>)result.Result)
             {
-                post.publicacion.img = "http://images.somee.com/uploads/" + post.publicacion.img;
+                post.publicacion.img = DLL.constantes.urlImages + post.publicacion.img;
+                post.UsuarioCreator.img = DLL.constantes.urlImages + post.UsuarioCreator.img;
                 this.lPosts.Add(post);
             }
         }

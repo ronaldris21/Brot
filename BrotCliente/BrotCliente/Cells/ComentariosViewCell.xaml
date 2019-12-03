@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
 
-            <Circle:CircleImage Source="{Binding usuario.img,StringFormat='http://images.somee.com/uploads/{0}'}"
+            <Circle:CircleImage Source="{Binding usuario.img}"
                                 Aspect="AspectFit"
                                 Grid.Column="0"
                                 HorizontalOptions="Center">

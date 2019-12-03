@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="constantes.cs" />
     <Compile Include="Models\comentariosModel.cs" />
     <Compile Include="Models\interaccion_postModel.cs" />
     <Compile Include="Models\like_comentarioModel.cs" />
@@ -65,6 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ResponseModels\ControllersRegions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Constantes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

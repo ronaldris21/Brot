@@ -6,6 +6,7 @@
              xmlns:border="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
              mc:Ignorable="d"
              Title="Iniciar sesion"
+             NavigationPage.HasNavigationBar="False"
              BackgroundColor="{StaticResource MainAppCOLOR}"
              x:Class="BrotVendedor.View.Login">
     <ContentPage.Content>

@@ -106,8 +106,9 @@
             ObservableCollection<ResponsePublicacionFeed> temp = (ObservableCollection<ResponsePublicacionFeed>)resp.Result;
             foreach (var item in temp)
             {
-                item.publicacion.img = "http://images.somee.com/Uploads/" + item.publicacion.img;
-                item.UsuarioCreator.img = "http://images.somee.com/Uploads/" + item.UsuarioCreator.img;
+                
+                item.publicacion.img = DLL.constantes.urlImages + item.publicacion.img;
+                item.UsuarioCreator.img = DLL.constantes.urlImages + item.UsuarioCreator.img;
                 if (String.IsNullOrEmpty(item.UsuarioCreator.img))
                 {
                     item.UsuarioCreator.img = "user128x128.png";

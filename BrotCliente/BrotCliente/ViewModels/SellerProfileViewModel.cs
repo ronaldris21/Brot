@@ -70,6 +70,7 @@ namespace BrotCliente.ViewModels
             if (profiledata!= null)
             {
                 Usuario = profiledata;
+                Usuario.UserProfile.img = DLL.constantes.urlImages;
             }
 
         }

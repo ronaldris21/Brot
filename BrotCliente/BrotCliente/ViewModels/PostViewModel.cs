@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace BrotCliente.ViewModels
 {
-    public class PostViewModel :  BaseViewModel
+    public class PostViewModel : BaseViewModel
     {
         private ObservableCollection<ResponseComentarios> _comentariosData;
         private ResponsePublicacion _Post;
@@ -35,7 +35,7 @@ namespace BrotCliente.ViewModels
             get { return _Post; }
             set
             {
-                if (_Post!=value)
+                if (_Post != value)
                 {
                     _Post = value;
                     OnPropertyChanged("Post");
@@ -88,6 +88,10 @@ namespace BrotCliente.ViewModels
                     {
                         //Siempre validar cuando instanciamos un Observable Collection porque por default es null
                         //ObservableCollection<ResponseComentarios>(null)    DA ERROR!!
+                        for (int i = 0; i < Post.comentarios.Count; i++)
+                        {
+                            Post.comentarios[i].usuario.img = DLL.constantes.urlImages + Post.comentarios[i].usuario.img;
+                        }
                         ComentariosData = new ObservableCollection<ResponseComentarios>(Post.comentarios);
                     }
                 }
@@ -126,28 +130,28 @@ namespace BrotCliente.ViewModels
             get { return new RelayCommand(comentar); }
         }
 
-        
+
 
         public ICommand RefreshCommand
         {
             get { return new RelayCommand(CargarDatos); }
         }
 
-                private bool _isActivityActive;
-                public bool isActivityActive
+        private bool _isActivityActive;
+        public bool isActivityActive
+        {
+            get { return _isActivityActive; }
+            set
+            {
+                if (_isActivityActive != value)
                 {
-                    get { return _isActivityActive; }
-                    set
-                    {
-                        if(_isActivityActive != value)
-                        {
-                            _isActivityActive = value;
-                            OnPropertyChanged("isActivityActive");
-                        }
-                    }
+                    _isActivityActive = value;
+                    OnPropertyChanged("isActivityActive");
                 }
+            }
+        }
 
-                
+
 
     }
 }
