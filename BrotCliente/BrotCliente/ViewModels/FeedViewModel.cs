@@ -32,7 +32,6 @@ namespace BrotCliente.ViewModels
                 {
                     _selectedItemLista = value;
                     App.Current.MainPage.Navigation.PushAsync(new Post(new PostViewModel(_selectedItemLista)));
-                    _selectedItemLista = null;
                     OnPropertyChanged("selectedItemLista");
 
                 }

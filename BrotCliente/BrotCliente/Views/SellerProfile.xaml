@@ -29,7 +29,7 @@
                         <ContentView>
                             <StackLayout>
                                 <StackLayout BackgroundColor="Transparent" Orientation="Horizontal" Padding="12">
-                                    <Circle:CircleImage Source="{Binding Usuario.UserProfile.img,StringFormat='{StaticResource URLImage}/{0}'}"
+                                    <Circle:CircleImage Source="{Binding Usuario.UserProfile.img}"
                                                        Aspect="AspectFit"
                                         HorizontalOptions="Center">
                                         <Circle:CircleImage.HeightRequest>
@@ -132,7 +132,7 @@
                                             FontSize="Small"
                                             FontAttributes="Bold"/>
 
-                                        <Image Source="{Binding publicacion.img,StringFormat='http://images.somee.com/uploads/{0}'}"
+                                        <Image Source="{Binding publicacion.img}"
                                            Margin="5"
                                            HorizontalOptions="Fill"
                                            HeightRequest="250"

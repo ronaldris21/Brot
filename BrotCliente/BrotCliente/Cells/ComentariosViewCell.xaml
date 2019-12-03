@@ -56,7 +56,7 @@
                         </ImageButton.Triggers>
                     </ImageButton>
 
-                    <Label Text="{Binding CantLikes,StringFormat='{0} # Brots'}"
+                    <Label Text="{Binding CantLikes,StringFormat='{0} # Brots', Mode=TwoWay}"
 	                       VerticalOptions="Center"
 	                       TextColor="Black"/>
                 </StackLayout>

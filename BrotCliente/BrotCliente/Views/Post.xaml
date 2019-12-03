@@ -68,7 +68,7 @@
                                        FontSize="Medium"
                                        Margin="0, 20"/>
 
-                                <Image Source="{Binding Post.publicacion.publicacion.img}"
+                                <Image Source="{Binding Post.publicacion.publicacion.img, Mode=TwoWay}"
                                        HeightRequest="350"
                                        Aspect="AspectFit"
                                        Margin="0"
@@ -88,8 +88,8 @@
                                             </EventTrigger>
                                         </ImageButton.Triggers>
                                     </ImageButton>
-                                    
-                                    <Label Text="{Binding Post.publicacion.cantLikes,StringFormat='{0} # Brots'}"
+
+                                    <Label Text="{Binding Post.publicacion.cantLikes,StringFormat='{0} # Brots', Mode=TwoWay}"
                                            VerticalOptions="Center"
                                            FontSize="Small"
                                            TextColor="Black"/>
@@ -97,7 +97,7 @@
                                                  HeightRequest="30"
                                                  WidthRequest="30"
                                                  BackgroundColor="Transparent"/>
-                                    <Label Text="{Binding Post.publicacion.cantComentarios,StringFormat='{0} # Comments'}"
+                                    <Label Text="{Binding Post.publicacion.cantComentarios,StringFormat='{0} # Comments', Mode=TwoWay}"
                                            VerticalOptions="Center"
                                            TextColor="Black"
                                            FontSize="Small"/>

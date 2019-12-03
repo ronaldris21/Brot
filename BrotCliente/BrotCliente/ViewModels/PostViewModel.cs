@@ -82,8 +82,9 @@ namespace BrotCliente.ViewModels
                 ResponsePublicacion publicacionData = await RestAPI.Getpublicacion(this.idPost, Singleton.Instance.User.id_user);
                 if (publicacionData != null)
                 {
+                    publicacionData.publicacion.publicacion.img = DLL.constantes.urlImages + publicacionData.publicacion.publicacion.img;
+                    publicacionData.publicacion.UsuarioCreator.img = DLL.constantes.urlImages + publicacionData.publicacion.UsuarioCreator.img;
                     Post = publicacionData;
-                    ComentariosData = new ObservableCollection<ResponseComentarios>();
                     if (Post.comentarios.Count > 0)
                     {
                         //Siempre validar cuando instanciamos un Observable Collection porque por default es null
