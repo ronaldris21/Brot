@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Acr.UserDialogs;
 using Foundation;
 using UIKit;
 
@@ -24,7 +24,8 @@ namespace BrotVendedor.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
-
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+            Xamarin.FormsGoogleMapsBindings.Init();
             return base.FinishedLaunching(app, options);
         }
     }

@@ -20,12 +20,12 @@ namespace BrotVendedor.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            LoadApplication(new App());
+            UserDialogs.Init(this);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            UserDialogs.Init(this);
-            LoadApplication(new App());
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Xamarin.FormsGoogleMapsBindings.Init();
