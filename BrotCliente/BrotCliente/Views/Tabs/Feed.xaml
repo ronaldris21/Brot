@@ -34,7 +34,7 @@
                                              Padding="15">
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="0, 20">
-                                        <Rounded:CircleImage Source="{Binding UsuarioCreator.img,StringFormat='http://images.somee.com/uploads/{0}'}"
+                                        <Rounded:CircleImage Source="{Binding UsuarioCreator.img}"
                                                          Aspect="AspectFit"
                                                          HorizontalOptions="Start"
                                                          Margin="0, 0, 15, 0">
@@ -51,9 +51,6 @@
                                             </Rounded:CircleImage.HeightRequest>
                                         </Rounded:CircleImage>
 
-                                        <!--<Image Source="{Binding UsuarioCreator.img,StringFormat='http://images.somee.com/uploads/{0}'}"
-                                               HeightRequest="50"
-                                               Grid.Column="0"/>-->
                                         <StackLayout Orientation="Vertical">
                                             <Label Text="{Binding UsuarioCreator.username, StringFormat='@{0}'}"
                                                    TextColor="#000"

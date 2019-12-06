@@ -52,7 +52,7 @@ namespace BrotVendedor.Class
                 var content = new MultipartFormDataContent();
                 content.Add(new StreamContent(_mediaFile.GetStream()), "\"file\"", $"\"{_mediaFile.Path}\"");
                 var httpClient = new HttpClient();
-                var uploadServiceBaseAddress = "http://images.somee.com/api/Files/Upload";
+                var uploadServiceBaseAddress = "http://brotimages.azurewebsites.net/api/Upload";
                 var httpResponseMessage = await httpClient.PostAsync(uploadServiceBaseAddress, content);
                 Debug.Print(await httpResponseMessage.Content.ReadAsStringAsync());
                 //await DisplayAlert("Exito", await httpResponseMessage.Content.ReadAsStringAsync(), "Aceptar");

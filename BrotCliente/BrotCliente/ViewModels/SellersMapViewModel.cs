@@ -52,6 +52,7 @@ namespace BrotCliente.ViewModels
             }
         }
 
+
         #region InCaseYouWantToAddPins
         /*     
         public ICommand MapClicked

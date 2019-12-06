@@ -44,12 +44,14 @@ namespace BrotCliente.ViewModels
             //this.lBrotTen.Add(u4);
 
 
-            var result = await RestAPI.getBrotTen();
+            var resultBrotTEN = await RestAPI.getBrotTen();
             this._lBrotTen.Clear();
-            foreach (var item in result)
+            for (int i = 0; i < resultBrotTEN.Count; i++)
             {
-                lBrotTen = new ObservableCollection<ResponseUsuariosFiltro>(result);
+                resultBrotTEN[i].userData.img = DLL.constantes.urlImages + resultBrotTEN[i].userData.img;
             }
+
+            lBrotTen = new ObservableCollection<ResponseUsuariosFiltro>(resultBrotTEN);
 
         }
 

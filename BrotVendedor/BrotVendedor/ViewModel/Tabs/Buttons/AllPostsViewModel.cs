@@ -39,8 +39,8 @@ namespace BrotVendedor.ViewModel.Tabs.Buttons
             ObservableCollection<ResponsePublicacionFeed> temp = (ObservableCollection<ResponsePublicacionFeed>)resp.Result;
             foreach (var item in temp)
             {
-                item.publicacion.img = "http://images.somee.com/Uploads/" + item.publicacion.img;
-                item.UsuarioCreator.img= "http://images.somee.com/Uploads/" + item.UsuarioCreator.img;
+                item.publicacion.img = DLL.constantes.urlImages + item.publicacion.img;
+                item.UsuarioCreator.img= DLL.constantes.urlImages + item.UsuarioCreator.img;
             }
             ObservableCollection<ResponsePublicacionFeed> temp2 = new ObservableCollection<ResponsePublicacionFeed>();
             for (int i = 0; i < temp.Count; i++)

@@ -154,4 +154,7 @@
       <Name>BrotCliente</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\BrotSplash.png" />
+  </ItemGroup>
 </Project>
