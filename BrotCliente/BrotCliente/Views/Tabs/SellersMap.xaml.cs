@@ -37,5 +37,10 @@ namespace BrotCliente.Views.Tabs
 
             this.ViewModel.InitPinsCommand.Execute(null);
         }
+
+        private void MyMap_PinClicked(object sender, PinClickedEventArgs e)
+        {
+            ViewModel.LoadBottom();
+        }
     }
 }

@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
+using System.Diagnostics;
 
 namespace BrotCliente.ViewModels
 {
@@ -39,7 +40,7 @@ namespace BrotCliente.ViewModels
                 return;
             }
 
-            foreach (var seller in (ObservableCollection<userModel>) result.Result)
+            foreach (var seller in (ObservableCollection<userModel>)result.Result)
             {
                 Pin pin = new Pin()
                 {
@@ -47,11 +48,19 @@ namespace BrotCliente.ViewModels
                     Label = $"Seller name: {seller.username} Description: {seller.descripcion}",
                     Position = new Position(Convert.ToDouble(seller.xlat), Convert.ToDouble(seller.ylon))
                 };
-
-                this.Pins.Add(pin);
             }
         }
-
+        public ICommand pinClicked
+        {
+            get
+            {
+                return new RelayCommand(LoadBottom);
+            }
+        }
+        public void LoadBottom()
+        {
+            Debug.Print("Clickeado");
+        }
 
         #region InCaseYouWantToAddPins
         /*     

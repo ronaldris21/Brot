@@ -16,7 +16,7 @@
 
             <StackLayout VerticalOptions="FillAndExpand">
                 <Maps:Map VerticalOptions="FillAndExpand"
-                          x:Name="MyMap">
+                          x:Name="MyMap" PinClicked="MyMap_PinClicked">
                     <Maps:Map.Behaviors>
                         <MapBinding:BindingPinsBehavior Value="{Binding Pins}"/>
                         <!--<MapBinding:MapClickedToCommandBehavior Command="{Binding MapClicked}"/>-->

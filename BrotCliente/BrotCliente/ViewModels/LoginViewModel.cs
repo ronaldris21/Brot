@@ -1,5 +1,4 @@
-﻿using Android.Widget;
-using DLL.Models;
+﻿using DLL.Models;
 using BrotCliente.Patterns;
 using BrotCliente.Services;
 using BrotCliente.Views;
@@ -114,7 +113,7 @@ namespace BrotCliente.ViewModels
                 //if (this.Remember)
                     Singleton.Instance.LocalJson.SaveData((userModel) result.Result);
 
-                Toast.MakeText(Android.App.Application.Context, $"Bienvenido {Singleton.Instance.User.username}", ToastLength.Short).Show();
+                //Toast.MakeText(Android.App.Application.Context, $"Bienvenido {Singleton.Instance.User.username}", ToastLength.Short).Show();
                 Application.Current.MainPage = new NavigationPage(new Master());
             }
             else
