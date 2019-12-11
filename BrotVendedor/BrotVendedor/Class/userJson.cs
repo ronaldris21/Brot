@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace BrotVendedor.Class
 {
@@ -17,9 +18,14 @@ namespace BrotVendedor.Class
 
         public void SaveData(Usuario u)
         {
+            
             Singleton.current.user = u;
             String result = Newtonsoft.Json.JsonConvert.SerializeObject(u);
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            if (Device.iOS== Device.RuntimePlatform)
+            {
+                path = Path.Combine(path, "..", "library");
+            }
             string filePath = Path.Combine(path, "user.json");
             using (var file = File.Open(filePath, FileMode.Create, FileAccess.Write))
             using (var strm = new StreamWriter(file))
@@ -30,6 +36,10 @@ namespace BrotVendedor.Class
         public Usuario ReadData()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            if (Device.iOS == Device.RuntimePlatform)
+            {
+                path = Path.Combine(path, "..", "library");
+            }
             string filePath = Path.Combine(path, "user.json");
             using (var file = File.Open(filePath, FileMode.Open, FileAccess.Read))
             using (var strm = new StreamReader(file))

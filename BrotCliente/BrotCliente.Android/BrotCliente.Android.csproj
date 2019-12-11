@@ -15,7 +15,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -111,7 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BrotCliente\BrotCliente.csproj">
-      <Project>{CDF7CFC7-E6FE-4A46-8B94-25BB6684EB28}</Project>
+      <Project>{44482BEC-8C19-4053-9AA4-AFA058BC5FE5}</Project>
       <Name>BrotCliente</Name>
     </ProjectReference>
   </ItemGroup>

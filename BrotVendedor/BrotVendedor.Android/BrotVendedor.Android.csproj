@@ -15,7 +15,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -117,7 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BrotVendedor\BrotVendedor.csproj">
-      <Project>{D9E69362-7267-4DDF-B4C6-0ED28A07C93F}</Project>
+      <Project>{CE280F6C-5AF4-4D64-BD0D-BC8508FFDC74}</Project>
       <Name>BrotVendedor</Name>
     </ProjectReference>
   </ItemGroup>
