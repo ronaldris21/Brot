@@ -39,7 +39,7 @@ namespace BrotCliente
                     MainPage = new NavigationPage(new Login());
                 }
             }
-            catch (Exception) { }
+            catch (Exception) { MainPage = new NavigationPage(new Login()); }
             ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#031540");
         }
 

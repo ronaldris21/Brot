@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Google.Maps;
 using Foundation;
 using UIKit;
 
@@ -23,8 +23,10 @@ namespace BrotCliente.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+            Xamarin.FormsGoogleMapsBindings.Init();
             LoadApplication(new App());
-
+            
             return base.FinishedLaunching(app, options);
         }
     }

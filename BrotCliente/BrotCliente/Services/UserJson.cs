@@ -16,6 +16,10 @@ namespace BrotCliente.Services
         public UserJson()
         {
             this._Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            if (Xamarin.Forms.Device.iOS == Xamarin.Forms.Device.RuntimePlatform)
+            {
+                this._Path = Path.Combine(this._Path, "..", "Library");
+            }
             this._FilePath = Path.Combine(this._Path, "user.json");
         }
         public void SaveData(userModel user)

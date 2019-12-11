@@ -3,7 +3,7 @@
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
 	<application android:label="BrotCliente.Android" android:icon="@mipmap/BrotClient" android:usesCleartextTraffic="true">
 		<!--Google maps API key-->
-		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyA-hvPBjUdIEPQqdUmMkqC8NZtY4RXNBik" />
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyC18ajF61y2KqjGnX2IYtxA6dwINLEZJiU" />
 		<!--To use Xamarin Maps on Android 9-->
 		<uses-library android:name="org.apache.http.legacy" android:required="false" />
 	</application>
