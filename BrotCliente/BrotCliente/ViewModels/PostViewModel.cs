@@ -83,7 +83,14 @@ namespace BrotCliente.ViewModels
                 if (publicacionData != null)
                 {
                     publicacionData.publicacion.publicacion.img = DLL.constantes.urlImages + publicacionData.publicacion.publicacion.img;
-                    publicacionData.publicacion.UsuarioCreator.img = DLL.constantes.urlImages + publicacionData.publicacion.UsuarioCreator.img;
+                    if (publicacionData.publicacion.UsuarioCreator.img == "" || publicacionData.publicacion.UsuarioCreator.img == null || publicacionData.publicacion.UsuarioCreator.img == "(null)")
+                    {
+                        publicacionData.publicacion.UsuarioCreator.img= "user_placeholder";
+                    }
+                    else
+                    {
+                        publicacionData.publicacion.UsuarioCreator.img = DLL.constantes.urlImages + publicacionData.publicacion.UsuarioCreator.img;
+                    }
                     Post = publicacionData;
                     if (Post.comentarios.Count > 0)
                     {
@@ -91,7 +98,15 @@ namespace BrotCliente.ViewModels
                         //ObservableCollection<ResponseComentarios>(null)    DA ERROR!!
                         for (int i = 0; i < Post.comentarios.Count; i++)
                         {
-                            Post.comentarios[i].usuario.img = DLL.constantes.urlImages + Post.comentarios[i].usuario.img;
+                            if (Post.comentarios[i].usuario.img == "" || Post.comentarios[i].usuario.img == null || Post.comentarios[i].usuario.img == "(null)")
+                            {
+                                Post.comentarios[i].usuario.img = "user_placeholder";
+                            }
+                            else
+                            {
+                                Post.comentarios[i].usuario.img = DLL.constantes.urlImages + Post.comentarios[i].usuario.img;
+                            }
+                            //Post.comentarios[i].usuario.img = DLL.constantes.urlImages + Post.comentarios[i].usuario.img;
                         }
                         ComentariosData = new ObservableCollection<ResponseComentarios>(Post.comentarios);
                     }

@@ -13,19 +13,18 @@
         <ScrollView BackgroundColor="White">
             <StackLayout Orientation="Vertical"
                          VerticalOptions="Fill"
-                         Padding="25">
+                         Padding="20">
 
                 <StackLayout VerticalOptions="Start"
                              Margin="0, 20">
 
                     <Image Source="Brot.png"
-                           WidthRequest="175"/>
-
+                           WidthRequest="200"
+                           HeightRequest="150"/>
                     <Label FontSize="Medium"
                            TextColor="#031540"
                            Text="Let's find the best place to eat!"
                            FontAttributes="Bold"
-                           Margin="20"
                            HorizontalOptions="Center"/>
                 </StackLayout>
 

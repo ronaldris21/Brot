@@ -31,8 +31,11 @@ namespace BrotCliente.ViewModels
                 if (!EqualityComparer<object>.Default.Equals(_selectedItemLista, value))
                 {
                     _selectedItemLista = value;
-                    App.Current.MainPage.Navigation.PushAsync(new Post(new PostViewModel(_selectedItemLista)));
                     OnPropertyChanged("selectedItemLista");
+                    if (value != null)
+                    {
+                        App.Current.MainPage.Navigation.PushAsync(new Post(new PostViewModel(_selectedItemLista)));
+                    }
 
                 }
             }
@@ -121,12 +124,19 @@ namespace BrotCliente.ViewModels
             foreach (var post in (ObservableCollection<ResponsePublicacionFeed>)result.Result)
             {
                 post.publicacion.img = DLL.constantes.urlImages + post.publicacion.img;
-                post.UsuarioCreator.img = DLL.constantes.urlImages + post.UsuarioCreator.img;
+                if (post.UsuarioCreator.img == "" || post.UsuarioCreator.img == null || post.UsuarioCreator.img == "(null)")
+                {
+                    post.UsuarioCreator.img = "user_placeholder";
+                }
+                else
+                {
+                    post.UsuarioCreator.img = DLL.constantes.urlImages + post.UsuarioCreator.img;
+                }
                 this.lPosts.Add(post);
             }
         }
 
-        
+
 
         #endregion
     }

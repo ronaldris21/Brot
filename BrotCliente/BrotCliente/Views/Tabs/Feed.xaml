@@ -5,123 +5,116 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="BrotCliente.Views.Tabs.Feed"
-             
              Title="Feed"
              IconImageSource="Brot500.png"
-             BackgroundColor="White"
              xmlns:patterns="clr-namespace:BrotCliente.Patterns"
              xmlns:Rounded="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              >
     <ContentPage.Content>
-        <ListView VerticalOptions="FillAndExpand"
+        <StackLayout 
+            BackgroundColor="#d8e5eb">
+            <ListView VerticalOptions="FillAndExpand"
                   CachingStrategy="RecycleElement"
                   HasUnevenRows="True"
                   ItemsSource="{Binding lPosts}"
-                  SeparatorColor="#031540"
-                  SeparatorVisibility="Default"
+                  SeparatorVisibility="None"
                   SelectedItem="{Binding selectedItemLista}"
                   IsPullToRefreshEnabled="True"
                   IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
                   RefreshCommand="{Binding RefreshCommand}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Frame BackgroundColor="#fff"
-                               Padding="0">
-                            <StackLayout>
-                                
-                                <StackLayout Orientation="Vertical"
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="0" Margin="0, 0, 0, 15">
+                                <StackLayout>
+                                    <StackLayout Orientation="Vertical"
                                              Padding="15">
-                                    <StackLayout Orientation="Horizontal"
-                                                 Margin="0, 20">
-                                        <Rounded:CircleImage Source="{Binding UsuarioCreator.img}"
-                                                         Aspect="AspectFit"
-                                                         HorizontalOptions="Start"
-                                                         Margin="0, 0, 15, 0">
-                                            <Rounded:CircleImage.WidthRequest>
-                                                <OnPlatform x:TypeArguments="x:Double">
-                                                    <On Platform="Android, iOS">60</On>
-                                                </OnPlatform>
-                                            </Rounded:CircleImage.WidthRequest>
+                                        <StackLayout Orientation="Horizontal"
+                                                 Margin="0, 5">
+                                            <StackLayout Margin="0, 0, 15, 0" HorizontalOptions="Start">
+                                                <Rounded:CircleImage Source="{Binding UsuarioCreator.img}"
+                                                         Aspect="AspectFit">
+                                                    <Rounded:CircleImage.WidthRequest>
+                                                        <OnPlatform x:TypeArguments="x:Double">
+                                                            <On Platform="Android, iOS">60</On>
+                                                        </OnPlatform>
+                                                    </Rounded:CircleImage.WidthRequest>
 
-                                            <Rounded:CircleImage.HeightRequest>
-                                                <OnPlatform x:TypeArguments="x:Double">
-                                                    <On Platform="Android, iOS">60</On>
-                                                </OnPlatform>
-                                            </Rounded:CircleImage.HeightRequest>
-                                        </Rounded:CircleImage>
+                                                    <Rounded:CircleImage.HeightRequest>
+                                                        <OnPlatform x:TypeArguments="x:Double">
+                                                            <On Platform="Android, iOS">60</On>
+                                                        </OnPlatform>
+                                                    </Rounded:CircleImage.HeightRequest>
+                                                </Rounded:CircleImage>
+                                            </StackLayout>
 
-                                        <StackLayout Orientation="Vertical">
-                                            <Label Text="{Binding UsuarioCreator.username, StringFormat='@{0}'}"
-                                                   TextColor="#000"
-                                                   FontSize="Medium"
-                                                   HorizontalOptions="StartAndExpand"
-                                                   VerticalOptions="Center"/>
+                                            <StackLayout Orientation="Vertical">
+                                                <Label Text="{Binding UsuarioCreator.username, StringFormat='@{0}'}"
+                                                   TextColor="#252d3a"
+                                                   FontSize="Medium"/>
 
-                                            <Label Text="{Binding publicacion.fecha_creacion}"
-                                                   TextColor="#4e4e4e"
-                                                   FontSize="Micro"
-                                                   HorizontalOptions="StartAndExpand"
-                                                   VerticalOptions="Center"/>
+                                                <Label Text="{Binding publicacion.fecha_creacion}"
+                                                   TextColor="#acb0bb"
+                                                       VerticalOptions="Start"
+                                                   FontSize="Micro"/>
+                                            </StackLayout>
                                         </StackLayout>
-                                    </StackLayout>
-                                    
-                                    <Label Text="{Binding publicacion.descripcion}"
-                                            TextColor="#8e8e8e"
+
+                                        <Label Text="{Binding publicacion.descripcion}"
+                                            TextColor="#6e717a"
                                             FontSize="Small"
                                             FontAttributes="Bold"/>
-                                </StackLayout>
+                                    </StackLayout>
 
-                                <StackLayout Orientation="Vertical"
-                                             Padding="5">
+                                    <StackLayout Orientation="Vertical">
 
-                                    <Image Source="{Binding publicacion.img}"
-                                           Margin="5"
+                                        <Image Source="{Binding publicacion.img}"
                                            HorizontalOptions="Fill"
                                            HeightRequest="250"
                                            IsVisible="{Binding publicacion.isImg}"
                                            Aspect="AspectFill"/>
-                                </StackLayout>
+                                    </StackLayout>
 
-                                <StackLayout Orientation="Horizontal"
+                                    <StackLayout Orientation="Horizontal"
                                                 Padding="5">
-                                    
 
-                                    <ImageButton Source="{Binding IsLiked,Converter={StaticResource BoolToStringConverter}}"
-                                                    HeightRequest="30"
-                                                    WidthRequest="30"
+
+                                        <ImageButton Source="{Binding IsLiked,Converter={StaticResource BoolToStringConverter}}"
+                                                    HeightRequest="40"
+                                                    WidthRequest="40"
                                                     BackgroundColor="Transparent"
                                                     ClassId="{Binding publicacion.id_post}"
                                                     CommandParameter="{Binding IsLiked}"
                                                     >
-                                        <!--<ImageButton.GestureRecognizers>
+                                            <!--<ImageButton.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding LikePostCommand}" CommandParameter="{Binding publicacion.id_post}"/>
                                         </ImageButton.GestureRecognizers>-->
-                                        
-                                        
-                                        <ImageButton.Triggers>
-                                            <EventTrigger Event="Clicked">
-                                                <patterns:btnLikePostTrigger/>
-                                            </EventTrigger>
-                                        </ImageButton.Triggers>
 
-                                    </ImageButton>
-                                    <Label Text="{Binding cantLikes, StringFormat='{0} Brots'}"
+
+                                            <ImageButton.Triggers>
+                                                <EventTrigger Event="Clicked">
+                                                    <patterns:btnLikePostTrigger/>
+                                                </EventTrigger>
+                                            </ImageButton.Triggers>
+
+                                        </ImageButton>
+                                        <Label Text="{Binding cantLikes, StringFormat='{0} Brots'}"
                                             VerticalOptions="Center"
                                             TextColor="Black"/>
-                                    <ImageButton Source="comment.png"
-                                                    HeightRequest="30"
-                                                    WidthRequest="30"
+                                        <ImageButton Source="comment.png"
+                                                    HeightRequest="40"
+                                                    WidthRequest="40"
                                                     BackgroundColor="Transparent"/>
-                                    <Label Text="{Binding cantComentarios, StringFormat='{0} Comments'}"
+                                        <Label Text="{Binding cantComentarios, StringFormat='{0} Comments'}"
                                             VerticalOptions="Center"
                                             TextColor="Black"/>
+                                    </StackLayout>
                                 </StackLayout>
-                            </StackLayout>
-                        </Frame>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

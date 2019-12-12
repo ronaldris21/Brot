@@ -31,8 +31,6 @@ namespace BrotCliente.Patterns
                 await RestClient.Post<like_comentarioModel>("like_comentario", like);
             }
             ((ImageButton)sender).CommandParameter = !isliked;
-            ((ImageButton)sender).HeightRequest = 25;
-            ((ImageButton)sender).WidthRequest = 25;
         }
     }
 }
