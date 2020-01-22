@@ -23,7 +23,7 @@ namespace BrotCliente.Views.Tabs
 
             XamarinMapStyle Style = new XamarinMapStyle();
             BindingContext = this.ViewModel = new SellersMapViewModel();
-            //this.MyMap.MapStyle = MapStyle.FromJson(Style.Text);
+            this.MyMap.MapStyle = MapStyle.FromJson(Style.Text);
 
             this.MyMap.MoveToRegion(
                 MapSpan.FromCenterAndRadius(

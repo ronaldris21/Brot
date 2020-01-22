@@ -19,7 +19,7 @@ namespace BrotCliente.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
-            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
+            
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             UserDialogs.Init(this);
@@ -29,7 +29,8 @@ namespace BrotCliente.Droid
 
             //Initialazing Rounded Img
             ImageCircle.Forms.Plugin.Droid.ImageCircleRenderer.Init();
-
+            //Images
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
             //Initializaing Popup
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
 

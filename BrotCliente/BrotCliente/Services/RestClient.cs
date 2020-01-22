@@ -11,7 +11,9 @@ namespace BrotCliente.Services
 {
     public static class RestClient
     {
-        private static string url = "http://brotproject.somee.com/api/";
+        private static string url = "http://brotproject.somee.com/api/"; //Last one
+        //private static string url = "http://brotmainapi.azurewebsites.net/api/"; //New One
+
         //private static string url = "http://192.168.22.127:61092/api/";
 
         private static HttpClient cliente = new HttpClient();

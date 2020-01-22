@@ -14,7 +14,8 @@ namespace BrotCliente.Services
     {
         //private static string urlBase = "http://192.168.22.127:61092/api/";
         //private static string urlBase = "cibomarket.somee.com/api/"; 
-        private static string urlBase = "http://brotproject.somee.com/api/";
+        private static string urlBase = "http://brotproject.somee.com/api/";  //Last one
+        //private static string urlBase = "http://brotmainapi.azurewebsites.net/api/"; //New One
         public static bool isConnectedToInterned()  //Lo ideal seria mandar esto desde la app antes de usar el REST
         {
             var current = Connectivity.NetworkAccess;

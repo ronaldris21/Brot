@@ -23,7 +23,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>BrotCliente</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.BrotCliente</string>
+	<string>com.companyname.BrotCliente1</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
@@ -32,5 +32,36 @@
 	<string>BrotCliente</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>brotimages.azurewebsites.net</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>brotmainapi.azurewebsites.net</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>brotproject.somee.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+		<key>NSAllowsArbitraryLoads </key>
+		<true/>
+	</dict>
+	<key>MinimumOSVersion</key>
+	<string>8.0</string>
 </dict>
 </plist>

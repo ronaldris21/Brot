@@ -317,6 +317,7 @@
     <Content Include="Models\SomeeDBModels.edmx.diagram">
       <DependentUpon>SomeeDBModels.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\brotmainapi - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -378,7 +379,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DLL\DLL.csproj">
-      <Project>{ebfe83a5-5854-4494-a500-2ab27f4954e4}</Project>
+      <Project>{68d737dc-1fd3-42bc-9368-fc370fa935d2}</Project>
       <Name>DLL</Name>
     </ProjectReference>
   </ItemGroup>
