@@ -3,13 +3,11 @@ using BrotAPI_Final.Repository;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace BrotAPI_Final.Controllers.API
 {
@@ -20,25 +18,33 @@ namespace BrotAPI_Final.Controllers.API
 
         #region DELETE - POST - PUT 
 
-
-
         /// <summary>
         /// Optiene un id y ese es pasado al repositorio para ver si puede eliminar el objeto en la base de datos
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public HttpResponseMessage Delete(int id)
+        [Route("api/seguidores/borrar")]
+        [HttpPost]
+        public HttpResponseMessage Delete(seguidores item)
         {
-            var item = r.GetById(id);
-            if (item == null)
+
+            try
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal seguidor, id: {id}");
+                using (var db = new Models.DBContextModel())
+                {
+
+                    var Seguidors = db.seguidores.Where(l => l.seguidor_id == item.seguidor_id && l.id_seguido == item.id_seguido).ToArray();
+
+                    for (int i = 0; i < Seguidors.Length; i++)
+                    {
+                        r.Delete(Seguidors[i].id_seguidores);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, $"Has dejado de seguir al usuario");
+                }
             }
-            if (r.Delete(id))
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, $"seguidor {id} fue eliminado correctamente");
-            }
-            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No eliminado, seguidor {id}");
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No es posible dejar de seguir al usuario en estos momentos");
         }
 
 
@@ -47,7 +53,7 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public HttpResponseMessage Post(seguidores item)
+        public async Task<HttpResponseMessage> Post(seguidores item)
         {
             if (item == null)
             {
@@ -65,7 +71,7 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No puedes seguirte a ti mismo");
             }
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var seguidorDatos = db.seguidores
                     .FirstOrDefault(s => s.id_seguido == item.id_seguido && s.seguidor_id == item.seguidor_id);
@@ -75,12 +81,31 @@ namespace BrotAPI_Final.Controllers.API
                     item.fecha = DateTime.Now;
                     if (r.Post(item))
                     {
+                        //TODO Push Seguido
+                        var usuarioSeguido = db.users.Find(item.id_seguido);
+                        var usuarioSEGUIDOR = db.users.Find(item.seguidor_id);
+                        var receiptInstallID = new Dictionary<string, string>();
+                            try
+                            {
+                                receiptInstallID.Add(usuarioSeguido.Phone_OS, usuarioSeguido.Device_id);
+                            }
+                            catch (Exception) { /**No todos los usuarios tienen telefono asociado **/}
+
+                        AppCenterPush appCenterPush = new AppCenterPush(receiptInstallID);
+                        await appCenterPush.Notify("Seguidor nuevo",
+                            $"{usuarioSEGUIDOR.username} ahora te sigue",
+                            "Ve a darle una revisada a su perfil",
+                            new Dictionary<string, string>() {
+                            {DLL.PushConstantes.gotoPage,DLL.PushConstantes.goto_profile },
+                            { DLL.PushConstantes.id_user, item.seguidor_id.ToString()}
+                            });
+
                         return Request.CreateResponse(HttpStatusCode.Created, "seguidor guardado correctamente");
                     }
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, "ya sigues a este usuario");
+                    return Request.CreateResponse(HttpStatusCode.OK, "Ya sigues a este usuario, actualiza la página en la que te encuentras");
                 }
 
             }
@@ -88,27 +113,6 @@ namespace BrotAPI_Final.Controllers.API
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible guardar los datos del seguidor");
         }
 
-
-
-        /// <summary>
-        /// Verifica si existe el id ingresado en la tabla y luego actualiza el registro
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        //public HttpResponseMessage Put(int id, seguidores item)
-        //{
-        //    var data = r.GetById(id);
-        //    if (data == null)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos sobre el seguidor a actualizar");
-        //    }
-        //    if (r.Put(id, item))
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.OK, $"Datos modificados para el seguidor {id}");
-        //    }
-        //    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar el seguidor, id: {id}");
-        //}
         #endregion
 
     }

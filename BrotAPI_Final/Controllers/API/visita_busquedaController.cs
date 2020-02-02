@@ -1,8 +1,6 @@
 ﻿using BrotAPI_Final.Models;
 using BrotAPI_Final.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -11,7 +9,7 @@ namespace BrotAPI_Final.Controllers.API
 {
     public class visita_busquedaController : ApiController
     {
-        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private DBContextModel db = new DBContextModel();
         private Rvisita_busquedaDB r = new Rvisita_busquedaDB();
 
 
@@ -24,6 +22,7 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [HttpDelete]
         public HttpResponseMessage Delete(int id)
         {
             var item = r.GetById(id);
@@ -44,6 +43,7 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPost]
         public HttpResponseMessage Post(visita_busqueda item)
         {
             if (item == null)
@@ -66,6 +66,7 @@ namespace BrotAPI_Final.Controllers.API
         /// <param name="id"></param>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPut]   
         public HttpResponseMessage Put(int id, visita_busqueda item)
         {
             var data = r.GetById(id);

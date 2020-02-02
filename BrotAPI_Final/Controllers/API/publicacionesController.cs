@@ -6,19 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace BrotAPI_Final.Controllers.API
 {
     [RoutePrefix("api/publicaciones")]
     public class publicacionesController : ApiController
     {
-        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private DBContextModel db = new DBContextModel();
         private RpublicacionesDB r = new RpublicacionesDB();
 
 
@@ -60,7 +58,7 @@ namespace BrotAPI_Final.Controllers.API
                             id_user = b.users.id_user,
                             isVendor = b.users.isVendor,
                             nombre = b.users.nombre,
-                            pass = b.users.pass,
+                            pass = "pass",
                             puntaje = b.users.puntaje,
                             username = b.users.username,
                             img = b.users.img,
@@ -132,7 +130,7 @@ namespace BrotAPI_Final.Controllers.API
                             id_user = b.users.id_user,
                             isVendor = b.users.isVendor,
                             nombre = b.users.nombre,
-                            pass = b.users.pass,
+                            pass = "pass",
                             puntaje = b.users.puntaje,
                             username = b.users.username,
                             img = b.users.img,
@@ -222,7 +220,7 @@ namespace BrotAPI_Final.Controllers.API
                                id_user = b.users.id_user,
                                isVendor = b.users.isVendor,
                                nombre = b.users.nombre,
-                               pass = b.users.pass,
+                               pass = "pass",
                                puntaje = b.users.puntaje,
                                username = b.users.username,
                                img = b.users.img,
@@ -246,7 +244,7 @@ namespace BrotAPI_Final.Controllers.API
 
 
             List<ResponseComentarios> comentariosPost = db.comentarios
-                .Where(c=>c.id_post==idPost)
+                .Where(c=>c.id_post==idPost && c.isDeleted == false && c.users.isDeleted == false)
                 .Include(o => o.users)
                 .Include(o => o.like_comentario)
                         .Select(c =>
@@ -276,7 +274,7 @@ namespace BrotAPI_Final.Controllers.API
                                            id_user = c.users.id_user,
                                            isVendor = c.users.isVendor,
                                            nombre = c.users.nombre,
-                                           pass = c.users.pass,
+                                           pass = "pass",
                                            puntaje = c.users.puntaje,
                                            username = c.users.username,
                                            puesto_name = c.users.puesto_name,
@@ -286,7 +284,8 @@ namespace BrotAPI_Final.Controllers.API
                                            ylon = c.users.ylon
                                        }
                                    }
-                                ).ToList();
+                                ).OrderByDescending(f => f.comentario.fecha_creacion)
+                                .ToList();
 
             publicacion.publicacion = publicacionContent;
             publicacion.comentarios = comentariosPost;
@@ -301,77 +300,16 @@ namespace BrotAPI_Final.Controllers.API
         }
 
 
-
-        //[Route("all/{idUser}")]
-        //public HttpResponseMessage GetpublicacionesALL(int idUser)//id del usuario
-        //{
-
-        //    var lpublicaciones = db.publicaciones
-        //        .Include(o => o.users)
-        //        .Include(o => o.like_post)
-        //        .Include(o => o.comentarios)
-        //        .Select(b =>
-        //             new ResponsePublicacionFeed()
-        //             {
-        //                 publicacion = new publicacionesModel
-        //                 {
-        //                     descripcion = b.descripcion,
-        //                     fecha_actualizacion = b.fecha_actualizacion,
-        //                     fecha_creacion = b.fecha_creacion,
-        //                     id_post = b.id_post,
-        //                     id_user = b.id_user,
-        //                     img = b.img,
-        //                     isImg = b.isImg,
-        //                     isDeleted = b.isDeleted
-        //                 },
-        //                 UsuarioCreator = new DLL.Models.userModel()
-        //                 {
-        //                     apellido = b.users.apellido,
-        //                     descripcion = b.users.descripcion,
-        //                     email = b.users.email,
-        //                     id_user = b.users.id_user,
-        //                     isVendor = b.users.isVendor,
-        //                     nombre = b.users.nombre,
-        //                     pass = "Password",
-        //                     puntaje = b.users.puntaje,
-        //                     username = b.users.username,
-        //                     img = b.users.img,
-        //                     puesto_name = b.users.puesto_name,
-        //                     isActive = b.users.isActive,
-        //                     dui = b.users.dui,
-        //                     isDeleted = b.users.isDeleted,
-        //                     num_telefono = b.users.num_telefono,
-        //                     xlat = b.users.xlat,
-        //                     ylon = b.users.ylon
-
-        //                 },
-        //                 cantComentarios = b.comentarios.Where(c => c.users.isDeleted == false && c.isDeleted == false).ToList().Count,
-        //                 cantLikes = b.like_post.Where(l => l.users.isDeleted == false).ToList().Count,
-        //                 IsLiked = b.like_post.FirstOrDefault(l => l.users.id_user == idUser) == default(like_post) ? false : true,
-        //                 IsSavedPost = b.publicacion_guardada.FirstOrDefault(p=>p.id_user==idUser) ==default(publicacion_guardada) ?false:true
-
-
-        //             }).ToList();
-
-
-        //    if (lpublicaciones == null || lpublicaciones.Count == 0)
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.NoContent, "No hay publicaciones");
-        //    }
-        //    return Request.CreateResponse(HttpStatusCode.OK, lpublicaciones);
-
-        //}
-
-
         #region DELETE - POST - PUT 
-
-
 
         /// <summary>
         /// Optiene un id y ese es pasado al repositorio para ver si puede eliminar el objeto en la base de datos
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// 
+        [HttpDelete]
+        [Route("{id}")]
         public HttpResponseMessage Delete(int id)
         {
             var item = r.GetById(id);
@@ -393,10 +331,17 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public HttpResponseMessage Post(publicaciones item)
+        /// 
+        [HttpPost]
+        public async System.Threading.Tasks.Task<HttpResponseMessage> Post(publicaciones item)
         {
             item.isDeleted = false;
             if (item == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"La publicación no puede estar sin datos");
+            }
+            //Publicacion sin imagen o texto
+            if (item.img == null  && string.IsNullOrEmpty(item.descripcion))
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"La publicación no puede estar sin datos");
             }
@@ -416,7 +361,35 @@ namespace BrotAPI_Final.Controllers.API
             //Intenta el post
             if (r.Post(item))
             {
-                return Request.CreateResponse(HttpStatusCode.Created, "publicación guardado correctamente");
+
+                //TODO PUSH for comment
+                using (var db = new DBContextModel())
+                {
+                    var seguidoresUsuario = db.users.SingleOrDefault(u => u.id_user == item.id_user)
+                        .seguidores1.ToList();
+                    var receiptInstallID = new Dictionary<string, string>();
+                    foreach (var seguidor in seguidoresUsuario)
+                    {
+                        try
+                        {
+                            receiptInstallID.Add(seguidor.users.Phone_OS, seguidor.users.Device_id);
+                        }
+                        catch (Exception) { /**No todos los usuarios tienen telefono asociado **/}
+                    }
+
+                    AppCenterPush appCenterPush = new AppCenterPush(receiptInstallID);
+                    users CommenterPost = db.users.SingleOrDefault(u => u.id_user == item.id_user);
+                    await appCenterPush.Notify("publicaciones",
+                        $"{seguidoresUsuario[0].users1.puesto_name} hizo una nueva publicación",
+                        item.descripcion,
+                        new Dictionary<string, string>() {
+                            {DLL.PushConstantes.gotoPage,DLL.PushConstantes.goto_post },
+                            { DLL.PushConstantes.id_user, item.id_user.ToString()},
+                            {DLL.PushConstantes.id_post, item.id_post.ToString() }
+                        });
+
+                }
+                return Request.CreateResponse(HttpStatusCode.Created, item);
             }
 
 
@@ -432,6 +405,8 @@ namespace BrotAPI_Final.Controllers.API
         /// <param name="id"></param>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPut]
+        [Route("{id}")]
         public HttpResponseMessage Put(int id, publicaciones item)
         {
             var data = r.GetById(id);

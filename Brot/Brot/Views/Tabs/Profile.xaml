@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Brot.Views.Tabs.Profile"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Celdas="clr-namespace:Brot.Cells"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Profile"
+    Icon="DefaultUser.png"
+    mc:Ignorable="d">
+
+    <ContentPage.Resources>
+        <ResourceDictionary />
+    </ContentPage.Resources>
+
+
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <ListView
+                HasUnevenRows="True"
+                Header="{Binding}"
+                HorizontalOptions="Fill"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                ItemSelected="ListView_ItemSelected"
+                ItemsSource="{Binding publicacionesMostradas}"
+                RefreshCommand="{Binding RefreshCommand}"
+                SelectedItem="{Binding publicacionesThis}">
+
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <StackLayout>
+                                <StackLayout
+                                    Padding="8"
+                                    BackgroundColor="White"
+                                    Spacing="-6">
+                                    <ffimage:CachedImage
+                                        Margin="0,15,0,0"
+                                        Aspect="AspectFit"
+                                        HeightRequest="100"
+                                        Source="{Binding UserProfile.UserProfile.img}"
+                                        WidthRequest="100">
+                                        <ffimage:CachedImage.Transformations>
+                                            <fftransformations:RoundedTransformation Radius="500" />
+                                        </ffimage:CachedImage.Transformations>
+                                    </ffimage:CachedImage>
+                                    <StackLayout Margin="10,20,10,0">
+                                        <Label
+                                            FontSize="Medium"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding UsuarioNombreMostrar, Mode=TwoWay}"
+                                            TextColor="Black" />
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="3"
+                                            Text="{Binding UserProfile.UserProfile.descripcion}" />
+                                        <StackLayout Orientation="Horizontal">
+                                            <Button
+                                                BackgroundColor="Transparent"
+                                                Command="{Binding EditProfileCommand}"
+                                                HorizontalOptions="FillAndExpand"
+                                                Text="Edit Profile"
+                                                TextColor="#031540" />
+                                            <Button
+                                                BackgroundColor="Transparent"
+                                                Command="{Binding SignOutCommand}"
+                                                HorizontalOptions="FillAndExpand"
+                                                Text="Sign Out"
+                                                TextColor="#031540" />
+                                        </StackLayout>
+                                        <StackLayout
+                                            HorizontalOptions="Center"
+                                            Orientation="Horizontal"
+                                            Spacing="20">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    FontSize="16"
+                                                    Text="{Binding UserProfile.cantSeguidores, StringFormat='{0}'}"
+                                                    TextColor="Black">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidoresCommand}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                                <Label FontSize="16" Text="Seguidores">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidoresCommand}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    FontSize="16"
+                                                    Text="{Binding UserProfile.cantSeguidos, StringFormat='{0}'}"
+                                                    TextColor="Black">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidosCommand}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                                <Label FontSize="16" Text="Seguidos">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidosCommand}" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <!--  ELEGIR PUBLICACIONES PROPIAS O GUARDADAS  -->
+                                <Frame
+                                    Margin="0,0,0,5"
+                                    BackgroundColor="#f0f4ff"
+                                    BorderColor="Black"
+                                    HorizontalOptions="Fill">
+                                    <Grid HeightRequest="50">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Button
+                                            Grid.Column="0"
+                                            Command="{Binding ChangePostPropiosViews}"
+                                            CommandParameter="True"
+                                            Text="Publicaciones">
+
+                                            <Button.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding UserProfile.UserProfile.isVendor}"
+                                                    TargetType="Button"
+                                                    Value="False">
+                                                    <Setter Property="WidthRequest" Value="0" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding VerPostPropios}"
+                                                    TargetType="Button"
+                                                    Value="False">
+                                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                                    <Setter Property="TextColor" Value="DarkBlue" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding VerPostPropios}"
+                                                    TargetType="Button"
+                                                    Value="True">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource MainDarkColor}" />
+                                                    <Setter Property="TextColor" Value="White" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                        <Button
+                                            Grid.Column="1"
+                                            Command="{Binding ChangePostPropiosViews}"
+                                            CommandParameter="False"
+                                            Text="Guardados">
+                                            <Button.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding UserProfile.UserProfile.isVendor}"
+                                                    TargetType="Button"
+                                                    Value="False">
+                                                    <Setter Property="Grid.Column" Value="0" />
+                                                    <Setter Property="Grid.ColumnSpan" Value="2" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding VerPostPropios}"
+                                                    TargetType="Button"
+                                                    Value="True">
+                                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                                    <Setter Property="TextColor" Value="DarkBlue" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding VerPostPropios}"
+                                                    TargetType="Button"
+                                                    Value="False">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource MainDarkColor}" />
+                                                    <Setter Property="TextColor" Value="White" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                    </Grid>
+
+                                </Frame>
+                            </StackLayout>
+                        </ContentView>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Celdas:ResponsePublicacionFeedViewCell />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ScrollView VerticalOptions="FillAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

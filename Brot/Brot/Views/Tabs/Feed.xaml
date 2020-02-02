@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Brot.Views.Tabs.Feed"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:celdas="clr-namespace:Brot.Cells"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Feed"
+    IconImageSource="BrotWhite.png"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+
+        <!--  BackgroundColor="#d8e5eb"   Lo quite para que saliera Brot a fondo al hacer scroll  -->
+
+        <ListView
+            CachingStrategy="RecycleElement"
+            HasUnevenRows="True"
+            Header="{Binding}"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+            ItemSelected="ListView_ItemSelected"
+            ItemsSource="{Binding lPosts}"
+            RefreshCommand="{Binding RefreshCommand}"
+            SelectedItem="{Binding selectedItemLista, Mode=TwoWay}"
+            SeparatorVisibility="None"
+            VerticalOptions="FillAndExpand">
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <ContentView>
+                        <!--  Lo oculto para que un cliente no pueda publicar!!  -->
+                        <ContentView.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsVendor}"
+                                TargetType="ContentView"
+                                Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </DataTrigger>
+                        </ContentView.Triggers>
+
+
+                        <StackLayout>
+                            <Frame
+                                Padding="15"
+                                BackgroundColor="White"
+                                BorderColor="{StaticResource frameBorderColor}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="45" />
+                                    </Grid.RowDefinitions>
+                                    <Editor
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        FontFamily="HirukoBlackAlternate.ttf"
+                                        HeightRequest="100"
+                                        IsSpellCheckEnabled="True"
+                                        MaxLength="300"
+                                        Placeholder="Publica algo ..."
+                                        PlaceholderColor="{StaticResource EntryPlaceholderColor}"
+                                        Text="{Binding texto}"
+                                        TextColor="{StaticResource EntryTextColor}" />
+                                    <ImageButton
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        BackgroundColor="Transparent"
+                                        Command="{Binding takePhoto}"
+                                        Aspect="AspectFit"
+                                        HorizontalOptions="End"
+                                        Source="gallery.png"
+                                        />
+                                    <Button
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        BackgroundColor="{StaticResource MainDarkColor}"
+                                        Command="{Binding PostSomething}"
+                                        CornerRadius="10"
+                                        FontAttributes="Bold"
+                                        Text="Publicar"
+                                        TextColor="White"
+                                        WidthRequest="75" />
+                                </Grid>
+                            </Frame>
+                            <BoxView HeightRequest="1" />
+                        </StackLayout>
+                    </ContentView>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <celdas:ResponsePublicacionFeedViewCell TranslationY="15" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

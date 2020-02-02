@@ -15,7 +15,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public publicaciones GetById(int id)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 try
                 {
@@ -38,7 +38,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public bool Post(publicaciones item)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 try
@@ -65,7 +65,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public bool Put(int id, publicaciones item)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 publicaciones dbitem = db.publicaciones.Find(id);
@@ -76,7 +76,6 @@ namespace BrotAPI_Final.Repository
                 //Intercambio los atributos del objeto viejo con los del nuevo}
                 dbitem.id_user = item.id_user;
                 dbitem.img = item.img;
-                dbitem.isImg = item.isImg;
                 dbitem.descripcion = item.descripcion;
                 dbitem.fecha_creacion = item.fecha_creacion;
                 dbitem.fecha_actualizacion = item.fecha_actualizacion;
@@ -106,7 +105,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public bool Delete(int id)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 try

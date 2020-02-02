@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Frame
+    x:Class="Brot.Cells.ResponsePublicacionFeedViewCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Rounded="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvgimage="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Margin="0,0,0,15"
+    Padding="0"
+    BorderColor="Black"
+    mc:Ignorable="d">
+    <StackLayout Padding="10" VerticalOptions="Fill">
+        <StackLayout
+            Padding="15"
+            Orientation="Vertical"
+            VerticalOptions="Fill">
+            <StackLayout
+                Margin="0,5"
+                HorizontalOptions="Fill"
+                Orientation="Horizontal">
+                <Rounded:CircleImage
+                    Aspect="AspectFit"
+                    HeightRequest="60"
+                    Source="{Binding UsuarioCreator.img}"
+                    WidthRequest="60">
+                    <Rounded:CircleImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding UsuarioCreator.BtnProfileNameClicked}" />
+                    </Rounded:CircleImage.GestureRecognizers>
+                </Rounded:CircleImage>
+
+                <StackLayout Orientation="Vertical">
+                    <Label
+                        FontSize="Medium"
+                        Text="{Binding UsuarioCreator.username, StringFormat='@{0}'}"
+                        TextColor="#252d3a">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding UsuarioCreator.BtnProfileNameClicked}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label
+                        FontSize="Micro"
+                        Text="{Binding publicacion.fecha_creacion}"
+                        TextColor="#acb0bb" />
+                </StackLayout>
+                <ImageButton
+                    BackgroundColor="Transparent"
+                    Command="{Binding OpcionesCommand}"
+                    HeightRequest="45"
+                    HorizontalOptions="EndAndExpand"
+                    Source="Threedots.png" />
+            </StackLayout>
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="Subtitle"
+                Text="{Binding publicacion.descripcion}"
+                TextColor="#6e717a" />
+        </StackLayout>
+
+
+        <ffimage:CachedImage
+            Aspect="AspectFit"
+            BitmapOptimizations="True"
+            CacheDuration="20"
+            ErrorPlaceholder="NoImage.png"
+            HorizontalOptions="Fill"
+            IsVisible="{Binding publicacion.isImg}"
+            LoadingPlaceholder="loading.png"
+            RetryCount="6"
+            RetryDelay="600"
+            Source="{Binding publicacion.img}"
+            VerticalOptions="Fill" />
+
+        <!--  TODO ERROR PLACEHOLDER IMAGE  -->
+        <!--  LoadingPlaceholder="loading2.gif"  -->
+
+        <StackLayout
+            HorizontalOptions="Fill"
+            Orientation="Horizontal"
+            Spacing="12"
+            VerticalOptions="Fill">
+            <ImageButton
+                BackgroundColor="Transparent"
+                Command="{Binding BtnLikedClicked}"
+                HeightRequest="32"
+                Source="{Binding IsLiked, Converter={StaticResource BoolToStringConverter}}"
+                WidthRequest="32" />
+            <Label
+                Text="{Binding cantLikes, StringFormat='{0} Brots'}"
+                TextColor="Black"
+                VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BtnLikesPeopleCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!--<ImageButton Source="comment.png"
+                                                    HeightRequest="30"
+                                                    WidthRequest="30"
+                                                    BackgroundColor="Transparent"/>-->
+
+
+            <Label
+                HorizontalOptions="EndAndExpand"
+                Text="{Binding cantComentarios, StringFormat='{0} Comments   '}"
+                TextColor="Black"
+                VerticalOptions="Center" />
+
+            <ImageButton
+                BackgroundColor="Transparent"
+                Command="{Binding BtnSavePostCommand}"
+                Source="{Binding IsSavedPost, Converter={StaticResource BoolToStringSavedPostImage}}" />
+        </StackLayout>
+    </StackLayout>
+
+
+</Frame>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+             xmlns:tigger="clr-namespace:Brot.Tigger"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             BackgroundColor="White"
+             x:Class="Brot.Views.RecoveryPass">
+    <ContentPage.Content>
+        <ScrollView>
+        <StackLayout Padding="10">
+            <Label Text="Ingresa tu nueva contraseña" TextColor="#031540" FontSize="Large"/>
+            <Label Text="Asegurate de crear una contraseña segura y de no olvidarla" TextColor="Gray" FontSize="Small"/>
+            <Rounded:RoundedBorderEntry
+                Margin="10"
+                BorderColor="#031540"
+                BorderThickness="2"
+                CornerRadius="10"
+                IsPassword="True"
+                Placeholder="Type your password"
+                PlaceholderColor="Gray"
+                Text="{Binding newPass}"
+                TextColor="#000" />
+                <Rounded:RoundedBorderEntry
+                Margin="10"
+                BorderColor="#031540"
+                BorderThickness="2"
+                CornerRadius="10"
+                IsPassword="True"
+                Placeholder="Repeat your password"
+                PlaceholderColor="Gray"
+                Text="{Binding repeatedPass}"
+                TextColor="#000"/>
+                <Button
+                BackgroundColor="#031540"
+                Command="{Binding passwordCommand}"
+                CornerRadius="3"
+                FontSize="Small"
+                HorizontalOptions="Fill"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="Cambiar clave"
+                TextColor="White" />
+            <ActivityIndicator IsRunning="{Binding IsRefreshing}" />
+        </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

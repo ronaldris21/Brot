@@ -26,6 +26,7 @@ namespace BrotAPI_Final.Models
             this.publicaciones = new HashSet<publicaciones>();
             this.seguidores = new HashSet<seguidores>();
             this.seguidores1 = new HashSet<seguidores>();
+            this.usuario_categoria = new HashSet<usuario_categoria>();
             this.visita_busqueda = new HashSet<visita_busqueda>();
             this.visita_busqueda1 = new HashSet<visita_busqueda>();
             this.visita_pefil_post = new HashSet<visita_pefil_post>();
@@ -48,7 +49,11 @@ namespace BrotAPI_Final.Models
         public string num_telefono { get; set; }
         public string img { get; set; }
         public Nullable<bool> isDeleted { get; set; }
+        public string Device_id { get; set; }
+        public string Phone_OS { get; set; }
+        public Nullable<int> id_categoria { get; set; }
     
+        public virtual categoria categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<comentarios> comentarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -67,6 +72,8 @@ namespace BrotAPI_Final.Models
         public virtual ICollection<seguidores> seguidores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<seguidores> seguidores1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<usuario_categoria> usuario_categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<visita_busqueda> visita_busqueda { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

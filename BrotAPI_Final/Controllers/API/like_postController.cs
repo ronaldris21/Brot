@@ -1,23 +1,21 @@
 ﻿using BrotAPI_Final.Models;
 using BrotAPI_Final.Repository;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace BrotAPI_Final.Controllers.API
 {
     public class like_postController : ApiController
     {
 
-        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private DBContextModel db = new DBContextModel();
         private Rlike_postDB r = new Rlike_postDB();
 
 
@@ -34,12 +32,12 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No existe dicha publicación");
             }
-            
-            using (var db = new SomeeDBBrotEntities())
+
+            using (var db = new DBContextModel())
             {
                 var usuarios = db.like_post
                     .Include(p => p.users)
-                    .Where(p => p.id_post == idPost  && p.users.isDeleted==false)
+                    .Where(p => p.id_post == idPost && p.users.isDeleted == false)
                     .ToList();
 
                 var usuariosLike = new DLL.ResponseModels.ResponseLikes()
@@ -54,7 +52,7 @@ namespace BrotAPI_Final.Controllers.API
                                id_user = b.users.id_user,
                                isVendor = b.users.isVendor,
                                nombre = b.users.nombre,
-                               pass = b.users.pass,
+                               pass = "pass",
                                puntaje = b.users.puntaje,
                                username = b.users.username,
                                img = b.users.img,
@@ -84,20 +82,23 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [Route("api/like_post/borrar")]
+        [HttpPost]
         public HttpResponseMessage Delete(like_post item)
         {
 
             try
             {
-                var ID_likeDado = db.like_post.SingleOrDefault(l => l.id_post == item.id_post && l.id_user == item.id_user).id;
+                var likes = db.like_post.Where(l => l.id_post == item.id_post && l.id_user == item.id_user).ToArray();
 
-                if (r.Delete(ID_likeDado))
+                foreach (var like in likes)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, $"like_post fue eliminado correctamente");
+                    r.Delete(like.id);
                 }
+                return Request.CreateResponse(HttpStatusCode.OK, $"like_post fue eliminado correctamente");
             }
             catch (Exception) { }
-            
+
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No eliminado, like_post");
 
         }
@@ -108,7 +109,8 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public HttpResponseMessage Post(like_post item)
+        [HttpPost]
+        public async Task<HttpResponseMessage> Post(like_post item)
         {
             if (item == null)
             {
@@ -121,10 +123,27 @@ namespace BrotAPI_Final.Controllers.API
 
                 if (likeDado == default(like_post))
                 {
-                    item.fecha = DateTime.Now;
+                    item.fecha = DateTime.UtcNow;
 
                     if (r.Post(item))
                     {
+                        //TODO TEST like Post
+                        var diccionarioPhone_Device = new System.Collections.Generic.Dictionary<string, string>();
+                        var usuarioQueDioLike = db.users.SingleOrDefault(u => u.id_user == item.id_user);
+                        var publicacion = db.publicaciones.SingleOrDefault(u => u.id_post == item.id_post);
+                        diccionarioPhone_Device.Add(publicacion.users.Phone_OS, publicacion.users.Device_id);
+
+                        var pushNotifier = new AppCenterPush(diccionarioPhone_Device);
+                        await pushNotifier.Notify("like_post",
+
+                            $"A {usuarioQueDioLike.username} le gusta tu publicación",
+                            publicacion.descripcion,
+                            new System.Collections.Generic.Dictionary<string, string>() {
+                                {DLL.PushConstantes.gotoPage,DLL.PushConstantes.goto_post },
+                                {DLL.PushConstantes.id_post,publicacion.id_post.ToString() },
+                                {DLL.PushConstantes.id_user, publicacion.id_user.ToString() }
+                            });
+
                         return Request.CreateResponse(HttpStatusCode.Created, "like_post guardado correctamente");
                     }
                 }
@@ -133,7 +152,7 @@ namespace BrotAPI_Final.Controllers.API
                     return Request.CreateResponse(HttpStatusCode.OK, "Ya existe dicho like");
                 }
             }
-            catch (Exception e)  { Debug.Print(e.Message); }
+            catch (Exception e) { Debug.Print(e.Message); }
 
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible guardar los datos del like_post");
         }

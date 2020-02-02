@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Threading.Tasks;
 
 namespace BrotAPI_Final.Controllers.API
 {
@@ -18,13 +19,14 @@ namespace BrotAPI_Final.Controllers.API
         //private DB_BrotEntitiesLast db = new DB_BrotEntitiesLast();
         private RcomentariosDB r = new RcomentariosDB();
 
-        
+
 
         #region Gets
         [Route("api/comentarios/{idComentario}")]
+        [HttpGet]
         public HttpResponseMessage Getbyid(int idComentario)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var comment = db.comentarios
                     .Where(p => p.id_comentario == idComentario)
@@ -32,7 +34,7 @@ namespace BrotAPI_Final.Controllers.API
                     .Select(b =>
                        new ResponseComentarios()
                        {
-                           
+
                            comentario = new DLL.Models.comentariosModel()
                            {
                                contenido = b.contenido,
@@ -50,7 +52,7 @@ namespace BrotAPI_Final.Controllers.API
                                id_user = b.users.id_user,
                                isVendor = b.users.isVendor,
                                nombre = b.users.nombre,
-                               pass = b.users.pass,
+                               pass = "pass",
                                puntaje = b.users.puntaje,
                                username = b.users.username,
                                img = b.users.img,
@@ -79,6 +81,9 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// 
+        [HttpDelete]
+        [Route("api/comentarios/{id}")]
         public HttpResponseMessage Delete(int id)
         {
             var item = r.GetById(id);
@@ -86,7 +91,7 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal comentario, id: {id}");
             }
-            item.isDeleted = false;
+            item.isDeleted = true;
             item.fecha_creacion = DateTime.Now;
             if (r.Put(id, item))
             {
@@ -101,7 +106,8 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public HttpResponseMessage Post(comentarios item)
+        [HttpPost]
+        public async  Task<HttpResponseMessage> Post(comentarios item)
         {
             if (item == null)
             {
@@ -124,10 +130,32 @@ namespace BrotAPI_Final.Controllers.API
             item.isDeleted = false;
             if (r.Post(item))
             {
-                return Request.CreateResponse(HttpStatusCode.Created, "comentario guardado correctamente");
+                //TODO PUSH for comment
+                using (var db = new DBContextModel())
+                {
+                    users creatorPost = db.publicaciones.SingleOrDefault(u => u.id_post == item.id_post).users;
+                    var receiptInstallID = new Dictionary<string, string>
+                            {
+                                { creatorPost.Phone_OS,creatorPost.Device_id }
+                            };
+
+                    AppCenterPush appCenterPush = new AppCenterPush(receiptInstallID);
+                    users CommenterPost = db.users.SingleOrDefault(u => u.id_user == item.id_user);
+                    await appCenterPush.Notify("comentarios",
+                        $"{CommenterPost.nombre} comentó tu publicación", 
+                        item.contenido, 
+                        new Dictionary<string, string>() {
+                            { DLL.PushConstantes.gotoPage, DLL.PushConstantes.goto_post },
+                            { DLL.PushConstantes.id_post, item.id_post.ToString()},
+                            { DLL.PushConstantes.id_user, creatorPost.id_user.ToString()}
+                        });
+
+                }
+
+                return Request.CreateResponse(HttpStatusCode.Created, item);
             }
 
-            
+
 
             return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "No es posible guardar los datos del comentario");
         }
@@ -140,6 +168,8 @@ namespace BrotAPI_Final.Controllers.API
         /// <param name="id"></param>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPut]
+        [Route("api/comentarios/{id}")]
         public HttpResponseMessage Put(int id, comentarios item)
         {
             var data = r.GetById(id);

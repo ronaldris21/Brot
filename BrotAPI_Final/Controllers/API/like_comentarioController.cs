@@ -6,13 +6,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace BrotAPI_Final.Controllers.API
 {
     public class like_comentarioController : ApiController
     {
-        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private readonly DBContextModel db = new DBContextModel();
         private Rlike_comentarioDB r = new Rlike_comentarioDB();
 
         public HttpResponseMessage GetLikesbyIDComentario(int id)
@@ -21,11 +22,11 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal comentario, id: {id}");
             }
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var usuarios = db.like_comentario
                     .Include(p => p.users)
-                    .Where(p => p.id_comentario == id && p.users.isDeleted==false).ToList();
+                    .Where(p => p.id_comentario == id && p.users.isDeleted == false).ToList();
 
                 var usuariosLike = new DLL.ResponseModels.ResponseLikes()
                 {
@@ -39,7 +40,7 @@ namespace BrotAPI_Final.Controllers.API
                                id_user = b.users.id_user,
                                isVendor = b.users.isVendor,
                                nombre = b.users.nombre,
-                               pass = b.users.pass,
+                               pass = "pass",
                                puntaje = b.users.puntaje,
                                username = b.users.username,
                                img = b.users.img,
@@ -69,16 +70,18 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [Route("api/like_comentario/borrar")]
+        [HttpPost]
         public HttpResponseMessage Delete(like_comentario item)
         {
             try
             {
-                var ID_likeDado = db.like_comentario.SingleOrDefault(l => l.id_comentario == item.id_comentario && l.id_user == item.id_user).id_like_comentario;
-
-                if (r.Delete(ID_likeDado))
+                var likes = db.like_comentario.Where(l => l.id_comentario == item.id_comentario && l.id_user == item.id_user).ToArray();
+                foreach (var like in likes)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, $"like_post fue eliminado correctamente");
+                    r.Delete(like.id_like_comentario);
                 }
+                return Request.CreateResponse(HttpStatusCode.OK, $"like_post fue eliminado correctamente");
             }
             catch (Exception) { }
 
@@ -91,7 +94,8 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public HttpResponseMessage Post(like_comentario item)
+        [HttpPost]
+        public async Task<HttpResponseMessage> Post(like_comentario item)
         {
             if (item == null)
             {
@@ -108,6 +112,22 @@ namespace BrotAPI_Final.Controllers.API
 
                     if (r.Post(item))
                     {
+                        //TODO TEST like comentario
+                        var diccionarioPhone_Device = new System.Collections.Generic.Dictionary<string, string>();
+                        var usuarioQueDioLike = db.users.SingleOrDefault(u => u.id_user == item.id_user);
+                        var comentario = db.comentarios.SingleOrDefault(u => u.id_comentario == item.id_comentario);
+                        diccionarioPhone_Device.Add(comentario.users.Phone_OS, comentario.users.Device_id);
+
+                        var pushNotifier = new AppCenterPush(diccionarioPhone_Device);
+                        await pushNotifier.Notify("like_comentario",
+                            $"A {usuarioQueDioLike.username} le gusta tu publicación",
+                            comentario.contenido,
+                            new System.Collections.Generic.Dictionary<string, string>() {
+                                {DLL.PushConstantes.gotoPage,DLL.PushConstantes.goto_post },
+                                {DLL.PushConstantes.id_post, comentario.id_post.ToString()},
+                                {DLL.PushConstantes.id_user, comentario.publicaciones.id_user.ToString() }
+                            });
+
                         return Request.CreateResponse(HttpStatusCode.Created, "like_comentario guardado correctamente");
                     }
                 }
@@ -118,7 +138,7 @@ namespace BrotAPI_Final.Controllers.API
             }
             catch (Exception) { }
 
-            
+
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible guardar los datos del like_comentario");
         }
 

@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Brot.Views.Login"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Login"
+    NavigationPage.HasNavigationBar="False"
+    mc:Ignorable="d">
+
+
+    <ContentPage.Content>
+        <ScrollView BackgroundColor="White" VerticalOptions="Fill">
+            <StackLayout
+                Padding="20"
+                Orientation="Vertical"
+                VerticalOptions="Center">
+
+                <StackLayout Margin="0,20">
+
+                    <Image
+                        HeightRequest="135"
+                        Source="BrotBlue.png"
+                        WidthRequest="260" />
+
+                    <Label
+                        Margin="20"
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        Text="Let's find the best place to eat!"
+                        TextColor="#031540" />
+                </StackLayout>
+
+                <StackLayout Margin="0,10">
+                    <Rounded:RoundedBorderEntry
+                        Margin="0,10"
+                        BorderColor="#031540"
+                        BorderThickness="2"
+                        CornerRadius="0"
+                        Placeholder="Type your username"
+                        PlaceholderColor="Gray"
+                        ReturnType="Next"
+                        TabIndex="1"
+                        Text="{Binding Username}"
+                        TextColor="#000" />
+
+                    <Rounded:RoundedBorderEntry
+                        Margin="0,10"
+                        BorderColor="#031540"
+                        BorderThickness="2"
+                        CornerRadius="0"
+                        IsPassword="True"
+                        Placeholder="Type your password"
+                        PlaceholderColor="Gray"
+                        ReturnCommand="{Binding LoginCommand}"
+                        ReturnType="Send"
+                        TabIndex="2"
+                        Text="{Binding Password}"
+                        TextColor="#000" />
+
+                    <!--<StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                        <Label
+                            Text="Keep session alive?"
+                            TextColor="#031540"
+                            VerticalOptions="Center" />
+
+                        <Switch
+                            x:Name="KeepLogged"
+                            IsToggled="{Binding Remember}"
+                            ThumbColor="Black">
+                            <Switch.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Source={x:Reference KeepLogged}, Path=IsToggled}"
+                                    TargetType="Switch"
+                                    Value="True">
+                                    <Setter Property="ThumbColor" Value="#031540" />
+                                </DataTrigger>
+                            </Switch.Triggers>
+                        </Switch>
+                    </StackLayout>
+                </StackLayout>-->
+
+                    <StackLayout Margin="0,10">
+                        <ActivityIndicator IsRunning="{Binding IsRefreshing}">
+                            <ActivityIndicator.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsRefreshing}"
+                                    TargetType="ActivityIndicator"
+                                    Value="False">
+                                    <Setter Property="HeightRequest" Value="0" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding IsRefreshing}"
+                                    TargetType="ActivityIndicator"
+                                    Value="True">
+                                    <Setter Property="HeightRequest" Value="40" />
+                                </DataTrigger>
+                            </ActivityIndicator.Triggers>
+                        </ActivityIndicator>
+                        <Button
+                            BackgroundColor="Transparent"
+                            BorderColor="#031540"
+                            BorderWidth="1"
+                            Command="{Binding LoginCommand}"
+                            CornerRadius="3"
+                            FontSize="Small"
+                            HorizontalOptions="Fill"
+                            IsEnabled="{Binding IsNotBusy}"
+                            Text="Login"
+                            TextColor="#031540" />
+
+                        <Button
+                            BackgroundColor="#031540"
+                            Command="{Binding SignupCommand}"
+                            IsEnabled="{Binding IsNotBusy}"
+                            Text="Register"
+                            TextColor="#fff"
+                            VerticalOptions="Center" />
+
+                        <Label
+                            FontSize="Medium"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="¿Olvidaste tu contraseña?"
+                            TextColor="#031540">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ResetPass}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

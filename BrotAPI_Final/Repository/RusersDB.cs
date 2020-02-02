@@ -1,11 +1,12 @@
 ﻿using BrotAPI_Final.Models;
 using System;
+using System.Diagnostics;
+using System.Linq;
 
 namespace BrotAPI_Final.Repository
 {
     public class RusersDB : IRepositoryDB<users>
     {
-
         /// <summary>
         /// FILTRO DE la base de datos el objeto que tiene el mismo id que el que busco
         /// </summary>
@@ -13,14 +14,14 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public users GetById(int id)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 try
                 {
                     db.Configuration.ProxyCreationEnabled = false;
                     return db.users.Find(id);
                 }
-                catch (Exception) { return null; }
+                catch (Exception ex) { Debug.Print(ex.Message); return null; }
             }
         }
 
@@ -32,7 +33,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public bool Post(users item)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 try
                 {
@@ -41,8 +42,10 @@ namespace BrotAPI_Final.Repository
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+
+                    Debug.Print(e.Message);
                     return false;
                 }
 
@@ -58,7 +61,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public bool Put(int id, users item)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 users dbitem = db.users.Find(id);
@@ -72,13 +75,11 @@ namespace BrotAPI_Final.Repository
                 dbitem.descripcion = item.descripcion;
                 dbitem.dui = item.dui;
                 dbitem.email = item.email;
-                dbitem.img = item.img;
                 dbitem.isActive = item.isActive;
                 dbitem.isDeleted = item.isDeleted;
                 dbitem.isVendor = item.isVendor;
                 dbitem.nombre = item.nombre;
                 dbitem.num_telefono = item.num_telefono;
-                dbitem.pass = item.pass;
                 dbitem.puesto_name = item.puesto_name;
                 dbitem.puntaje = item.puntaje;
                 dbitem.username = item.username;
@@ -109,7 +110,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public bool Delete(int id)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 try
@@ -130,5 +131,20 @@ namespace BrotAPI_Final.Repository
             }
         }
 
+        public users EmailExist(string email)
+        {
+            using (var db = new DBContextModel())
+            {
+                try
+                {
+                    var where = db.users.SingleOrDefault(x => x.email == email);
+                    return where;
+                }
+                catch (Exception ex) {
+                    var message = ex.Message;
+                    return null; 
+                }
+            }
+        }
     }
 }

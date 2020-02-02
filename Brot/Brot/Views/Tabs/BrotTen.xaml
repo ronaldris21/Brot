@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Brot.Views.Tabs.BrotTen"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Celdas="clr-namespace:Brot.Cells"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Brot Ten"
+    BackgroundColor="White"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <ListView
+            x:Name="BrotTenList"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+            ItemSelected="FeedListView_ItemSelected"
+            ItemsSource="{Binding lBrotTen}"
+            RefreshCommand="{Binding RefreshCommand}"
+            SeparatorColor="#031540"
+            SeparatorVisibility="Default"
+            VerticalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Celdas:UserCell_Grid BindingContext="{Binding userData}" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

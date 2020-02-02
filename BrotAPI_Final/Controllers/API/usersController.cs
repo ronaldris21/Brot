@@ -6,12 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace BrotAPI_Final.Controllers.API
 {
@@ -19,6 +19,7 @@ namespace BrotAPI_Final.Controllers.API
     public class usersController : ApiController
     {
         private RusersDB r = new RusersDB();
+        private RCodigos v = new RCodigos();
 
         #region Gets
 
@@ -26,7 +27,7 @@ namespace BrotAPI_Final.Controllers.API
         [Route("UsernameDisponible/{username}")]
         public HttpResponseMessage validandoUsername(string username)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var datos = db.users.Where(u => u.username == username).ToList();
                 if (datos.Count > 0)
@@ -49,7 +50,7 @@ namespace BrotAPI_Final.Controllers.API
             }
             try
             {
-                using (var db = new SomeeDBBrotEntities())
+                using (var db = new DBContextModel())
                 {
                     var userObtenido = db.users.Where(u => u.username == item.username || u.email == item.username).ToList();
                     if (userObtenido.Count <= 0)
@@ -59,6 +60,13 @@ namespace BrotAPI_Final.Controllers.API
                     var usuarioDB = userObtenido.First();
                     if (usuarioDB.pass == item.pass)
                     {
+                        usuarioDB.isDeleted = false;
+                        usuarioDB.Device_id = item.Device_id;
+                        usuarioDB.Phone_OS = item.Phone_OS;
+
+                        db.Entry(usuarioDB).State = EntityState.Modified;
+                        db.SaveChanges();
+
                         userModel usuario = new userModel()
                         {
                             apellido = usuarioDB.apellido,
@@ -93,18 +101,37 @@ namespace BrotAPI_Final.Controllers.API
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible comparar los datos proporcionados");
         }
 
+        //Login
+        [HttpPost]  //Retorno el usuario completop para guardarlo en la base de datos
+        [Route("device")]
+        public HttpResponseMessage deviceRegisterAgain(users item)
+        {
+            try
+            {
+                using (var db = new DBContextModel())
+                {
+                    var userObtenido = db.users.Find(item.id_user);
+                    if (userObtenido != null)
+                    {
+                        userObtenido.Device_id = item.Device_id;
+                        userObtenido.Phone_OS = item.Phone_OS;
 
+                        db.Entry(userObtenido).State = EntityState.Modified;
+                        db.SaveChanges();
 
-        ////Obtener todas los usuarios
-        //[HttpGet]
-        //public HttpResponseMessage getUsersAll()
-        //{
-        //    var datos = db.users
-        //        .Where(u => u.id_user == 2)
-        //        .ToList();
+                        return Request.CreateResponse(HttpStatusCode.OK, "Notificaciones Push configuradas");
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Contraseña incorrecta");
+                    }
 
-        //    return Request.CreateResponse(HttpStatusCode.OK,datos);
-        //}
+                }
+
+            }
+            catch (Exception) { }
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible comparar los datos proporcionados");
+        }
 
 
 
@@ -115,7 +142,7 @@ namespace BrotAPI_Final.Controllers.API
         [Route("vendors")]
         public HttpResponseMessage vendors()
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var vendedores = db.users
                     .Where(u => u.isVendor)
@@ -128,7 +155,7 @@ namespace BrotAPI_Final.Controllers.API
                             id_user = u.id_user,
                             isVendor = u.isVendor,
                             nombre = u.nombre,
-                            pass = u.pass,
+                            pass = "pass",
                             puntaje = u.puntaje,
                             username = u.username,
                             img = u.img,
@@ -138,7 +165,10 @@ namespace BrotAPI_Final.Controllers.API
                             isDeleted = u.isDeleted,
                             num_telefono = u.num_telefono,
                             xlat = u.xlat,
-                            ylon = u.ylon
+                            ylon = u.ylon,
+                            id_categoria = u.id_categoria,
+                            imgCategoria = u.categoria.img,
+                            nombreCategoria = u.categoria.nombre
                         }
                     ).ToList();
                 return Request.CreateResponse(HttpStatusCode.OK, vendedores);
@@ -151,9 +181,10 @@ namespace BrotAPI_Final.Controllers.API
         //Brot Ten
         [HttpGet]
         [Route("brotten")]
+        // TODO BrotTen Filtrado
         public HttpResponseMessage brotten()
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var varUserProfile = db.users
                .Include(s => s.seguidores)
@@ -172,7 +203,7 @@ namespace BrotAPI_Final.Controllers.API
                            id_user = u.id_user,
                            isVendor = u.isVendor,
                            nombre = u.nombre,
-                           pass = u.pass,
+                           pass = "pass",
                            puntaje = u.puntaje,
                            username = u.username,
                            img = u.img,
@@ -185,10 +216,10 @@ namespace BrotAPI_Final.Controllers.API
                            ylon = u.ylon
                        },
 
-                       Cantidad = u.seguidores.Count
+                       Cantidad = u.seguidores1.Count
 
                    }
-               ).OrderBy(u => u.Cantidad).ToList();
+               ).OrderByDescending(u => u.Cantidad).ToList();
 
                 return Request.CreateResponse(HttpStatusCode.OK, varUserProfile);
             }
@@ -196,7 +227,7 @@ namespace BrotAPI_Final.Controllers.API
 
 
 
-        ////MostLiked
+        // TODO MostLiked Profiles
         //[HttpGet]
         //[Route("mostliked")]
         //public HttpResponseMessage mostliked()
@@ -231,7 +262,7 @@ namespace BrotAPI_Final.Controllers.API
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal usuario, id: {idVisitante}");
             }
 
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var varUserProfile = db.users
                .Include(s => s.publicaciones)
@@ -259,7 +290,7 @@ namespace BrotAPI_Final.Controllers.API
                            id_user = u.id_user,
                            isVendor = u.isVendor,
                            nombre = u.nombre,
-                           pass = u.pass,
+                           pass = "pass",
                            puntaje = u.puntaje,
                            username = u.username,
                            img = u.img,
@@ -298,13 +329,13 @@ namespace BrotAPI_Final.Controllers.API
                                    IsSavedPost = b.publicacion_guardada.FirstOrDefault(p => p.id_user == idVisitante) == default(publicacion_guardada) ? false : true
 
                                }
-                           ).ToList(),
+                           ).OrderByDescending(f => f.publicacion.fecha_creacion).ToList(),
 
 
                    }
 
 
-               ).ToList().First();
+               ).ToList().FirstOrDefault();
                 return Request.CreateResponse(HttpStatusCode.OK, varUserProfile);
             }
         }
@@ -319,7 +350,7 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal usuario, id: {idUser}");
             }
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var varUserProfile = db.users
                .Include(s => s.publicaciones)
@@ -347,7 +378,7 @@ namespace BrotAPI_Final.Controllers.API
                            id_user = u.id_user,
                            isVendor = u.isVendor,
                            nombre = u.nombre,
-                           pass = u.pass,
+                           pass = "pass",
                            puntaje = u.puntaje,
                            username = u.username,
                            img = u.img,
@@ -360,8 +391,20 @@ namespace BrotAPI_Final.Controllers.API
                            ylon = u.ylon
                        },
 
-                       publicacionesUser = u.publicaciones
-                       .Where(pu => pu.isDeleted == false)
+
+
+
+
+
+
+                   }
+
+
+               ).ToList().FirstOrDefault();
+
+
+                varUserProfile.publicacionesUser = db.publicaciones
+                       .Where(pu => pu.isDeleted == false && pu.users.isDeleted == false && pu.id_user == idUser)
                        .Select(
                            b =>
                                new ResponsePublicacionFeed
@@ -379,6 +422,8 @@ namespace BrotAPI_Final.Controllers.API
                                        isDeleted = b.isDeleted
 
                                    },
+
+                                   //No lo mando porque ya lo tengo en un JSON y Singleton Localmente
 
                                    //UsuarioCreator = new userModel()
                                    //{
@@ -407,51 +452,55 @@ namespace BrotAPI_Final.Controllers.API
                                    IsSavedPost = b.publicacion_guardada.FirstOrDefault(p => p.id_user == idUser) == default(publicacion_guardada) ? false : true
 
                                }
-                           ).ToList(),
+                           ).OrderByDescending(f => f.publicacion.fecha_creacion).ToList();
 
-
-
-                       publicacionesGuardadas = u.publicacion_guardada
-                       .Where(pu => pu.publicaciones.isDeleted == false)
-                       .Select(
+                varUserProfile.publicacionesGuardadas = db.publicacion_guardada
+                    .Where(postSaved => postSaved.id_user == idUser && postSaved.publicaciones.isDeleted == false && postSaved.users.isDeleted == false)
+                    .OrderByDescending(f => f.fecha)
+                    .Select(
                            b =>
-                               new ResponsePublicacionGuardada
-                               {
-                                   publicacionGuardada = new publicacion_guardadasModel
-                                   {
-                                       fecha = b.fecha,
-                                       id_post = b.id_post,
-                                       id_publicacion_guardada = b.id_publicacion_guardada,
-                                       id_user = b.id_user
-                                   },
+                     new ResponsePublicacionFeed
+                     {
 
+                         publicacion = new publicacionesModel
+                         {
+                             descripcion = b.publicaciones.descripcion,
+                             fecha_actualizacion = b.publicaciones.fecha_actualizacion,
+                             fecha_creacion = b.publicaciones.fecha_creacion,
+                             id_post = b.publicaciones.id_post,
+                             id_user = b.publicaciones.id_user,
+                             img = b.publicaciones.img,
+                             isImg = b.publicaciones.isImg,
+                             isDeleted = b.publicaciones.isDeleted
 
-                                   publicacion = new publicacionesModel
-                                   {
-                                       descripcion = b.publicaciones.descripcion,
-                                       fecha_actualizacion = b.publicaciones.fecha_actualizacion,
-                                       fecha_creacion = b.publicaciones.fecha_creacion,
-                                       id_post = b.publicaciones.id_post,
-                                       id_user = b.publicaciones.id_user,
-                                       img = b.publicaciones.img,
-                                       isImg = b.publicaciones.isImg,
-                                       isDeleted = b.publicaciones.isDeleted
+                         },
+                         UsuarioCreator = new userModel()
+                         {
+                             apellido = b.publicaciones.users.apellido,
+                             descripcion = b.publicaciones.users.descripcion,
+                             email = b.publicaciones.users.email,
+                             id_user = b.publicaciones.users.id_user,
+                             isVendor = b.publicaciones.users.isVendor,
+                             nombre = b.publicaciones.users.nombre,
+                             pass = "pass",
+                             puntaje = b.publicaciones.users.puntaje,
+                             username = b.publicaciones.users.username,
+                             img = b.publicaciones.users.img,
+                             puesto_name = b.publicaciones.users.puesto_name,
+                             isActive = b.publicaciones.users.isActive,
+                             dui = b.publicaciones.users.dui,
+                             isDeleted = b.publicaciones.users.isDeleted,
+                             num_telefono = b.publicaciones.users.num_telefono,
+                             xlat = b.publicaciones.users.xlat,
+                             ylon = b.publicaciones.users.ylon
+                         },
 
-                                   },
-
-                                   IsSavedPost = true,
-                                   cantComentarios = b.publicaciones.comentarios.Where(c => c.users.isDeleted == false && c.isDeleted == false).ToList().Count,
-                                   cantLikes = b.publicaciones.like_post.Where(l => l.users.isDeleted == false).ToList().Count,
-                                   IsLiked = b.publicaciones.like_post.FirstOrDefault(l => l.id_user == idUser) == default(like_post) ? false : true
-
-
-                               }
-                           ).ToList()
-
-                   }
-
-
-               ).ToList();
+                         IsSavedPost = true,
+                         cantComentarios = b.publicaciones.comentarios.Where(c => c.users.isDeleted == false && c.isDeleted == false).ToList().Count,
+                         cantLikes = b.publicaciones.like_post.Where(l => l.users.isDeleted == false).ToList().Count,
+                         IsLiked = b.publicaciones.like_post.FirstOrDefault(l => l.id_user == idUser) == default(like_post) ? false : true
+                     }
+                    ).ToList();
 
                 return Request.CreateResponse(HttpStatusCode.OK, varUserProfile);
             }
@@ -468,7 +517,7 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal usuario, id: {idUser}");
             }
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 List<userModel> usuarios = db.seguidores.Where(o => o.id_seguido == idUser)
                    .Include(o => o.users).Select(
@@ -480,7 +529,7 @@ namespace BrotAPI_Final.Controllers.API
                             id_user = b.users.id_user,
                             isVendor = b.users.isVendor,
                             nombre = b.users.nombre,
-                            pass = b.users.pass,
+                            pass = "pass",
                             puntaje = b.users.puntaje,
                             username = b.users.username,
                             img = b.users.img,
@@ -509,7 +558,7 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal usuario, id: {idUser}");
             }
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 List<userModel> usuarios = db.seguidores
                     .Include(o => o.users1)
@@ -523,7 +572,7 @@ namespace BrotAPI_Final.Controllers.API
                             id_user = b.users1.id_user,
                             isVendor = b.users1.isVendor,
                             nombre = b.users1.nombre,
-                            pass = b.users1.pass,
+                            pass = "pass",
                             puntaje = b.users1.puntaje,
                             username = b.users1.username,
                             img = b.users1.img,
@@ -555,6 +604,8 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [HttpDelete]
+        [Route("{id}")]
         public HttpResponseMessage Delete(int id)
         {
             var item = r.GetById(id);
@@ -578,6 +629,7 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPost]
         public HttpResponseMessage Post(users item)
         {
             if (item == null)
@@ -598,7 +650,183 @@ namespace BrotAPI_Final.Controllers.API
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible guardar los datos del user");
         }
 
+        [HttpPost]
+        [Route("verify")]
+        public HttpResponseMessage VerifyEmail(users item)
+        {
+            var res = r.EmailExist(item.email);
+            if (res == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"El email no esta registrado");
+            }
+            else
+            {
+                Random rand = new Random();
+                int codigo = rand.Next(1000, 9999);
+                MailMessage mail = new MailMessage();
+                mail.To.Add(new MailAddress(item.email));
+                mail.From = new MailAddress("noreply@brot.com");
+                mail.Subject = "Password recovery";
+                mail.Body = "Hola " + res.nombre + "Este es tu codigo de seguridad: <b>" + codigo + "</b>";
+                mail.IsBodyHtml = true;
 
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = false;
+                smtp.EnableSsl = true;
+                smtp.Credentials = new NetworkCredential("bayronmartinez9911@gmail.com", "pruebas123B");
+                try
+                {
+                    smtp.Send(mail);
+                    mail.Dispose();
+                    codigos code = new codigos();
+                    code.codigo = codigo.ToString();
+                    code.id_user = res.id_user;
+                    v.Post(code);
+                    return Request.CreateResponse(HttpStatusCode.OK, code);
+                }
+                catch (Exception ex)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Error " + ex.Message);
+                }
+            }
+        }
+
+        [HttpPost]
+        [Route("signupverify")]
+        public HttpResponseMessage EmailExist(users item)
+        {
+            var res = r.EmailExist(item.email);
+            if (res == null)
+            {
+                Random rand = new Random();
+                int codigo = rand.Next(1000, 9999);
+                MailMessage mail = new MailMessage();
+                mail.To.Add(new MailAddress(item.email));
+                mail.From = new MailAddress("noreply@brot.com");
+                mail.Subject = "Email Verification code "+ codigo;
+                mail.Body = "Hola " + item.nombre + " Este es tu codigo de verificacion de tu cuenta: <b>" + codigo + "</b>";
+                mail.IsBodyHtml = true;
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = false;
+                smtp.EnableSsl = true;
+                smtp.Credentials = new NetworkCredential("bayronmartinez9911@gmail.com", "pruebas123B");
+                try
+                {
+                    smtp.Send(mail);
+                    mail.Dispose();
+                    codigos code = new codigos();
+                    code.codigo = codigo.ToString();
+                    code.id_user = 0;
+                    return Request.CreateResponse(HttpStatusCode.OK, code);
+                }
+                catch (Exception ex)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Error " + ex.Message);
+                }
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Ya existe");
+            }
+        }
+
+        [HttpPost]
+        [Route("authcode/{code}")]
+        public HttpResponseMessage AuthCode(string code, users item)
+        {
+            var res = v.Auth(code);
+            if (res == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Error ");
+            }
+            else
+            {
+                if (item.id_user == res.id_user)
+                {
+                    var pkg = new codigos();
+                    pkg.id_user = res.id_user;
+                    var result = v.Delete(code);
+                    if (result)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, pkg);
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Hubo un error en el proceso");
+                    }
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Codigo Erroneo");
+                }
+            }
+        }
+
+
+        [HttpPut]
+        [Route("recpass/{id}")]
+        public HttpResponseMessage RecPass(string id, users itemNew)
+        {
+
+            var data = r.GetById(int.Parse(id));
+            if (data == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos sobre el user a actualizar");
+            }
+            try
+            {
+                data.pass = itemNew.pass;
+                using (var db = new DBContextModel())
+                {
+                    db.Entry(data).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, $"Contraseña cambiada");
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar la contraseña");
+        }
+
+        [HttpPut]
+        [Route("logout/{id}")]
+        public HttpResponseMessage logout(int id, users item)
+        {
+            if (id == item.id_user)
+            {
+
+                var data = r.GetById(id);
+                if (data == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos sobre el usuario a actualizar");
+                }
+                try
+                {
+                    data.Phone_OS = "";
+                    data.Device_id = "";
+                    using (var db = new DBContextModel())
+                    {
+                        db.Entry(data).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, $"Sesión finalizada");
+                }
+                catch (Exception ex)
+                {
+                    Debug.Print(ex.Message);
+                }
+            }
+
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar la contraseña");
+
+        }
 
         /// <summary>
         /// Verifica si existe el id ingresado en la tabla y luego actualiza el registro
@@ -606,10 +834,11 @@ namespace BrotAPI_Final.Controllers.API
         /// <param name="id"></param>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPut]
         public HttpResponseMessage Put(int id, users item)
         {
             var data = r.GetById(id);
-            if (data == null)
+            if (data == null || id != item.id_user)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos sobre el user a actualizar");
             }
@@ -618,6 +847,73 @@ namespace BrotAPI_Final.Controllers.API
                 return Request.CreateResponse(HttpStatusCode.OK, $"Datos modificados para el user {id}");
             }
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar el user, id: {id}");
+        }
+
+
+        [HttpPut]
+        [Route("pass/{oldPassWord}")]
+        public HttpResponseMessage ChangePassWord(string oldPassWord, users itemNew)
+        {
+
+            var data = r.GetById(itemNew.id_user);
+            if (data == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos sobre el user a actualizar");
+            }
+            try
+            {
+                if (data.pass == oldPassWord)
+                {
+
+                    data.pass = itemNew.pass;
+                    using (var db = new DBContextModel())
+                    {
+                        db.Entry(data).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, $"Contraseña cambiada");
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotModified, $"Contraseña incorrecta");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar la contraseña");
+        }
+
+
+
+
+        [Route("photo/{id}")]
+        [HttpPut]
+        public HttpResponseMessage ChangePhoto(int id, users itemNew)
+        {
+
+            var data = r.GetById(itemNew.id_user);
+            if (data == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos sobre el usuario a actualizar");
+            }
+            try
+            {
+
+                data.img = itemNew.img;
+                using (var db = new DBContextModel())
+                {
+                    db.Entry(data).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, $"Foto cambiada");
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar la contraseña");
         }
         #endregion
 
