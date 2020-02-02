@@ -1,5 +1,2 @@
 # Brot
-
-Este proyecto fue movido a otro repositorio.
-Esta es una versión incompleta del proyecto, la otra está en:
-[#Proyecto de Brot](https://Github.com/silkenharbor6/Brot)
+Proyecto de portafolio de la certificación de Programador XAMARIN de USAID y FGK
