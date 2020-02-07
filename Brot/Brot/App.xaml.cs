@@ -32,14 +32,15 @@
             //jsoner.SignOut();
 
             InitializeComponent();
-            perms();
+            CheckStoragePermissions();
             inicializar();
+            NotificationCenter.Current.CancelAll();
             NotificationCenter.Current.NotificationTapped += Current_NotificationTapped;
         }
 
 
 
-        private async void perms()
+        private async void CheckStoragePermissions()
         {
             await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
         }
@@ -151,7 +152,10 @@
         {
             try
             {
-                MainPage = new NavigationPage(new MainTabbed());
+                if (MainPage==null || MainPage==default(Page))
+                {
+                    MainPage = new NavigationPage(new MainTabbed());
+                }
                 AccionNotificacion(Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(e.Data));
             }
             catch (Exception ex) { }
@@ -174,7 +178,6 @@
                     Title = e.Title,
                     Description = e.Message,
                     ReturningData = data // Returning data when tapped on notification.
-                                         //NotifyTime = DateTime.Now.(1) // Used for Scheduling local notification, if not specified notification will show immediately.
                 };
                 NotificationCenter.Current.Show(notification);
             }
