@@ -11,6 +11,18 @@
     BackgroundColor="White"
     mc:Ignorable="d">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Style.Triggers>
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="LightYellow" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <ScrollView>
             <StackLayout

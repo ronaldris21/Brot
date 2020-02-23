@@ -44,7 +44,7 @@
                 <Label Text="Codigo enviado"
 				   FontSize="Large"
 				   TextColor="#031540"
-				   HorizontalOptions="CenterAndExpand" />
+				   HorizontalOptions="Center" />
                 <Label Text="Ingresa el codigo que se ha enviado a tu correo"
 				   FontSize="Small"
 				   HorizontalTextAlignment="Center"

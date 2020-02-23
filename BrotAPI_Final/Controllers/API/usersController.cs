@@ -675,7 +675,8 @@ namespace BrotAPI_Final.Controllers.API
                 smtp.Port = 587;
                 smtp.UseDefaultCredentials = false;
                 smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential("bayronmartinez9911@gmail.com", "pruebas123B");
+                var credentials = new EmailCredentials();
+                smtp.Credentials = new NetworkCredential(credentials.Email,credentials.pass);
                 try
                 {
                     smtp.Send(mail);
@@ -714,7 +715,8 @@ namespace BrotAPI_Final.Controllers.API
                 smtp.Port = 587;
                 smtp.UseDefaultCredentials = false;
                 smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential("bayronmartinez9911@gmail.com", "pruebas123B");
+                var credentials = new EmailCredentials();
+                smtp.Credentials = new NetworkCredential(credentials.Email,credentials.pass);
                 try
                 {
                     smtp.Send(mail);

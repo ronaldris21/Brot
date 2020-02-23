@@ -19,8 +19,6 @@ namespace BrotAPI_Final.Controllers.API
         //private DB_BrotEntitiesLast db = new DB_BrotEntitiesLast();
         private RcomentariosDB r = new RcomentariosDB();
 
-
-
         #region Gets
         [Route("api/comentarios/{idComentario}")]
         [HttpGet]

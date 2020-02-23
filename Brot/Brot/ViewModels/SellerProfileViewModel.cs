@@ -2,18 +2,18 @@
 
 namespace Brot.ViewModels
 {
+    using AsyncAwaitBestPractices;
     using Brot.Patterns;
     using Brot.Services;
     using Brot.Views;
     using Models.ResponseApi;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+    using System.Threading.Tasks;
+
     public class SellerProfileViewModel : BaseViewModel
     {
         private ResponseUserProfile _Usuario;
         private ResponsePublicacionFeed _publicacionesThis;
-
+        private int idUser;
         public ResponsePublicacionFeed publicacionesThis
         {
             get { return _publicacionesThis; }
@@ -41,7 +41,7 @@ namespace Brot.ViewModels
         private Xamarin.Forms.Command _RefreshCommand;
         public Xamarin.Forms.Command RefreshCommand
         {
-            get => _RefreshCommand ??= new Xamarin.Forms.Command(CargarDatos);
+            get => _RefreshCommand ??= new Xamarin.Forms.Command(()=>CargarDatos().SafeFireAndForget());
         }
 
 
@@ -52,22 +52,23 @@ namespace Brot.ViewModels
             {
                 UserProfile = usuarioModel
             };
-            CargarDatos();
-
+            idUser = usuarioModel.id_user;
+            CargarDatos().SafeFireAndForget();
         }
 
-        public async void CargarDatos()
+        public async Task CargarDatos()
         {
             IsRefreshing = true;
             ResponseUserProfile profiledata = new ResponseUserProfile();
-            if (UserProfile.UserProfile.id_user != Singleton.Instance.User.id_user)
+            if (isMyProfile)
             {
-                profiledata = await RestAPI.GetOtherUserrofile(this.UserProfile.UserProfile.id_user, Singleton.Instance.User.id_user);
+                //Mi perfil!
+                profiledata = await RestAPI.userprofile(Singleton.Instance.User.id_user).ConfigureAwait(false); 
             }
             else
             {
-                //Mi perfil!
-                profiledata = await RestAPI.userprofile(Singleton.Instance.User.id_user);
+                //Perfil de otro
+                profiledata = await RestAPI.GetOtherUserrofile(idUser, Singleton.Instance.User.id_user).ConfigureAwait(false);
             }
 
             if (profiledata != null)
@@ -80,18 +81,17 @@ namespace Brot.ViewModels
                 {
                     profiledata.UserProfile.img = DLL.constantes.ProfileImageError;
                 }
-                UserProfile = profiledata;
 
-                for (int i = 0; i < UserProfile.publicacionesUser.Count; i++)
+                for (int i = 0; i < profiledata.publicacionesUser.Count; i++)
                 {
                     ///No verifico si la imagen es null, porque ya lo hice en alguna page anterior
-                    UserProfile.publicacionesUser[i].UsuarioCreator = UserProfile.UserProfile;
-                    UserProfile.publicacionesUser[i].publicacion.img = DLL.constantes.urlImages + UserProfile.publicacionesUser[i].publicacion.img;
+                    profiledata.publicacionesUser[i].UsuarioCreator = profiledata.UserProfile;
+                    profiledata.publicacionesUser[i].publicacion.img = DLL.constantes.urlImages + profiledata.publicacionesUser[i].publicacion.img;
                 }
+                UserProfile = profiledata;
             }
-
             IsRefreshing = false;
-
+            OnPropertyChanged(nameof(IsRefreshing));
         }
 
     }

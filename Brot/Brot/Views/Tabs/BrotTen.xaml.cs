@@ -12,19 +12,19 @@
     [DesignTimeVisible(true)]
     public partial class BrotTen : ContentPage
     {
-        private BrotTenViewModel ViewModel;
         public BrotTen()
         {
             InitializeComponent();
-
-            BindingContext = ViewModel = new BrotTenViewModel();
+            BindingContext = new BrotTenViewModel();
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
         }
 
         private async void FeedListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var selected = e.SelectedItem as ResponseUsuariosFiltro;
-
-            if (selected == null)
+            if (!(e.SelectedItem is ResponseUsuariosFiltro selected))
                 return;
 
             //await Navigation.PushAsync(new SellerProfile(new SellerProfileViewModel(item)));

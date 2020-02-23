@@ -31,10 +31,10 @@ namespace Brot.ViewModels
 
             if (resultSuccess)
             {
-                var newPage = new Views.Post(new PostViewModel(userM),Patterns.Singleton.Instance.id_UserCreator_post);
+                var pagina = new Views.Post(new PostViewModel(userM), Patterns.Singleton.Instance.id_UserCreator_post);
                 await App.Current.MainPage.Navigation.PopAsync();
                 await App.Current.MainPage.Navigation.PopAsync();
-                await App.Current.MainPage.Navigation.PushAsync(newPage);
+                await App.Current.MainPage.Navigation.PushAsync(pagina);
             }
             else
             {

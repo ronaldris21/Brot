@@ -7,74 +7,75 @@
     xmlns:celdas="clr-namespace:Brot.Cells"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Editando"
     BackgroundColor="White"
     mc:Ignorable="d">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding ActualizarCommand}" Text="Actualizar" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
-        <StackLayout
-            Margin="5"
-            HorizontalOptions="Fill"
-            VerticalOptions="Center">
-            <Label HorizontalOptions="CenterAndExpand" Text="Edita tu comentario:" />
-            <Editor
-                AutoSize="TextChanges"
-                HorizontalOptions="Fill"
-                Text="{Binding Comentario.comentario.contenido}" />
+        <Grid>
 
-            <ActivityIndicator IsRunning="{Binding IsRefreshing}" />
+            <StackLayout Margin="5" HorizontalOptions="Fill">
+                <Label HorizontalOptions="CenterAndExpand" Text="Edita tu comentario:" />
+                <Editor
+                    AutoSize="TextChanges"
+                    HorizontalOptions="Fill"
+                    Text="{Binding Comentario.comentario.contenido}" />
 
+                <Grid Padding="5" BindingContext="{Binding Comentario}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="45" />
+                    </Grid.ColumnDefinitions>
 
-
-            <Grid Padding="5" BindingContext="{Binding Comentario}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="4*" />
-                    <ColumnDefinition Width="45" />
-                </Grid.ColumnDefinitions>
-
-                <Circle:CircleImage
-                    Grid.Column="0"
-                    Aspect="AspectFit"
-                    BorderColor="Black"
-                    BorderThickness="2"
-                    HeightRequest="60"
-                    HorizontalOptions="Center"
-                    Source="{Binding usuario.img}"
-                    VerticalOptions="Center"
-                    WidthRequest="60" />
+                    <Circle:CircleImage
+                        Grid.Column="0"
+                        Aspect="AspectFit"
+                        BorderColor="Black"
+                        BorderThickness="2"
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        Source="{Binding usuario.img}"
+                        VerticalOptions="Start"
+                        WidthRequest="60" />
 
 
 
-                <StackLayout Grid.Column="1">
-                    <StackLayout>
-                        <Label
-                            FontAttributes="Bold"
-                            Text="{Binding usuario.username, StringFormat='@{0}'}"
-                            TextColor="#53504d" />
+                    <StackLayout Grid.Column="1">
+                        <StackLayout>
+                            <Label
+                                FontAttributes="Bold"
+                                Text="{Binding usuario.username, StringFormat='@{0}'}"
+                                TextColor="#53504d" />
 
-                        <Label Text="{Binding comentario.contenido}" TextColor="#53504d" />
+                            <Label Text="{Binding comentario.contenido}" TextColor="#53504d" />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <ImageButton
+                                BackgroundColor="Transparent"
+                                HeightRequest="32"
+                                Source="{Binding isLiked, Converter={StaticResource BoolToStringConverter}}"
+                                WidthRequest="32" />
+
+                            <Label
+                                Text="{Binding CantLikes, StringFormat='{0} # Brots', Mode=TwoWay}"
+                                TextColor="#565351"
+                                VerticalOptions="Center" />
+
+
+                        </StackLayout>
                     </StackLayout>
+                </Grid>
+                <Button Command="{Binding ActualizarCommand}" Text="ACTUALIZAR" />
 
-                    <StackLayout Orientation="Horizontal">
+            </StackLayout>
 
-                        <ImageButton
-                            BackgroundColor="Transparent"
-                            HeightRequest="32"
-                            Source="{Binding isLiked, Converter={StaticResource BoolToStringConverter}}"
-                            WidthRequest="32" />
-
-                        <Label
-                            Text="{Binding CantLikes, StringFormat='{0} # Brots', Mode=TwoWay}"
-                            TextColor="#565351"
-                            VerticalOptions="Center" />
-
-
-                    </StackLayout>
-                    <Button
-                        Command="{Binding ActualizarCommand}"
-                        HorizontalOptions="CenterAndExpand"
-                        Text="Actualizar" />
-                </StackLayout>
-            </Grid>
-        </StackLayout>
+            <ActivityIndicator HorizontalOptions="Center" IsRunning="{Binding IsRefreshing}" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

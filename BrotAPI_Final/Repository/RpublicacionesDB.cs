@@ -75,7 +75,6 @@ namespace BrotAPI_Final.Repository
                 }
                 //Intercambio los atributos del objeto viejo con los del nuevo}
                 dbitem.id_user = item.id_user;
-                dbitem.img = item.img;
                 dbitem.descripcion = item.descripcion;
                 dbitem.fecha_creacion = item.fecha_creacion;
                 dbitem.fecha_actualizacion = item.fecha_actualizacion;

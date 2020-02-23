@@ -29,7 +29,7 @@ namespace Brot.Services
             {
                 return true;
             }
-
+            //TODO TOAST!! Verifique su conexión a internet
             return false;
         }
         public static async Task<Response> GetAll<T>(String Controller)
@@ -38,7 +38,7 @@ namespace Brot.Services
             {
                 try
                 {
-                    var response = await cliente.GetAsync(url + Controller);
+                    var response = await cliente.GetAsync(url + Controller).ConfigureAwait(false);
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -86,7 +86,7 @@ namespace Brot.Services
                 {
                     var json = JsonConvert.SerializeObject(item);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await cliente.PostAsync($"{url}{controller}", content);
+                    HttpResponseMessage response = await cliente.PostAsync($"{url}{controller}", content).ConfigureAwait(false);
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -128,7 +128,7 @@ namespace Brot.Services
             {
                 try
                 {
-                    HttpResponseMessage response = await cliente.DeleteAsync(url + controller + "/" + id.ToString());
+                    HttpResponseMessage response = await cliente.DeleteAsync(url + controller + "/" + id.ToString()).ConfigureAwait(false);
                     if (!response.IsSuccessStatusCode)
                     {
                         return false;
@@ -155,7 +155,7 @@ namespace Brot.Services
                 {
                     var json = JsonConvert.SerializeObject(item);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await cliente.PutAsync(url + controller + "/" + id.ToString(), content);
+                    HttpResponseMessage response = await cliente.PutAsync(url + controller + "/" + id.ToString(), content).ConfigureAwait(false);
                     if (!response.IsSuccessStatusCode)
                     {
                         return false;
@@ -181,7 +181,7 @@ namespace Brot.Services
                 {
                     var json = JsonConvert.SerializeObject(item);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await cliente.PostAsync($"{url}{controller}", content);
+                    HttpResponseMessage response = await cliente.PostAsync($"{url}{controller}", content).ConfigureAwait(false);
 
                     if (!response.IsSuccessStatusCode)
                     {
@@ -223,7 +223,7 @@ namespace Brot.Services
             {
                 try
                 {
-                    var response = await cliente.GetAsync(url + Controller);
+                    var response = await cliente.GetAsync(url + Controller).ConfigureAwait(false);
 
                     if (!response.IsSuccessStatusCode)
                     {

@@ -7,41 +7,20 @@ namespace Brot.Services
     using System.Drawing;
     using System.Text;
     using System.Threading.Tasks;
+    using Xamarin.Essentials;
 
     public class DialogService
     {
         public async Task Message(string title, string message)
         {
-            await App.Current.MainPage.DisplayAlert(title, message, "Accept");
+            await App.Current.MainPage.DisplayAlert(title, message, "Ok");
         }
 
         public async Task<bool> Message(string title, string message, string ok, string cancel)
         {
-            return await App.Current.MainPage.DisplayAlert(title, message, ok, cancel);
+            //return MainThread.InvokeOnMainThreadAsync(() =>
+            return await App.Current.MainPage.DisplayAlert(title, message, ok,cancel);
         }
-
-        public void ToastOk(string mensaje, int miliSegundos)
-        {
-            ToastConfig toastito = new ToastConfig(mensaje)
-                .SetPosition(ToastPosition.Top)
-                .SetBackgroundColor(Color.Green)
-                .SetMessageTextColor(Color.Black)
-                .SetDuration(miliSegundos);
-
-            UserDialogs.Instance.Toast(toastito);
-        }
-
-        public void ToastBAD(string mensaje, int miliSegundos)
-        {
-            ToastConfig toastito = new ToastConfig(mensaje)
-                .SetPosition(ToastPosition.Top)
-                .SetBackgroundColor(Color.LightCoral)
-                .SetMessageTextColor(Color.Black)
-                .SetDuration(miliSegundos);
-
-            UserDialogs.Instance.Toast(toastito);
-        }
-
 
     }
 }

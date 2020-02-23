@@ -10,6 +10,7 @@ namespace Brot.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Text;
+    using AsyncAwaitBestPractices;
     using System.Threading.Tasks;
 
     class BrotTenViewModel : BaseViewModel
@@ -31,8 +32,7 @@ namespace Brot.ViewModels
 
         public BrotTenViewModel()
         {
-
-            cargarUsers();
+            cargarUsers().SafeFireAndForget();
             //Task.Run(async () => await  cargarUsers());
         }
 
@@ -42,13 +42,13 @@ namespace Brot.ViewModels
         private Xamarin.Forms.Command _RefreshComman;
         public Xamarin.Forms.Command RefreshCommand
         {
-            get => _RefreshComman ?? (_RefreshComman = new Xamarin.Forms.Command(cargarUsers));
+            get => _RefreshComman ?? (_RefreshComman = new Xamarin.Forms.Command(()=>cargarUsers().SafeFireAndForget()));
         }
-        public async void cargarUsers()
+        public async Task cargarUsers()
         {
             IsRefreshing = true;
 
-            var resultBrotTEN = await RestAPI.getBrotTen();
+            var resultBrotTEN = await RestAPI.getBrotTen().ConfigureAwait(false);
             this.lBrotTen = new ObservableCollection<ResponseUsuariosFiltro>();
             for (int i = 0; i < resultBrotTEN.Count; i++)
             {

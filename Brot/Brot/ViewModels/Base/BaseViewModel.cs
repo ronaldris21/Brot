@@ -2,19 +2,11 @@
 {
 
     #region BaseViewmodel Class
-
-    using Brot.Patterns;
-    using Models;
     using System;
-    using System.ComponentModel;
-    using System.Diagnostics;
     public class BaseViewModel : ObservableObject 
     {
-        #region Attributes
-        private string _Title = String.Empty;
-        #endregion
 
-        #region properties
+        private string _Title = String.Empty;
         public string Title
         {
             get { return this._Title; }
@@ -44,7 +36,6 @@
 		}
         
 
-        #endregion
     }
 
 

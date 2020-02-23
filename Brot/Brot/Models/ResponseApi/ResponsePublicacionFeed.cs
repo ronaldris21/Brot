@@ -169,7 +169,7 @@
                     //Se crea el Like
                     IsLiked = !IsLiked;
                     cantLikes++;
-                    await Brot.Services.RestClient.Post<like_postModel>(DLL.constantes.like_postt, likeObject);
+                    Brot.Services.RestClient.Post<like_postModel>(DLL.constantes.like_postt, likeObject);
                 }
                 return;
             }
@@ -179,14 +179,14 @@
                 //Se quita el like
                 IsLiked = !IsLiked;
                 cantLikes--;
-                await RestClient.Post<like_postModel>("like_post/borrar", likeObject);
+                RestClient.Post<like_postModel>("like_post/borrar", likeObject);
             }
             else
             {
                 //se crea el like!
                 IsLiked = !IsLiked;
                 cantLikes++;
-                await RestClient.Post<like_postModel>("like_post", likeObject);
+                RestClient.Post<like_postModel>("like_post", likeObject);
             }
         }
 

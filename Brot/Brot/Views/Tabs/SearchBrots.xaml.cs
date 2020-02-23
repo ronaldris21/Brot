@@ -13,13 +13,21 @@ namespace Brot.Views.Tabs
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SearchBrots : ContentPage
     {
+        private SearchBrotsViewModel VM { get; set; }
         public SearchBrots()
         {
             InitializeComponent();
-            BindingContext = VM = new SearchBrotsViewModel();
         }
-
-        internal SearchBrotsViewModel VM { get; }
+        bool isFirst = true;
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (isFirst)
+            {
+                isFirst = false;
+                BindingContext = VM = new SearchBrotsViewModel();
+            }
+        }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {

@@ -1,9 +1,11 @@
 ﻿namespace Brot.Views
 {
+    using AsyncAwaitBestPractices;
     using Plugin.Permissions;
     using Plugin.Permissions.Abstractions;
+    using System;
     using System.ComponentModel;
-
+    using System.Threading.Tasks;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
 
@@ -11,13 +13,17 @@
     [DesignTimeVisible(false)]
     public partial class MainTabbed : TabbedPage
     {
-        private bool MapsPermited = false;
         public MainTabbed()
         {
             InitializeComponent();
-            ask4LocationMaaps().Wait();
 
+            //CreateTabbedPage().ConfigureAwait(false);
+
+
+
+            ////TODO: Improve Feed Startup!
             Children.Add(new Tabs.Feed());
+
             Children.Add(new Tabs.SellersMap());
             Children.Add(new Tabs.BrotsTabbedxaml());
             //Children.Add(new Tabs.BrotTen());
@@ -26,53 +32,24 @@
             //CurrentPage = Children[1];
 
         }
-        private async System.Threading.Tasks.Task ask4LocationMaaps()
+
+        private async Task  CreateTabbedPage()
         {
-            try
-            {
-                PermissionStatus status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.LocationWhenInUse);
-                PermissionStatus status2 = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-                PermissionStatus status3 = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.LocationAlways);
+            Page pag1, pag2, pag3, pag4;
+            pag1 = pag2 = pag3 = pag4 = default(Page);
 
-                if (status == PermissionStatus.Granted)
-                {
-                    MapsPermited = true;
-                }
-                else if (status != PermissionStatus.Granted)
-                {
-                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
-                    {
-                        await App.Current.MainPage.DisplayAlert("Need location", "Gunna need that location", "OK");
-                    }
-                    status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-                }
+            Task t1 = Task.Run(() => pag1 = new Tabs.Feed());
+            Task t2 = Task.Run(() => pag2 = new Tabs.SellersMap());
+            Task t3 = Task.Run(() => pag3 = new Tabs.BrotsTabbedxaml());
+            Task t4 = Task.Run(() => pag4 = new Tabs.Profile());
 
+            await Task.WhenAll(t1, t2, t3, t4);
 
+            Children.Add(pag1);
+            Children.Add(pag2);
+            Children.Add(pag3);
+            Children.Add(pag4);
 
-                if (status == PermissionStatus.Granted)
-                {
-                    //Query permission
-                    MapsPermited = true;
-                }
-                else if (status != PermissionStatus.Unknown)
-                {
-                    //location denied
-                    MapsPermited = false;
-                }
-                else
-                {
-                    MapsPermited = false;
-                }
-            }
-            catch (System.Exception ex)
-            {
-                //Something went wrong
-                Microsoft.AppCenter.Crashes.Crashes.TrackError(ex,
-                    new System.Collections.Generic.Dictionary<string, string>()
-                                            { { "Geolocalization","Error"} });
-                MapsPermited = false;
-            }
         }
-
     }
 }

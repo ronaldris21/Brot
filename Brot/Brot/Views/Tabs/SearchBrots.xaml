@@ -16,14 +16,18 @@
                 SearchCommand="{Binding updateListCommand}"
                 Text="{Binding Texto}"
                 TextChanged="SearchBar_TextChanged" />
-            <Picker ItemsSource="{Binding Categorias}" SelectedIndex="{Binding sind}" HorizontalOptions="FillAndExpand" SelectedIndexChanged="Picker_SelectedIndexChanged"/>
+            <Picker
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding Categorias}"
+                SelectedIndex="{Binding Selectedindice}"
+                SelectedIndexChanged="Picker_SelectedIndexChanged" />
             <ListView
                 HasUnevenRows="True"
                 IsPullToRefreshEnabled="True"
                 IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
                 ItemsSource="{Binding Vendedores, Mode=TwoWay}"
                 RefreshCommand="{Binding refreshCommand}"
-                SelectedItem="{Binding Usuario,Mode=TwoWay}"
+                SelectedItem="{Binding Usuario, Mode=TwoWay}"
                 SeparatorColor="#031540">
                 <ListView.ItemTemplate>
                     <DataTemplate>

@@ -1,15 +1,12 @@
-﻿
-
-namespace Brot.ViewModels
+﻿namespace Brot.ViewModels
 {
+    using AsyncAwaitBestPractices;
     using Brot.Models.ResponseApi;
     using Brot.Patterns;
     using Brot.Services;
     using Brot.Views;
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Text;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Xamarin.Forms;
@@ -68,7 +65,7 @@ namespace Brot.ViewModels
         private Xamarin.Forms.Command _RefreshCommand;
         public Xamarin.Forms.Command RefreshCommand
         {
-            get => _RefreshCommand ??= new Xamarin.Forms.Command(CargarDatos);
+            get => _RefreshCommand ??= new Xamarin.Forms.Command(()=> CargarDatos().SafeFireAndForget());
         }
         #endregion
 
@@ -76,14 +73,13 @@ namespace Brot.ViewModels
         public ProfileViewModel()
         {
             VerPostPropios = Singleton.Instance.User.isVendor;
-            CargarDatos();
+            CargarDatos().SafeFireAndForget();
         }
-        public async void CargarDatos()
+        public async Task CargarDatos()
         {
             IsRefreshing = true;
-            ResponseUserProfile profiledata = new ResponseUserProfile();
 
-            profiledata = await RestAPI.userprofile(Singleton.Instance.User.id_user);
+            ResponseUserProfile profiledata = await RestAPI.userprofile(Singleton.Instance.User.id_user).ConfigureAwait(false);
 
             if (profiledata != null)
             {
@@ -95,25 +91,24 @@ namespace Brot.ViewModels
                 {
                     profiledata.UserProfile.img = DLL.constantes.ProfileImageError;
                 }
-                UserProfile = profiledata;
 
                 //Publicaciones Propias
-                for (int i = 0; i < UserProfile.publicacionesUser.Count; i++)
+                for (int i = 0; i < profiledata.publicacionesUser.Count; i++)
                 {
                     ///No verifico si la imagen es null, porque ya lo hice en alguna page anterior
-                    UserProfile.publicacionesUser[i].UsuarioCreator = UserProfile.UserProfile;
-                    UserProfile.publicacionesUser[i].publicacion.img = DLL.constantes.urlImages + UserProfile.publicacionesUser[i].publicacion.img;
+                    profiledata.publicacionesUser[i].UsuarioCreator = profiledata.UserProfile;
+                    profiledata.publicacionesUser[i].publicacion.img = DLL.constantes.urlImages + profiledata.publicacionesUser[i].publicacion.img;
                 }
 
                 //Postsguardados
-                for (int i = 0; i < UserProfile.publicacionesGuardadas.Count; i++)
+                for (int i = 0; i < profiledata.publicacionesGuardadas.Count; i++)
                 {
                     try
                     {
-                        UserProfile.publicacionesGuardadas[i].UsuarioCreator.img = String.IsNullOrEmpty(UserProfile.publicacionesGuardadas[i].UsuarioCreator.img)
+                        profiledata.publicacionesGuardadas[i].UsuarioCreator.img = String.IsNullOrEmpty(profiledata.publicacionesGuardadas[i].UsuarioCreator.img)
                                     ? DLL.constantes.ProfileImageError
-                                    : DLL.constantes.urlImages + UserProfile.publicacionesGuardadas[i].UsuarioCreator.img;
-                        UserProfile.publicacionesGuardadas[i].publicacion.img = DLL.constantes.urlImages + UserProfile.publicacionesGuardadas[i].publicacion.img;
+                                    : DLL.constantes.urlImages + profiledata.publicacionesGuardadas[i].UsuarioCreator.img;
+                        profiledata.publicacionesGuardadas[i].publicacion.img = DLL.constantes.urlImages + profiledata.publicacionesGuardadas[i].publicacion.img;
                     }
                     catch (Exception)
                     {
@@ -121,6 +116,10 @@ namespace Brot.ViewModels
                         ///TODO Modificar api Usuario de pOst guardados
                     }
                 }
+
+                //La intención es que el SetProperty solo se ejecute una única vez!
+                UserProfile = profiledata;
+
 
 
                 if (VerPostPropios)
@@ -134,7 +133,6 @@ namespace Brot.ViewModels
             }
 
             UsuarioNombreMostrar = UserProfile.UserProfile.isVendor ? UserProfile.UserProfile.puesto_name : UserProfile.UserProfile.nombre + " " + UserProfile.UserProfile.apellido;
-            await Task.Delay(200);
             IsRefreshing = false;
 
         }
@@ -144,14 +142,14 @@ namespace Brot.ViewModels
         {
             Application.Current.MainPage.Navigation.PushAsync(new EditProfile());
         }
-        private async void Signout()
+        private void Signout()
         {
             IsRefreshing = true;
-            await RestClient.Put<Models.userModel>("users/logout", Singleton.Instance.User.id_user, Singleton.Instance.User);
+            RestClient.Put<Models.userModel>("users/logout", Singleton.Instance.User.id_user, Singleton.Instance.User).SafeFireAndForget();
             Singleton.Instance.LocalJson.SignOut();
             var newPage = new NavigationPage(new Login());
             App.Current.MainPage = newPage;
-            await Microsoft.AppCenter.Push.Push.SetEnabledAsync(false);
+            Microsoft.AppCenter.Push.Push.SetEnabledAsync(false).SafeFireAndForget();
         }
 
 

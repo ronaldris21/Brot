@@ -12,11 +12,10 @@
     [DesignTimeVisible(true)]
     public partial class Feed : ContentPage
     {
-        FeedViewModel ViewModel;
         public Feed()
         {
             InitializeComponent();
-            BindingContext = ViewModel = new FeedViewModel();
+            BindingContext = new FeedViewModel();
         }
 
         protected override void OnAppearing()
@@ -25,9 +24,13 @@
             ((FeedViewModel)BindingContext).selectedItemLista = null;
         }
 
-        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void ListView_ItemSelected(ListView sender, SelectedItemChangedEventArgs e)
         {
-            ((ListView)sender).SelectedItem = null;
+            if (e.SelectedItem == null)
+                return;
+
+            sender.SelectedItem = null;
         }
+
     }
 }

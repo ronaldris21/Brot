@@ -35,11 +35,19 @@ namespace Brot.ViewModels
             IsRefreshing = true;
             Comentario.comentario.fecha_creacion = DateTime.Now;
             var result = await RestClient.Put<comentariosModel>(DLL.constantes.comentariost, Comentario.comentario.id_comentario, Comentario.comentario);
-            var newPage = new Views.Post(new PostViewModel(Comentario.comentario.id_post),Singleton.Instance.id_UserCreator_post);
-            await App.Current.MainPage.Navigation.PopAsync();
-            await App.Current.MainPage.Navigation.PopAsync();
-            await App.Current.MainPage.Navigation.PushAsync(newPage);
+            if (result)
+            {
+                var pagina = new Views.Post(new PostViewModel(Comentario.comentario.id_post), Singleton.Instance.id_UserCreator_post);
+                await App.Current.MainPage.Navigation.PopAsync();
+                await App.Current.MainPage.Navigation.PopAsync();
+                await App.Current.MainPage.Navigation.PushAsync(pagina);
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Descripción no actualizada", "Intente de nuevo o pruebe más tarde", "Ok");
+            }
             IsRefreshing = false;
+
         }
     }
 }

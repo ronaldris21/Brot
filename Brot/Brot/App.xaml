@@ -6,11 +6,13 @@
     xmlns:Converters="clr-namespace:Brot.Converters"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:triggers="clr-namespace:Brot.Trigger"
     mc:Ignorable="d">
     <Application.Resources>
 
 
         <ResourceDictionary>
+
 
             <Color x:Key="NaranjaBrot">#ff5001</Color>
             <Converters:BoolToStringConverter x:Key="BoolToStringConverter" />
@@ -41,6 +43,11 @@
                 <Setter Property="FontSize" Value="Subtitle" />
                 <Setter Property="TextColor" Value="#fff" />
                 <Setter Property="FontAttributes" Value="Bold" />
+                <Style.Triggers>
+                    <EventTrigger Event="Clicked">
+                        <triggers:ExpandButtonTriggerAction />
+                    </EventTrigger>
+                </Style.Triggers>
             </Style>
         </ResourceDictionary>
 

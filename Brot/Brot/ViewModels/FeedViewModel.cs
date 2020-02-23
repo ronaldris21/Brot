@@ -13,6 +13,8 @@ namespace Brot.ViewModels
     using System.Windows.Input;
     using Views;
     using System.Threading.Tasks;
+    using AsyncAwaitBestPractices;
+    using AsyncAwaitBestPractices.MVVM;
 
     public class FeedViewModel : BaseViewModel
     {
@@ -61,14 +63,12 @@ namespace Brot.ViewModels
         public FeedViewModel()
         {
             IsVendor = Singleton.Instance.User.isVendor;
-            this.lPosts = new ObservableCollection<ResponsePublicacionFeed>();
-            LoadFeed();
+            Refresh().SafeFireAndForget();
         }
 
         #endregion
 
         #region Commands
-        
         public ICommand takePhoto
         {
             get
@@ -83,33 +83,31 @@ namespace Brot.ViewModels
         private Xamarin.Forms.Command _RefreshCommand;
         public Xamarin.Forms.Command RefreshCommand
         {
-            get => _RefreshCommand ?? (_RefreshCommand = new Xamarin.Forms.Command(Refresh));
+            get => _RefreshCommand ?? (_RefreshCommand = new Xamarin.Forms.Command(()=>Refresh().SafeFireAndForget()));
         }
-        public async void Refresh()
+        public async Task Refresh()
         {
 
             IsRefreshing = true;
 
             try
             {
-                this.lPosts.Clear();
+                //No configureAwait Because I need to keep the context
                 await LoadFeed();
             }
             catch (Exception)
             {
-                await Singleton.Instance.Dialogs.Message("Is busy", "Couldn't load items");
+                await Singleton.Instance.Dialogs.Message("Ocupado", "No se pudieron cargar los datos, intenta refrescar la página");
             }
             finally
             {
                 IsRefreshing = false;
             }
         }
-        private Xamarin.Forms.Command _PostSomething;
-        public Xamarin.Forms.Command PostSomething
-        {
-            get => _PostSomething ?? (_PostSomething = new Xamarin.Forms.Command(AddPost));
-        }
-        public async void AddPost()
+        
+        private IAsyncCommand _PostSomething;
+        public IAsyncCommand PostSomething => _PostSomething ??= new AsyncCommand(AddPost);
+        public async Task AddPost()
         {
             IsRefreshing = true;
             publicacionesModel niu = new publicacionesModel();
@@ -130,16 +128,19 @@ namespace Brot.ViewModels
             niu.fecha_actualizacion = null;
             texto = "";
             PickPhotoAsync.name = null;
-            Response resp = await RestClient.Post<publicacionesModel>("publicaciones", niu);
+            Response resp = await RestClient.Post<publicacionesModel>("publicaciones", niu).ConfigureAwait(false);
             if (!resp.IsSuccess)
             {
-                await App.Current.MainPage.DisplayAlert("Error", resp.Message, "Aceptar");
-                IsRefreshing = false;
+                Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", resp.Message, "Aceptar");
+                    IsRefreshing = false;
+                });
                 return;
             }
 
             lPosts = new ObservableCollection<ResponsePublicacionFeed>();
-            await LoadFeed();
+            await LoadFeed().ConfigureAwait(false);
             IsRefreshing = false;
         }
 
@@ -150,7 +151,7 @@ namespace Brot.ViewModels
 
         public async Task LoadFeed()
         {
-            var result = await RestClient.GetAll<ResponsePublicacionFeed>($"publicaciones/all/{Singleton.Instance.User.id_user}/");
+            var result = await RestClient.GetAll<ResponsePublicacionFeed>($"publicaciones/all/{Singleton.Instance.User.id_user}/").ConfigureAwait(false);
 
             if (!result.IsSuccess)
             {
@@ -174,9 +175,8 @@ namespace Brot.ViewModels
                 datosNuevos.Add(post);
             }
             lPosts = new ObservableCollection<ResponsePublicacionFeed>(datosNuevos);
-
         }
-        
+
         #endregion
     }
 }

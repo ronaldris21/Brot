@@ -11,17 +11,24 @@
     [DesignTimeVisible(true)]
     public partial class Profile : ContentPage
     {
-        private ProfileViewModel ViewModel;
         public Profile()
         {
             InitializeComponent();
-
-            BindingContext = this.ViewModel = new ProfileViewModel();
         }
-
+        bool isFirst = true;
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (isFirst)
+            {
+                isFirst = false;
+                BindingContext = new ProfileViewModel();
+            }
+        }
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             ((ListView)sender).SelectedItem = null;
         }
+
     }
 }

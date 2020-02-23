@@ -12,6 +12,18 @@ namespace Brot.Patterns
 
     public class Singleton
     {
+
+        public Singleton()
+        {
+            stores = new ObservableCollection<userModel>();
+            this._Dialogs = new DialogService();
+            this._LocalJson = new UserJson();
+            img = new PickPhotoAsync();
+            isLoggued = VerifyLoggedUser();
+        }
+
+
+
         #region Attributes
 
         private static Singleton _Instance;
@@ -23,6 +35,7 @@ namespace Brot.Patterns
         #endregion
 
         #region MyRegion
+        public bool isLoggued;
         public static string passw = String.Empty; 
         public static bool fromProfile;
         public static ImageSource profilepic;
@@ -63,18 +76,7 @@ namespace Brot.Patterns
 
         #endregion
 
-        #region Constructor
 
-        public Singleton()
-        {
-            stores = new ObservableCollection<userModel>();
-            this._Dialogs = new DialogService();
-            this._LocalJson = new UserJson();
-            img = new PickPhotoAsync();
-            VerifyLoggedUser();
-        }
-
-        #endregion
 
         #region Methods
         public void AddStores(ObservableCollection<userModel> items)
@@ -93,15 +95,16 @@ namespace Brot.Patterns
         {
             return stores[id];
         }
-        private void VerifyLoggedUser()
+        private bool VerifyLoggedUser()
         {
             if (!this._LocalJson.IsUserLogged())
             {
-                this.User = new userModel();
-                return;
+                this.User = new userModel() { id_user = 0 };
+                return false;
             }
 
             this.User = this._LocalJson.ReadData();
+            return true;
         }
         public async Task<string> ChangePic()
         {

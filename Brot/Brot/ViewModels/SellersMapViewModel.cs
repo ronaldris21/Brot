@@ -1,5 +1,6 @@
 ﻿namespace Brot.ViewModels
 {
+    using AsyncAwaitBestPractices;
     using Brot.Patterns;
     using Brot.Services;
     using Brot.Views.Popups;
@@ -11,6 +12,7 @@
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using Xamarin.Forms.GoogleMaps;
     using Xamarin.Forms.Internals;
@@ -22,44 +24,32 @@
         private Pin _pin;
         public Pin pin
         {
-            get
-            {
-                return _pin;
-            }
-            set
-            {
-                _pin = value;OnPropertyChanged("pin");
-            }
+            get => _pin;
+            set => SetProperty(ref _pin, value);
         }
         public ObservableCollection<Pin> places
         {
-            get
-            {
-                return _places;
-            }
-            set
-            {
-                _places = value; OnPropertyChanged("places");
-            }
+            get => _places;
+            set => SetProperty(ref _places, value);
         }
 
         public ICommand InitPinsCommand
         {
             get
             {
-                return new Xamarin.Forms.Command(InitPins);
+                return new Xamarin.Forms.Command(()=>InitPins().SafeFireAndForget());
             }
         }
         public SellersMapViewModel(ref Map map)
         {
             Mapa = map;
-            InitPins();
+            InitPins().SafeFireAndForget();
         }
-        public async void InitPins()
+        public async Task InitPins()
         {
             places = new ObservableCollection<Pin>();
             //TODO modificar controlador de Vendor
-            var result = await RestClient.GetAll<userModel>("users/vendors/");
+            var result = await RestClient.GetAll<userModel>("users/vendors/").ConfigureAwait(false);
 
             if (!result.IsSuccess)
             {
@@ -92,7 +82,7 @@
         }
         public void LoadBottom(int id)
         {
-            PopupNavigation.PushAsync(new mapPopup(Singleton.Instance.GetStore(id)));
+            PopupNavigation.Instance.PushAsync(new mapPopup(Singleton.Instance.GetStore(id)));
         }
         #region InCaseYouWantToAddPins
         /*     

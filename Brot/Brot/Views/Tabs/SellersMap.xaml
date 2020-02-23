@@ -30,6 +30,8 @@
                 IsShowingUser="False"
                 ItemsSource="{Binding places}"
                 MapType="Street"
+                MyLocationButtonClicked="Mapa_MyLocationButtonClicked"
+                MyLocationEnabled="False"
                 PinClicked="Mapa_PinClicked"
                 SelectedPin="{Binding pin, Mode=TwoWay}"
                 VerticalOptions="FillAndExpand">
@@ -44,7 +46,7 @@
                 </maps:Map.ItemTemplate>
             </maps:Map>
 
-            <ImageButton
+            <!--<ImageButton
                 Grid.Row="1"
                 Margin="10"
                 BackgroundColor="Transparent"
@@ -54,7 +56,7 @@
                 HorizontalOptions="Start"
                 Source="reload.png"
                 VerticalOptions="Start"
-                WidthRequest="50" />
+                WidthRequest="50" />-->
 
 
 

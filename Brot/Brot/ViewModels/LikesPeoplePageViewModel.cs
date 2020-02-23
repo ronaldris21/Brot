@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AsyncAwaitBestPractices;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -50,13 +51,11 @@ namespace Brot.ViewModels
             }
             this.id = id;
             this.tipolike = tipolike;
-            System.Threading.Tasks.Task.Run(
-                async () => await RefreshMethodAsync()
-                ).ConfigureAwait(false);
+            RefreshMethodAsync().ConfigureAwait(false);
         }
 
         private ICommand _RefreshCommand;
-        public ICommand RefreshCommand => _RefreshCommand ??= new Xamarin.Forms.Command(async () => await RefreshMethodAsync());
+        public ICommand RefreshCommand => _RefreshCommand ??= new Xamarin.Forms.Command(() => RefreshMethodAsync().SafeFireAndForget());
 
         async System.Threading.Tasks.Task RefreshMethodAsync()
         {
@@ -69,19 +68,19 @@ namespace Brot.ViewModels
                 switch (tipolike)
                 {
                     case likeType.comentarios:
-                        likesRoot = await Services.RestAPI.GetLikesbyIDComentario(id);
+                        likesRoot = await Services.RestAPI.GetLikesbyIDComentario(id).ConfigureAwait(false);
                         break;
 
                     case likeType.publicacion:
-                        likesRoot = await Services.RestAPI.GetLikesbyIDPost(id);
+                        likesRoot = await Services.RestAPI.GetLikesbyIDPost(id).ConfigureAwait(false);
                         break;
                     case likeType.seguidos:
                         likesRoot = new Models.ResponseApi.ResponseLikes();
-                        likesRoot.usuarios = await Services.RestAPI.getSeguidos(id);
+                        likesRoot.usuarios = await Services.RestAPI.getSeguidos(id).ConfigureAwait(false);
                         break;
                     case likeType.seguidores:
                         likesRoot = new Models.ResponseApi.ResponseLikes();
-                        likesRoot.usuarios = await Services.RestAPI.getSeguidores(id);
+                        likesRoot.usuarios = await Services.RestAPI.getSeguidores(id).ConfigureAwait(false);
                         break;
                 }
 
@@ -110,6 +109,7 @@ namespace Brot.ViewModels
 
 
             IsRefreshing = false;
+            OnPropertyChanged(nameof(IsRefreshing));
         }
 
     }

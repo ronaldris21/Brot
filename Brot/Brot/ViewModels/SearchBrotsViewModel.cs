@@ -1,4 +1,5 @@
-﻿using Brot.Models;
+﻿using AsyncAwaitBestPractices;
+using Brot.Models;
 using Brot.Services;
 using Brot.Views;
 using System;
@@ -6,11 +7,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Brot.ViewModels
 {
-    class SearchBrotsViewModel:BaseViewModel
+    class SearchBrotsViewModel : BaseViewModel
     {
         private string text;
         private ObservableCollection<userModel> all;
@@ -26,19 +28,13 @@ namespace Brot.ViewModels
             }
             set
             {
-                SetProperty(ref usuario, value);GoToProfile();
+                SetProperty(ref usuario, value); GoToProfile();
             }
         }
-        public int sind
+        public int Selectedindice
         {
-            get
-            {
-                return _sind;
-            }
-            set
-            {
-                SetProperty(ref _sind, value);UpdateList();
-            }
+            get => _sind;
+            set => SetProperty(ref _sind, value);
         }
         public ObservableCollection<userModel> Vendedores
         {
@@ -57,13 +53,16 @@ namespace Brot.ViewModels
         }
         public SearchBrotsViewModel()
         {
-            LoadDataFirstTime();
-            Categorias = new ObservableCollection<string>();
-            Categorias.Add("Todos");
-            Categorias.Add("Tortas");
-            Categorias.Add("HotDogs");
-            Categorias.Add("Cafeteria");
-            Categorias.Add("Tienda");
+            LoadDataFirstTime().SafeFireAndForget();
+            //TODO: Traer categorias del API
+            Categorias = new ObservableCollection<string>
+            {
+                "Todos",
+                "Tortas",
+                "HotDogs",
+                "Cafeteria",
+                "Tienda"
+            };
         }
 
         public ICommand updateListCommand
@@ -77,75 +76,81 @@ namespace Brot.ViewModels
         {
             get
             {
-                return new Xamarin.Forms.Command(LoadDataFirstTime);
+                return new Xamarin.Forms.Command(() => LoadDataFirstTime().SafeFireAndForget());
             }
         }
-       
+
         private async void GoToProfile()
         {
             await App.Current.MainPage.Navigation.PushAsync(new SellerProfile(new SellerProfileViewModel(Usuario)));
             Usuario = null;
         }
-        private async void LoadDataFirstTime()
+        private async Task LoadDataFirstTime()
         {
             IsRefreshing = true;
-            var resp = await RestClient.GetAll<userModel>("users/vendors/");
-            if (!resp.IsSuccess)
-            {
-                //await App.Current.MainPage.DisplayAlert("Error", "No se han podido cargar los vendedores", "Aceptar");
-                return;
-            }       
+
             try
             {
+                Response resp = await RestClient.GetAll<userModel>("users/vendors/").ConfigureAwait(false);
+                if (!resp.IsSuccess)
+                {
+                    //await App.Current.MainPage.DisplayAlert("Error", "No se han podido cargar los vendedores", "Aceptar");
+                    return;
+                }
                 all = (ObservableCollection<userModel>)resp.Result;
                 for (int i = 0; i < all.Count; i++)
                 {
-                    all[i].img =String.IsNullOrEmpty(all[i].img) ? DLL.constantes.ProfileImageError
+                    all[i].img = String.IsNullOrEmpty(all[i].img) ? DLL.constantes.ProfileImageError
                                     : DLL.constantes.urlImages + all[i].img;
                 }
                 Vendedores = all;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Microsoft.AppCenter.Crashes.Crashes.TrackError(ex);
             }
-            
+
             //vendedores = (ObservableCollection<userModel>)resp.Result;
             IsRefreshing = false;
         }
         private void UpdateList()
         {
+
             if (!String.IsNullOrWhiteSpace(Texto))
             {
-                if (sind!=0)
+                string TextoMinusculas = Texto.ToLower();
+                if (Selectedindice != 0)
                 {
                     var ele = from item in all
-                              where item.nombreCategoria.Equals(Categorias[sind])
+                              where item.nombreCategoria.Equals(Categorias[Selectedindice])
                               select item;
-
                     var elementos = from item in ele
-                                    where item.puesto_name.ToLower().Contains(Texto.ToLower()) ||
-                                    item.descripcion.ToLower().Contains(Texto.ToLower())
+                                    where item.puesto_name.ToLower().Contains(TextoMinusculas) ||
+                                    item.descripcion.ToLower().Contains(TextoMinusculas)
                                     select item;
+
                     Vendedores = new ObservableCollection<userModel>(elementos.ToList());
                 }
                 else
                 {
+                    //0 means ALL categories
                     var elementos = from item in all
-                                    where item.puesto_name.ToLower().Contains(Texto.ToLower()) ||
-                                    item.descripcion.ToLower().Contains(Texto.ToLower())
+                                    where item.puesto_name.ToLower().Contains(TextoMinusculas) ||
+                                    item.descripcion.ToLower().Contains(TextoMinusculas)
                                     select item;
-                    ObservableCollection<userModel> temp = 
+                    ObservableCollection<userModel> temp =
                     Vendedores = new ObservableCollection<userModel>(elementos.ToList());
                 }
-                
+
             }
-            else if (sind!=0)
+            else if (Selectedindice != 0)
             {
+                string categoryLowerCase = Categorias[Selectedindice].ToLower();
                 var ele = from item in all
-                          where item.nombreCategoria.ToLower().Equals(Categorias[sind].ToLower())
+                          where item.nombreCategoria.ToLower().Equals(categoryLowerCase)
                           select item;
                 Vendedores = new ObservableCollection<userModel>(ele.ToList());
+
             }
             else
             {

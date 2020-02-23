@@ -118,8 +118,9 @@ namespace Brot.ViewModels
             var usuario = new userModel()
             {
                 username = this.Username,
-                pass = this.Password
+                pass = this.Password    
             };
+            //Guarado datos para usar PUSH NOTIFICATIONS    
             var idInstalled02 = await Microsoft.AppCenter.AppCenter.GetInstallIdAsync();
             usuario.Device_id = idInstalled02.Value.ToString();
             usuario.Phone_OS = Device.RuntimePlatform == Device.iOS ? "iOS" : "Android";

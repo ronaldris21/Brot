@@ -11,6 +11,7 @@ namespace Brot.ViewModels
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Text;
+    using System.Threading.Tasks;
     using System.Windows.Input;
 
     public class PostViewModel : BaseViewModel
@@ -21,54 +22,26 @@ namespace Brot.ViewModels
         private ResponsePublicacion _Post;
         public ObservableCollection<ResponseComentarios> ComentariosData
         {
-            get { return _comentariosData; }
-            set
-            {
-                if (_comentariosData != value)
-                {
-                    _comentariosData = value;
-                    OnPropertyChanged("ComentariosData");
-                }
-            }
+            get => _comentariosData; 
+            set => SetProperty(ref _comentariosData, value);
         }
         private bool _isActivityActive;
         public bool isActivityActive
         {
-            get { return _isActivityActive; }
-            set
-            {
-                if (_isActivityActive != value)
-                {
-                    _isActivityActive = value;
-                    OnPropertyChanged("isActivityActive");
-                }
-            }
+            get => _isActivityActive;
+            set => SetProperty(ref _isActivityActive, value);
         }
 
         public ResponsePublicacion Post
         {
-            get { return _Post; }
-            set
-            {
-                if (_Post != value)
-                {
-                    _Post = value;
-                    OnPropertyChanged("Post");
-                }
-            }
+            get => _Post;
+            set => SetProperty(ref _Post, value);
         }
         private string _texto;
         public string texto
         {
-            get { return _texto; }
-            set
-            {
-                if (_texto != value)
-                {
-                    _texto = value;
-                    OnPropertyChanged("texto");
-                }
-            }
+            get => _texto;
+            set => SetProperty(ref _texto, value);
         }
 
         private bool _footerVisible;
@@ -181,17 +154,25 @@ namespace Brot.ViewModels
         private Xamarin.Forms.Command _ComentarCommand;
         public Xamarin.Forms.Command ComentarCommand
         {
-            get => _ComentarCommand ?? (_ComentarCommand = new Xamarin.Forms.Command(comentar));
+            get => _ComentarCommand ?? (_ComentarCommand = new Xamarin.Forms.Command(async ()=> await comentar()));
         }
-        private async void comentar()
+        private async Task comentar()
         {
             isActivityActive = true;
+            if (String.IsNullOrEmpty(texto))
+            {
+                //TODO TOAST
+                await App.Current.MainPage.DisplayAlert("Comentario vacio", "", "Ok");
+                isActivityActive = false;
+                return;
+            }
             comentariosModel coment = new comentariosModel()
             {
                 contenido = texto,
                 id_user = Singleton.Instance.User.id_user,
                 id_post = Post.publicacion.publicacion.id_post
             };
+
             var result = await RestAPI.Post<comentariosModel>(coment, DLL.constantes.comentariost);
             if (result)
             {

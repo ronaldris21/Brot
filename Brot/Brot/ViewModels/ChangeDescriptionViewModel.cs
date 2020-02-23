@@ -6,6 +6,7 @@ namespace Brot.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using System.Threading.Tasks;
     using System.Windows.Input;
 
     public class ChangeDescriptionViewModel : BaseViewModel
@@ -14,13 +15,13 @@ namespace Brot.ViewModels
         {
             get
             {
-                return new Xamarin.Forms.Command(Cancel);
+                return new Xamarin.Forms.Command(()=> Cancel());
             }
         }
 
-        private async void Cancel()
+        private async Task Cancel()
         {
-            await PopupNavigation.PopAsync();
+            await PopupNavigation.Instance.PopAsync();
         }
     }
 }

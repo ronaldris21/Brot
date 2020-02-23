@@ -51,7 +51,7 @@
             {
                 opciones.Add("Eliminar");
             }
-            respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "Atras", opciones.ToArray());
+            respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "", "Atras", opciones.ToArray());
 
             switch (respuesta)
             {
@@ -79,9 +79,9 @@
         private Xamarin.Forms.Command _BtnLikedClicked;
         public Xamarin.Forms.Command BtnLikedClicked
         {
-            get => _BtnLikedClicked ??= new Xamarin.Forms.Command(BtnLikedMethod);
+            get => _BtnLikedClicked ??= new Xamarin.Forms.Command(()=>BtnLikedMethod(null));
         }
-        private async void BtnLikedMethod(object obj)
+        private async Task BtnLikedMethod(object obj)
         {
             var likeObject = new like_comentarioModel()
             {
@@ -102,7 +102,7 @@
                     //Se crea el Like
                     isLiked = !isLiked;
                     CantLikes++;
-                    await Brot.Services.RestClient.Post<like_comentarioModel>("like_comentario", likeObject);
+                    Brot.Services.RestClient.Post<like_comentarioModel>("like_comentario", likeObject);
                 }
                 return;
             }
@@ -112,14 +112,14 @@
                 //Se quita el like
                 isLiked = !isLiked;
                 CantLikes--;
-                await Brot.Services.RestClient.Post<like_comentarioModel>("like_comentario/borrar", likeObject);
+                Brot.Services.RestClient.Post<like_comentarioModel>("like_comentario/borrar", likeObject);
             }
             else
             {
                 //Se crea el Like
                 isLiked = !isLiked;
                 CantLikes++;
-                await Brot.Services.RestClient.Post<like_comentarioModel>("like_comentario", likeObject);
+                Brot.Services.RestClient.Post<like_comentarioModel>("like_comentario", likeObject);
             }
         }
         #endregion

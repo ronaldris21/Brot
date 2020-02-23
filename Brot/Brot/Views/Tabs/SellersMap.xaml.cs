@@ -12,6 +12,8 @@
     using Microsoft.AppCenter.Crashes;
     using System.Collections.Generic;
     using Brot.Services;
+    using System.Threading.Tasks;
+    using AsyncAwaitBestPractices;
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SellersMap : ContentPage
@@ -22,81 +24,106 @@
         {
 
             InitializeComponent();
-
-            //TODO pedir permisos y si no los acepta, entonces NO ABRIR EL MAPA, porque dar error en iOS
-
-
-
-
-            //Mapa.MapStyle = MapStyle.FromJson(new XamarinMapStyle().Text);
             BindingContext = this.ViewModel = new SellersMapViewModel(ref Mapa);
+            Mapa.MyLocationButtonClicked += Mapa_MyLocationButtonClicked1;
+            //Mapa.MapStyle = MapStyle.FromJson(new XamarinMapStyle().Text);
             XamarinMapStyle Style = new XamarinMapStyle();
             //this.Mapa.MapStyle = MapStyle.FromJson(Style.Text);
 
-            this.Mapa.MoveToRegion(
-                MapSpan.FromCenterAndRadius(
-                    new Position(
-                        13.994778,
-                        -89.556642
-                        ),
-                    Distance.FromMeters(4000)
-                    )
-                );
+            //TODO pedir permisos y si no los acepta, entonces NO ABRIR EL MAPA, porque dar error en iOS
 
-            //this.ViewModel.InitPinsCommand.Execute(null);
         }
 
-        //private bool MapsPermited = false;
-        //private async System.Threading.Tasks.Task ask4Location()
-        //{
-        //    try
-        //    {
-        //        PermissionStatus status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.LocationWhenInUse);
-        //        PermissionStatus status2 = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-        //        PermissionStatus status3 = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.LocationAlways);
+        private void Mapa_MyLocationButtonClicked1(object sender, MyLocationButtonClickedEventArgs e)
+        {
+            Plugin.Toast.CrossToastPopUp.Current.ShowToastMessage("Estás aquí");
+        }
 
-        //        if (status == PermissionStatus.Granted)
-        //        {
-        //            MapsPermited = true;
-        //        }
-        //        else if (status != PermissionStatus.Granted)
-        //        {
-        //            if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
-        //            {
-        //                await DisplayAlert("Need location", "Gunna need that location", "OK");
-        //            }
-        //            status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-        //        }
+        bool isFirst = true;
+        protected override void OnAppearing()
+        {
+
+            base.OnAppearing();
+            if (isFirst)
+            {
+                isFirst = false;
+               
+
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    this.Mapa.MoveToRegion(
+                    MapSpan.FromCenterAndRadius(
+                        new Position(
+                            13.994778,
+                            -89.556642
+                            ),
+                    Distance.FromMeters(4000)
+                        )
+                    );
+                });
+                //this.ViewModel.InitPinsCommand.Execute(null);
+                ask4LocationPermisssionsAsync().ConfigureAwait(false); //Que no espere a que termine, NO AWAIT
+
+            }
+        }
+
+        private Task ask4LocationPermisssionsAsync()
+        {
+            return MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+
+                try
+                {
+                    PermissionStatus status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.LocationWhenInUse);
+                    PermissionStatus status2 = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                    PermissionStatus status3 = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.LocationAlways);
+
+                    if (status == PermissionStatus.Granted)
+                    {
+                        Mapa.MyLocationEnabled = true;
+                        Mapa.UiSettings.MapToolbarEnabled = true;
+                        Mapa.UiSettings.MyLocationButtonEnabled = true;
+                        Mapa.UiSettings.CompassEnabled = true;
+                        
+                        await MoveToSantaAna();
+                        return;
+                    }
+                    else if (status != PermissionStatus.Granted)
+                    {
+                        Mapa.MyLocationEnabled = false;
+                        await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+                        status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                    }
+
+                    if (status == PermissionStatus.Granted)
+                    {
+                        //Query permission
+                        Mapa.MyLocationEnabled = true;
+                        await MoveToSantaAna();
+                        return;
+                    }
+                    else if (status != PermissionStatus.Unknown)
+                    {
+                        //location denied
+                        Mapa.MyLocationEnabled = false;
+                    }
+                    else
+                    {
+                        Mapa.MyLocationEnabled = false;
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    //Something went wrong
+                    Crashes.TrackError(ex,
+                        new Dictionary<string, string>() { { "Geolocalization", "Error" } });
+                }
+            });
+
+        }
 
 
-
-        //        if (status == PermissionStatus.Granted)
-        //        {
-        //            //Query permission
-        //            MapsPermited = true;
-        //        }
-        //        else if (status != PermissionStatus.Unknown)
-        //        {
-        //            //location denied
-        //            MapsPermited = false;
-        //        }
-        //        else
-        //        {
-        //            MapsPermited = false;
-        //        }
-        //    }
-        //    catch (System.Exception ex)
-        //    {
-        //        //Something went wrong
-        //        Microsoft.AppCenter.Crashes.Crashes.TrackError(ex,
-        //            new System.Collections.Generic.Dictionary<string, string>()
-        //                                    { { "Geolocalization","Error"} });
-        //        MapsPermited = false;
-        //    }
-        //}
-
-
-        private async void MoveToSantaAna()
+        private async Task MoveToSantaAna()
         {
             try
             {
@@ -106,15 +133,16 @@
 
                 if (location != null)
                 {
-                    Mapa.MoveToRegion(
-                    MapSpan.FromCenterAndRadius(
-                    new Position(
-                        location.Latitude,
-                        location.Longitude
-                        ),
-                    Distance.FromMeters(1000)
-                    )
-                );
+                    await MainThread.GetMainThreadSynchronizationContextAsync(); //Trae de vuelta el MainThread
+                        Mapa.MoveToRegion(
+                                MapSpan.FromCenterAndRadius(
+                                    new Position(
+                                        location.Latitude,
+                                        location.Longitude
+                                        ),
+                                Distance.FromMeters(3000)
+                        ));
+
                 }
             }
             catch (FeatureNotSupportedException fnsEx)
@@ -146,22 +174,25 @@
 
         private void Mapa_PinClicked(object sender, PinClickedEventArgs e)
         {
-            var pin = e.Pin;
-            for (int i = 0; i < ((Xamarin.Forms.GoogleMaps.Map)sender).Pins.Count; i++)
+            var pines = ((Xamarin.Forms.GoogleMaps.Map)sender).Pins;
+            for (int i = 0; i < pines.Count; i++)
             {
-                if (e.Pin.Equals(((Xamarin.Forms.GoogleMaps.Map)sender).Pins[i]))
+                if (e.Pin.Equals(pines[i]))
                 {
-
                     ViewModel.pinClicked.Execute(i);
                     return;
-
                 }
             }
         }
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            MoveToSantaAna();
+            MoveToSantaAna().ConfigureAwait(false);
+        }
+
+        private void Mapa_MyLocationButtonClicked(object sender, MyLocationButtonClickedEventArgs e)
+        {
+            
         }
     }
 }
