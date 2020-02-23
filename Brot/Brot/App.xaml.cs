@@ -21,15 +21,16 @@
     public partial class App : Xamarin.Forms.Application
     {
         private bool DentroApp { get; set; }
-        Stopwatch stopwatch = new Stopwatch();
+        //Stopwatch stopwatch = new Stopwatch();
         long tiempo;
+        string BarBackgroundColorHEX = "#031540";
         public App(long tiempo)
         {
             this.tiempo = tiempo;
             Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
-            stopwatch.Start();
+            //stopwatch.Start();
             InitializeComponent();
-
+            Push.SetEnabledAsync(false);
             CheckStoragePermissions();
             DentroApp = true;
             NotificationCenter.Current.NotificationTapped += Current_NotificationTapped;
@@ -47,7 +48,6 @@
         }
         private void inicializar()
         {
-            string BarBackgroundColorHEX = "#031540";
             try
             {
                 if (Singleton.Instance.isLoggued)
@@ -96,7 +96,10 @@
             {
                 if (MainPage == null || MainPage == default(Page))
                 {
-                    MainPage = new NavigationPage(new MainTabbed());
+                    MainPage = new NavigationPage(new MainTabbed())
+                    {
+                        BarBackgroundColor = Color.FromHex(BarBackgroundColorHEX)
+                    };
                 }
                 AccionNotificacion(Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(e.Data));
             }
@@ -141,7 +144,10 @@
                     {
                         if (MainPage == null || MainPage == default(Page))
                         {
-                            MainPage = new NavigationPage(new MainTabbed());
+                            MainPage = new NavigationPage(new MainTabbed())
+                            {
+                                BarBackgroundColor = Color.FromHex(BarBackgroundColorHEX)
+                            };
                         }
                         AccionNotificacion(variables);
                         DentroApp = true;
@@ -213,20 +219,8 @@
         #region AppCenter Initializers
         private async Task InitAppCenterPushAsync()
         {
-            AppCenter.Start("android=ce90d30b-e395-4d05-be5b-a1461a3bec8e;" +
-                          "ios=0caa730c-a7e0-45b2-82bb-302f376b133d",
-                           typeof(Analytics), typeof(Crashes), typeof(Push));
-            //NO AWAIT, Quiero que continue sin esperar a que termine
-            //await System.Threading.Tasks.Task.WhenAll(Crashes.SetEnabledAsync(true),
-            //                                          Push.SetEnabledAsync(true),
-            //                                          Analytics.SetEnabledAsync(true))
-            //    .ConfigureAwait(false);
+            await InitAppCenterServicesAsync().ConfigureAwait(false);
 
-            await Crashes.SetEnabledAsync(true).ConfigureAwait(false);
-            await Analytics.SetEnabledAsync(true).ConfigureAwait(false);
-            await Push.SetEnabledAsync(true).ConfigureAwait(false);
-
-            bool pushestado = await Push.IsEnabledAsync().ConfigureAwait(false);
 
             //Registrar telefono en base de datos, así activo PUSH en el Dispositivo!
             var idInstalled02 = await Microsoft.AppCenter.AppCenter.GetInstallIdAsync().ConfigureAwait(false);
@@ -240,6 +234,12 @@
             Singleton.Instance.User.Phone_OS = Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.iOS ? "iOS" : "Android";
             await RestClient.Post<Models.userModel>("users/device", Singleton.Instance.User).ConfigureAwait(false);
 
+
+            ///Habilito Push Notifications
+            ///
+            Microsoft.AppCenter.AppCenter.Start(typeof(Push));
+            await Push.SetEnabledAsync(true).ConfigureAwait(false);
+            bool estado_push = await Push.IsEnabledAsync().ConfigureAwait(false);
 
         }
         private async Task InitAppCenterServicesAsync()
@@ -255,9 +255,9 @@
 
         #region System App Life Cycle
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
-
+            await Task.Delay(200);
             if (Singleton.Instance.isLoggued)
             {
                 InitAppCenterPushAsync().SafeFireAndForget();
@@ -267,7 +267,7 @@
                 InitAppCenterServicesAsync().SafeFireAndForget();
             }
 
-            stopwatch.Stop();
+            //stopwatch.Stop();
             //MainPage.DisplayAlert("Tiempo App", stopwatch.ElapsedMilliseconds.ToString() + "  Milisegundos", "Ok");
         }
         protected override void OnSleep()

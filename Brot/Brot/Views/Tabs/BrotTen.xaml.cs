@@ -15,11 +15,16 @@
         public BrotTen()
         {
             InitializeComponent();
-            BindingContext = new BrotTenViewModel();
         }
+        bool isFirst = true;
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            if (isFirst)
+            {
+                isFirst = false;
+                BindingContext = new BrotTenViewModel();
+            }
         }
 
         private async void FeedListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)

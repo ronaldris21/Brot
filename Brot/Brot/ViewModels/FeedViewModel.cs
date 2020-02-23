@@ -63,7 +63,8 @@ namespace Brot.ViewModels
         public FeedViewModel()
         {
             IsVendor = Singleton.Instance.User.isVendor;
-            Refresh().SafeFireAndForget();
+            //LoadFeed().SafeFireAndForget();
+            this.RefreshCommand.Execute(null);
         }
 
         #endregion
@@ -83,28 +84,9 @@ namespace Brot.ViewModels
         private Xamarin.Forms.Command _RefreshCommand;
         public Xamarin.Forms.Command RefreshCommand
         {
-            get => _RefreshCommand ?? (_RefreshCommand = new Xamarin.Forms.Command(()=>Refresh().SafeFireAndForget()));
+            get => _RefreshCommand ?? (_RefreshCommand = new Xamarin.Forms.Command(()=>LoadFeed().SafeFireAndForget()));
         }
-        public async Task Refresh()
-        {
 
-            IsRefreshing = true;
-
-            try
-            {
-                //No configureAwait Because I need to keep the context
-                await LoadFeed();
-            }
-            catch (Exception)
-            {
-                await Singleton.Instance.Dialogs.Message("Ocupado", "No se pudieron cargar los datos, intenta refrescar la página");
-            }
-            finally
-            {
-                IsRefreshing = false;
-            }
-        }
-        
         private IAsyncCommand _PostSomething;
         public IAsyncCommand PostSomething => _PostSomething ??= new AsyncCommand(AddPost);
         public async Task AddPost()
@@ -151,11 +133,13 @@ namespace Brot.ViewModels
 
         public async Task LoadFeed()
         {
+
+            IsRefreshing = true;
             var result = await RestClient.GetAll<ResponsePublicacionFeed>($"publicaciones/all/{Singleton.Instance.User.id_user}/").ConfigureAwait(false);
 
             if (!result.IsSuccess)
             {
-                //await Singleton.Instance.Dialogs.Message("There was a problem trying to get the feed", result.Message);
+                Plugin.Toast.CrossToastPopUp.Current.ShowToastError("Hubo un problema intentando cargar las publicaciones");
                 return;
             }
             var datosNuevos= new List<ResponsePublicacionFeed>();
@@ -175,6 +159,8 @@ namespace Brot.ViewModels
                 datosNuevos.Add(post);
             }
             lPosts = new ObservableCollection<ResponsePublicacionFeed>(datosNuevos);
+
+            IsRefreshing = false;
         }
 
         #endregion

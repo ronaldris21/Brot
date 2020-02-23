@@ -36,6 +36,7 @@
 
         private void Mapa_MyLocationButtonClicked1(object sender, MyLocationButtonClickedEventArgs e)
         {
+            ViewModel.InitPinsCommand.Execute(null);
             Plugin.Toast.CrossToastPopUp.Current.ShowToastMessage("Estás aquí");
         }
 

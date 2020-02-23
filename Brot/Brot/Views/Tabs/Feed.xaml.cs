@@ -12,16 +12,20 @@
     [DesignTimeVisible(true)]
     public partial class Feed : ContentPage
     {
+
         public Feed()
         {
             InitializeComponent();
-            BindingContext = new FeedViewModel();
         }
-
+        bool isFirst = true;
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ((FeedViewModel)BindingContext).selectedItemLista = null;
+            if (isFirst)
+            {
+                isFirst = false;
+                BindingContext = new FeedViewModel();
+            }
         }
 
         private void ListView_ItemSelected(ListView sender, SelectedItemChangedEventArgs e)

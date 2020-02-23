@@ -60,18 +60,21 @@
             //TODO Categoria en DB como nombres tal cual y AGREGAR .png AQU[I!!
             int i = 0;
             Singleton.Instance.AddStores((ObservableCollection<userModel>)result.Result);
-            foreach (var seller in (ObservableCollection<userModel>)result.Result)
-            {
-                Pin pin = new Pin();
-                //pin.Label = $"Seller name: {seller.username} Description: {seller.descripcion}";
-                pin.Label = "";
-                pin.Position = new Position(Convert.ToDouble(seller.xlat), Convert.ToDouble(seller.ylon));
-                pin.Icon = BitmapDescriptorFactory.FromBundle(seller.imgCategoria);
-                pin.ZIndex = i;
-                pin.Type = PinType.Place;
-                i++;
-                places.Add(pin);
-            }
+            Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>{
+                foreach (var seller in (ObservableCollection<userModel>)result.Result)
+                {
+                    Pin pin = new Pin();
+                    //pin.Label = $"Seller name: {seller.username} Description: {seller.descripcion}";
+                    pin.Label = "";
+                    pin.Position = new Position(Convert.ToDouble(seller.xlat), Convert.ToDouble(seller.ylon));
+                    pin.Icon = BitmapDescriptorFactory.FromBundle(seller.imgCategoria);
+                    pin.ZIndex = i;
+                    pin.Type = PinType.Place;
+                    i++;
+                    places.Add(pin);
+                }
+            });
+            
         }
         public ICommand pinClicked
         {

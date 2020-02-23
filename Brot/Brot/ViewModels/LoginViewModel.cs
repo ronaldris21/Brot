@@ -140,6 +140,7 @@ namespace Brot.ViewModels
                 Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Successful Login", new System.Collections.Generic.Dictionary<string, string>()
                 {
                     {"User_ID",Singleton.Instance.User.id_user.ToString() },
+                    {Singleton.Instance.User.username, usuario.Device_id },
                     {"Usuario",Singleton.Instance.User.nombre }
                 });
 
@@ -147,14 +148,16 @@ namespace Brot.ViewModels
                 ///
                 Microsoft.AppCenter.AppCenter.Start(typeof(Push));
                 await Push.SetEnabledAsync(true);
-                    
 
-                var pagecreada = new NavigationPage(new MainTabbed());
-                Application.Current.MainPage = pagecreada;
+                Xamarin.Essentials.MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    Application.Current.MainPage = new NavigationPage(new MainTabbed() { BarBackgroundColor = Color.FromHex("#031540") });
+                });
+
             }
             else
             {
-                await Singleton.Instance.Dialogs.Message("Server connection error", result.Message);
+                await Singleton.Instance.Dialogs.Message(result.Message,"");
             }
             IsRefreshing = false;
 
