@@ -19,7 +19,7 @@
 
     public class SellersMapViewModel : BaseViewModel
     {
-        public Map Mapa;
+        public Map Mapa { get; set; }
         private ObservableCollection<Pin> _places;
         private Pin _pin;
         public Pin pin

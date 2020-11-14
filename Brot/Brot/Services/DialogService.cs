@@ -18,7 +18,6 @@ namespace Brot.Services
 
         public async Task<bool> Message(string title, string message, string ok, string cancel)
         {
-            //return MainThread.InvokeOnMainThreadAsync(() =>
             return await App.Current.MainPage.DisplayAlert(title, message, ok,cancel);
         }
 

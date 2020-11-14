@@ -14,18 +14,30 @@ namespace Brot.Services
 
     public class UserJson
     {
-        private readonly string _Path;
         private readonly string _FilePath;
 
         public UserJson()
         {
-            this._Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+             string _Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             if (Xamarin.Forms.Device.iOS == Xamarin.Forms.Device.RuntimePlatform)
             {
-                this._Path = Path.Combine(this._Path, "..", "Library");
+                _Path = Path.Combine(_Path, "..", "Library");
             }
-            this._FilePath = Path.Combine(this._Path, "user.json");
+            this._FilePath = Path.Combine(_Path, "user.json");
         }
+
+        public UserJson(string Jsonfilename)
+        {
+            string _Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            if (Xamarin.Forms.Device.iOS == Xamarin.Forms.Device.RuntimePlatform)
+            {
+                _Path = Path.Combine(_Path, "..", "Library");
+            }
+            this._FilePath = Path.Combine(_Path, Jsonfilename);
+        }
+
+
+
         public void SaveData(userModel user)
         {
             String result = Newtonsoft.Json.JsonConvert.SerializeObject(user);
@@ -45,7 +57,7 @@ namespace Brot.Services
                 using (var file = File.Open(this._FilePath, FileMode.Open, FileAccess.Read))
                 using (var strm = new StreamReader(file))
                 {
-                    //TODO Aqui muere en iOS!!
+                    //Aqui muere en iOS cuanod no existe el archivo!!
                     return Newtonsoft.Json.JsonConvert.DeserializeObject<userModel>(strm.ReadToEnd());
                 }
             }

@@ -22,11 +22,9 @@
     {
         private bool DentroApp { get; set; }
         //Stopwatch stopwatch = new Stopwatch();
-        long tiempo;
         string BarBackgroundColorHEX = "#031540";
-        public App(long tiempo)
+        public App()
         {
-            this.tiempo = tiempo;
             Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
             //stopwatch.Start();
             InitializeComponent();

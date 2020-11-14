@@ -21,8 +21,6 @@ namespace Brot.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
-            timer.Start();
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
@@ -42,9 +40,8 @@ namespace Brot.Droid
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             NotificationCenter.CreateNotificationChannel();
             LocalNotificationsImplementation.NotificationIconId = Resource.Drawable.BrotWhite500;
-            timer.Stop();
             
-            LoadApplication(new App(timer.ElapsedMilliseconds));
+            LoadApplication(new App());
             NotificationCenter.NotifyNotificationTapped(Intent);
         }
         //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
