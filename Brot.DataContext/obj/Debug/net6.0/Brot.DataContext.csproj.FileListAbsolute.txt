@@ -1,0 +1,17 @@
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\obj\Debug\net6.0\Brot.DataContext.csproj.AssemblyReference.cache
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\obj\Debug\net6.0\Brot.DataContext.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\obj\Debug\net6.0\Brot.DataContext.AssemblyInfoInputs.cache
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\obj\Debug\net6.0\Brot.DataContext.AssemblyInfo.cs
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\obj\Debug\net6.0\Brot.DataContext.csproj.CoreCompileInputs.cache
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\bin\Debug\net6.0\Brot.DataContext.deps.json
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\bin\Debug\net6.0\Brot.DataContext.runtimeconfig.json
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\bin\Debug\net6.0\Brot.DataContext.dll
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\bin\Debug\net6.0\Brot.DataContext.pdb
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\obj\Debug\net6.0\Brot.DataContext.dll
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\obj\Debug\net6.0\refint\Brot.DataContext.dll
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\obj\Debug\net6.0\Brot.DataContext.pdb
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\obj\Debug\net6.0\Brot.DataContext.genruntimeconfig.cache
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\obj\Debug\net6.0\ref\Brot.DataContext.dll
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\bin\Debug\net6.0\Brot.Models.dll
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\bin\Debug\net6.0\Brot.Models.pdb
+C:\Users\ronal\Desktop\Brot\Brot.DataContext\obj\Debug\net6.0\Brot.DataContext.csproj.CopyComplete

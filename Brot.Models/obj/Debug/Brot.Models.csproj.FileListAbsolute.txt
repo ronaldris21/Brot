@@ -1,0 +1,8 @@
+C:\Users\ronal\Desktop\Brot\Brot.Models\bin\Debug\Brot.Models.dll
+C:\Users\ronal\Desktop\Brot\Brot.Models\bin\Debug\Brot.Models.pdb
+C:\Users\ronal\Desktop\Brot\Brot.Models\obj\Debug\Brot.Models.csproj.AssemblyReference.cache
+C:\Users\ronal\Desktop\Brot\Brot.Models\obj\Debug\Brot.Models.csproj.CoreCompileInputs.cache
+C:\Users\ronal\Desktop\Brot\Brot.Models\obj\Debug\Brot.Models.dll
+C:\Users\ronal\Desktop\Brot\Brot.Models\obj\Debug\Brot.Models.pdb
+C:\Users\ronal\Desktop\Brot\Brot.Models\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\ronal\Desktop\Brot\Brot.Models\obj\Debug\Brot.Models.csproj.CopyComplete
